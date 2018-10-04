@@ -1,0 +1,76 @@
+{% import '_includes/forms' as forms %}
+
+{{ forms.lightswitchField({
+    first: true,
+    required: true,
+    label: 'Validation Enabled'|t('snaptcha'),
+    name: 'validationEnabled',
+    instructions: 'Whether form submissions should be validated. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.'|t('snaptcha'),
+    on: settings.validationEnabled,
+    errors: settings.getErrors('validationEnabled')
+}) }}
+
+{{ forms.lightswitchField({
+    required: true,
+    label: 'One Time Key'|t('snaptcha'),
+    name: 'oneTimeKey',
+    instructions: 'Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).'|t('snaptcha'),
+    on: settings.oneTimeKey,
+    errors: settings.getErrors('oneTimeKey')
+}) }}
+
+{{ forms.lightswitchField({
+    required: true,
+    label: 'Log Rejected'|t('snaptcha'),
+    name: 'logRejected',
+    instructions: 'Whether rejected form submissions should be logged (log will be written to `{log}`).'|t('snaptcha', {log: alias('@storage/logs/snaptcha.log')}),
+    on: settings.logRejected,
+    errors: settings.getErrors('logRejected')
+}) }}
+
+{{ forms.textField({
+    required: true,
+    label: 'Field Name'|t('snaptcha'),
+    name: 'fieldName',
+    instructions: 'The name of the hidden Snaptcha input field.'|t('snaptcha'),
+    value: settings.fieldName,
+    errors: settings.getErrors('fieldName')
+}) }}
+
+{{ forms.textField({
+    required: true,
+    label: 'Error Message'|t('snaptcha'),
+    name: 'errorMessage',
+    instructions: 'The error message that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),
+    value: settings.errorMessage,
+    errors: settings.getErrors('errorMessage')
+}) }}
+
+{{ forms.textField({
+    type: 'number',
+    required: true,
+    label: 'Expiration Time'|t('snaptcha'),
+    name: 'expirationTime',
+    instructions: 'The expiration time for form submissions in minutes.'|t('snaptcha'),
+    value: settings.expirationTime,
+    errors: settings.getErrors('expirationTime'),
+}) }}
+
+{{ forms.textField({
+    type: 'number',
+    required: true,
+    label: 'Minimum Submit Time'|t('snaptcha'),
+    name: 'minimumSubmitTime',
+    instructions: 'The minimum time for form submission in seconds (increase this to harden spam blocking).'|t('snaptcha'),
+    value: settings.minimumSubmitTime,
+    errors: settings.getErrors('minimumSubmitTime'),
+}) }}
+
+{{ forms.textareaField({
+    label: 'Blacklist'|t('snaptcha'),
+    name: 'blacklist',
+    instructions: 'IP addresses to blacklist from all form submissions (one per line).'|t('snaptcha'),
+    value: settings.blacklist,
+    errors: settings.getErrors('blacklist'),
+    rows: 5
+}) }}
