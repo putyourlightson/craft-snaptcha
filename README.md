@@ -6,6 +6,8 @@ Snaptcha is an invisible CAPTCHA that automatically validates forms and prevents
 
 Snaptcha (Simple Non-obtrusive Automated Public Turing test to tell Computers and Humans Apart) will validate all POST requests to the front-end of your site, meaning that it will work with any form and any plugin. Note that since this will affect all POST requests, you must add the required template tag before enabling validation (see usage below).
 
+> Upgrades from Snaptcha v1 for Craft CMS 2 purchased through StraightUpCraft are free! To get your license, please send your original purchase from to [info@putyourlightson.net](mailto:info@putyourlightson.net).
+
 ## License
 
 This plugin requires a commercial license which can be purchased through the Craft Plugin Store. The license fee is $29 plus $9 per subsequent year for updates (optional).
