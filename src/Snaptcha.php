@@ -119,7 +119,8 @@ class Snaptcha extends Plugin
     protected function settingsHtml()
     {
         return Craft::$app->getView()->renderTemplate('snaptcha/_settings', [
-            'settings' => $this->getSettings()
+            'settings' => $this->getSettings(),
+            'config' => Craft::$app->getConfig()->getConfigFromFile('snaptcha'),
         ]);
     }
 }

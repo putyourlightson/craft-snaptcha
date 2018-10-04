@@ -18,6 +18,39 @@ use \Twig_Markup;
 class SnaptchaVariable
 {
     /**
+     * Returns the field name
+     *
+     * @return string
+     */
+    public function getFieldName(): string
+    {
+        /** @var SettingsModel $settings */
+        $settings = Snaptcha::$plugin->getSettings();
+
+        return $settings->fieldName;
+    }
+
+    /**
+     * Returns a field value
+     *
+     * @param array|null $config
+     *
+     * @return string
+     */
+    public function getFieldValue($config = null): string
+    {
+        $model = new SnaptchaModel($config);
+
+        $value = Snaptcha::$plugin->snaptcha->getFieldValue($model);
+
+        if ($value === null) {
+            return '';
+        }
+
+        return $value;
+    }
+
+    /**
      * Returns a field
      *
      * @param array|null $config
@@ -26,19 +59,16 @@ class SnaptchaVariable
      */
     public function getField($config = null): Twig_Markup
     {
-        $model = new SnaptchaModel($config);
+        $value = $this->getFieldValue($config);
 
-        $value = Snaptcha::$plugin->snaptcha->getFieldValue($model);
-
-        if ($value === null) {
+        if ($value === '') {
             return Template::raw('<!-- Snaptcha field could not be created. -->');
         }
 
-        /** @var SettingsModel $settings */
-        $settings = Snaptcha::$plugin->getSettings();
-        $fieldId = $settings->fieldName.'-'.StringHelper::randomString(5);
+        $fieldName = $this->getFieldName();
+        $fieldId = $fieldName.'-'.StringHelper::randomString(5);
 
-        $field = '<input type="hidden" id="'.$fieldId.'" name="'.$settings->fieldName.'" value="">';
+        $field = '<input type="hidden" id="'.$fieldId.'" name="'.$fieldName.'" value="">';
         $field .= '<script type="text/javascript">document.getElementById("'.$fieldId.'").value = "'.$value.'";</script>';
 
         return Template::raw($field);

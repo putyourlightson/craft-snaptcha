@@ -14,7 +14,7 @@
         "blocker"
     ],
     "require": {
-        "craftcms/cms": "^3.0.1"
+        "craftcms/cms": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
