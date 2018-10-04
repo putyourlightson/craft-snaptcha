@@ -2,9 +2,9 @@
 
 # Snaptcha Plugin for Craft CMS 3
 
-Snaptcha (Simple Non-obtrusive Automated Public Turing test to tell Computers and Humans Apart) automatically validates forms and prevents spam bots from submitting to your [Craft CMS](https://craftcms.com/) site.
+Snaptcha is an invisibla CAPTCHA that automatically validates forms and prevents spam bots from submitting to your [Craft CMS](https://craftcms.com/) site.
 
-Snaptcha will validate all POST requests to the front-end of your site, meaning that it will work with any form and any plugin. Note that since this will affect all POST requests, you must add the required template tag before enabling validation (see usage below).
+Snaptcha (Simple Non-obtrusive Automated Public Turing test to tell Computers and Humans Apart) will validate all POST requests to the front-end of your site, meaning that it will work with any form and any plugin. Note that since this will affect all POST requests, you must add the required template tag before enabling validation (see usage below).
 
 ## License
 
