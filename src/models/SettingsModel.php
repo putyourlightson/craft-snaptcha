@@ -64,7 +64,7 @@ class SettingsModel extends Model
     public function rules(): array
     {
         return [
-            [['validationEnabled', 'oneTimeKey', 'fieldName', 'expirationTime', 'minimumSubmitTime', 'errorMessage'], 'required'],
+            [['fieldName', 'expirationTime', 'minimumSubmitTime', 'errorMessage'], 'required'],
             [['validationEnabled', 'oneTimeKey', 'logRejected'], 'boolean'],
             [['fieldName', 'errorMessage'], 'string'],
             [['expirationTime', 'minimumSubmitTime'], 'integer'],

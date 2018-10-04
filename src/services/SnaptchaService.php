@@ -8,7 +8,7 @@ namespace putyourlightson\snaptcha\services;
 use Craft;
 use craft\base\Component;
 use craft\helpers\FileHelper;
-use putyourlightson\campaign\helpers\StringHelper;
+use craft\helpers\StringHelper;
 use putyourlightson\snaptcha\events\ValidateFieldEvent;
 use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\models\SnaptchaModel;
@@ -71,12 +71,12 @@ class SnaptchaService extends Component
         // Get most recent record with IP address from DB
         /** @var SnaptchaRecord|null $record */
         $record = SnaptchaRecord::find()
-            ->where(['ipAddress' => $hashedIpAddress,])
+            ->where(['ipAddress' => $hashedIpAddress])
             ->orderBy('timestamp desc')
             ->one();
 
         // If record does not exist or one time key is enabled or the expiration time has passed
-        if ($record === null || $this->_settings->oneTimeKey || $record->timestamp + $record->expirationTime > $now) {
+        if ($record === null || $this->_settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
             // Set key to random string
             $model->key = StringHelper::randomString();
 
@@ -134,7 +134,9 @@ class SnaptchaService extends Component
         }
 
         // Check if IP address is blacklisted
-        if (strpos($this->_settings->blacklist, Craft::$app->getRequest()->getUserIP()) !== false) {
+        $blacklistedIps = preg_split('/\r\n|\r|\n/', $this->_settings->blacklist);
+
+        if (in_array(Craft::$app->getRequest()->getUserIP(), $blacklistedIps, true)) {
             $this->_reject('IP address is blacklisted.');
             return false;
         }

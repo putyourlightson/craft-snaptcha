@@ -83,7 +83,7 @@
 {{ forms.textareaField({
     label: 'Blacklist'|t('snaptcha'),
     name: 'blacklist',
-    instructions: 'IP addresses to blacklist from all form submissions (comma separated or one per line).'|t('snaptcha'),
+    instructions: 'IP addresses to blacklist from all form submissions (one per line).'|t('snaptcha'),
     warning: (config.blacklist is defined ? configWarning('blacklist')),
     value: settings.blacklist,
     errors: settings.getErrors('blacklist'),
