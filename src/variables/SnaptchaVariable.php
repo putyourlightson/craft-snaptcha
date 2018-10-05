@@ -5,8 +5,8 @@
 
 namespace putyourlightson\snaptcha\variables;
 
+use craft\helpers\StringHelper;
 use craft\helpers\Template;
-use putyourlightson\campaign\helpers\StringHelper;
 use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\Snaptcha;
