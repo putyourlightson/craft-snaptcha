@@ -14,6 +14,7 @@ use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\services\SnaptchaService;
 use putyourlightson\snaptcha\services\TestsService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
+use yii\base\ActionEvent;
 use yii\base\Event;
 use yii\web\ForbiddenHttpException;
 
@@ -63,18 +64,25 @@ class Snaptcha extends Plugin
         });
 
         // Register action event
-        Event::on(Controller::class, Controller::EVENT_BEFORE_ACTION, function() {
-            $this->validateField();
+        Event::on(Controller::class, Controller::EVENT_BEFORE_ACTION, function(ActionEvent $event) {
+            $this->validateField($event);
         });
     }
 
     /**
      * Validates a submitted field
      *
+     * @param ActionEvent $event
+     *
      * @throws ForbiddenHttpException
      */
-    public function validateField()
+    public function validateField(ActionEvent $event)
     {
+        // Return if this is an exception
+        if (Craft::$app->getErrorHandler()->exception !== null) {
+            return;
+        }
+
         /** @var Request $request */
         $request = Craft::$app->getRequest();
 
