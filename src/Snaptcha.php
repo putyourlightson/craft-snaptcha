@@ -86,7 +86,7 @@ class Snaptcha extends Plugin
         /** @var Request $request */
         $request = Craft::$app->getRequest();
 
-        if ($request->isCpRequest) {
+        if ($request->getIsCpRequest() || $request->getIsLivePreview()) {
             return;
         }
 
