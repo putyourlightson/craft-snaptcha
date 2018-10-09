@@ -6,6 +6,8 @@
 
 {% from _self import configWarning %}
 
+{% do view.registerAssetBundle("putyourlightson\\snaptcha\\assets\\SnaptchaAsset") %}
+
 
 {{ forms.lightswitchField({
     first: true,
@@ -80,12 +82,50 @@
     errors: settings.getErrors('minimumSubmitTime'),
 }) }}
 
-{{ forms.textareaField({
-    label: 'Blacklist'|t('snaptcha'),
+{% set info %}
+{{ 'Regular expressions can be used for pattern matching. Find more examples {here}.'|t('blitz', {'here': '<a href="https://github.com/putyourlightson/craft-blitz#uri-patterns" target="_blank">here</a>'})|raw }}
+
+- `.` Matches any character
+- `.*` Matches any character 0 or more times
+- `.+` Matches any character 1 or more times
+- `\d` Matches any four digits
+- `\w` Matches any word character
+- `entries` Matches anything containing "entries"
+- `^entries` Matches anything beginning with "entries"
+- `^entries/entry$` Matches exact URI
+{% endset %}
+
+<input type="hidden" name="excludedUriPatterns" value="" />
+{{ forms.editableTableField({
+	label: "Excluded URI Patterns"|t('snaptcha'),
+	instructions: "The URI patterns to exclude from validation."|t('snaptcha'),
+    warning: (config.cachingEnabled is defined ? configWarning('excludedUriPatterns')),
+    name: 'excludedUriPatterns',
+    id: 'excludedUriPatterns',
+	cols: [
+		{
+			type: 'text',
+			heading: 'URI Pattern'|t('snaptcha'),
+            info: info,
+		},
+	],
+	rows: settings.excludedUriPatterns,
+	addRowLabel: "Add a URI pattern"|t('snaptcha'),
+}) }}
+
+<input type="hidden" name="blacklist" value="" />
+{{ forms.editableTableField({
+	label: "Blacklist"|t('snaptcha'),
+    instructions: 'IP addresses to blacklist from all form submissions.'|t('snaptcha'),
+    warning: (config.cachingEnabled is defined ? configWarning('excludedUriPatterns')),
     name: 'blacklist',
-    instructions: 'IP addresses to blacklist from all form submissions (one per line).'|t('snaptcha'),
-    warning: (config.blacklist is defined ? configWarning('blacklist')),
-    value: settings.blacklist,
-    errors: settings.getErrors('blacklist'),
-    rows: 5
+    id: 'blacklist',
+	cols: [
+		{
+			type: 'text',
+			heading: 'IP Address'|t('snaptcha'),
+		},
+	],
+	rows: settings.blacklist,
+	addRowLabel: "Add an IP address"|t('snaptcha'),
 }) }}

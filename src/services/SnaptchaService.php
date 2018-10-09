@@ -108,6 +108,56 @@ class SnaptchaService extends Component
     }
 
     /**
+     * Returns whether the URI is excluded from validation
+     *
+     * @param string $uri
+     *
+     * @return bool
+     */
+    public function isExcludedUri(string $uri): bool
+    {
+        if (is_array($this->_settings->excludedUriPatterns)) {
+            foreach ($this->_settings->excludedUriPatterns as $excludedUriPattern) {
+                // Normalize to string
+                if (is_array($excludedUriPattern)) {
+                    $excludedUriPattern = $excludedUriPattern[0];
+                }
+
+                if (preg_match('#'.trim($excludedUriPattern, '/').'#', $uri)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns whether the IP address is blacklisted
+     *
+     * @param string $ipAddress
+     *
+     * @return bool
+     */
+    public function isBlacklisted(string $ipAddress): bool
+    {
+        if (is_array($this->_settings->blacklist)) {
+            foreach ($this->_settings->blacklist as $blacklistedIp) {
+                // Normalize to string
+                if (is_array($blacklistedIp)) {
+                    $blacklistedIp = $blacklistedIp[0];
+                }
+
+                if ($ipAddress == trim($blacklistedIp)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Validates a submitted field
      *
      * @param string|null $value
@@ -134,9 +184,7 @@ class SnaptchaService extends Component
         }
 
         // Check if IP address is blacklisted
-        $blacklistedIps = preg_split('/\r\n|\r|\n/', $this->_settings->blacklist);
-
-        if (in_array(Craft::$app->getRequest()->getUserIP(), $blacklistedIps, true)) {
+        if ($this->isBlacklisted(Craft::$app->getRequest()->getUserIP()) === true) {
             $this->_reject('IP address is blacklisted.');
             return false;
         }

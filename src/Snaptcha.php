@@ -83,21 +83,22 @@ class Snaptcha extends Plugin
             return;
         }
 
-        /** @var Request $request */
-        $request = Craft::$app->getRequest();
-
-        if ($request->getIsCpRequest() || $request->getIsLivePreview()) {
+        // Return if controller's enableSnaptchaValidation variable exists and is set to false
+        if (isset($event->sender->enableSnaptchaValidation) && $event->sender->enableSnaptchaValidation === false) {
             return;
         }
 
         /** @var SettingsModel $settings */
         $settings = $this->getSettings();
 
+        /** @var Request $request */
+        $request = Craft::$app->getRequest();
+
         // Get request method
         $method = $request->getMethod();
 
-        // Only validate if enabled and on post method
-        if (!$settings->validationEnabled || $method !== 'POST') {
+        // Return if request is for CP or console or live preview, if validation is not enabled, if method is not post or if URI is excluded from validation
+        if ($request->getIsCpRequest() || $request ->getIsConsoleRequest() || $request->getIsLivePreview() || !$settings->validationEnabled || $method !== 'POST' || $this->snaptcha->isExcludedUri($request->getUrl())) {
             return;
         }
 

@@ -46,7 +46,18 @@ You can optionally use the `getField` and `getFieldValue` methods to pass in con
     
 Enabling the One Time Key setting will restrict the number of times that a form can be submitted to one time per page refresh. This is a strong security measure and is recommended for low to medium traffic sites. For high traffic sites, disabling this will prevent the database table that the plugin uses from getting too big. 
 
-![Settings](docs/images/settings-2.0.0.png)
+![Settings](docs/images/settings-2.1.0.png)
+
+## Disabling Validation
+
+Validation can be disabled by specifying URI patterns to exclude. Adding a property called `$enableSnaptchaValidation` to any controller class and setting it to `false` will disable validation when the actions in that class are called.
+
+    class WebhookController extends Controller
+    {
+      /**
+       * @var bool Disable Snaptcha validation
+       */
+      public $enableSnaptchaValidation = false;
 
 ## Testing Snaptcha
 

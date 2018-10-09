@@ -51,9 +51,14 @@ class SettingsModel extends Model
     public $minimumSubmitTime = 3;
 
     /**
-     * @var string
+     * @var array
      */
-    public $blacklist = '';
+    public $excludedUriPatterns = [];
+
+    /**
+     * @var array
+     */
+    public $blacklist = [];
 
     // Public Methods
     // =========================================================================
