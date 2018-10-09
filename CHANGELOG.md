@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 - Unreleased
+## 2.1.0 - 2018-10-09
 ### Added
 - Added excluded URI patterns to settings
 - Added table field for blacklisted IP addresses in settings
