@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 - Unreleased
+### Changed
+- Changed script tag to avoid validation error
+
 ## 2.1.0 - 2018-10-09
 ### Added
 - Added excluded URI patterns to settings

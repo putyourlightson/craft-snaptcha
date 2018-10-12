@@ -69,7 +69,7 @@ class SnaptchaVariable
         $fieldId = $fieldName.'-'.StringHelper::randomString(5);
 
         $field = '<input type="hidden" id="'.$fieldId.'" name="'.$fieldName.'" value="">';
-        $field .= '<script type="text/javascript">document.getElementById("'.$fieldId.'").value = "'.$value.'";</script>';
+        $field .= '<script>document.getElementById("'.$fieldId.'").value = "'.$value.'";</script>';
 
         return Template::raw($field);
     }
