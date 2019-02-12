@@ -83,7 +83,7 @@
 }) }}
 
 {% set info %}
-{{ 'Regular expressions can be used for pattern matching. Find more examples {here}.'|t('blitz', {'here': '<a href="https://github.com/putyourlightson/craft-blitz#uri-patterns" target="_blank">here</a>'})|raw }}
+{{ 'Regular expressions can be used for pattern matching.'|t('snaptcha') }}
 
 - `.` Matches any character
 - `.*` Matches any character 0 or more times
@@ -106,6 +106,7 @@
 		{
 			type: 'text',
 			heading: 'URI Pattern'|t('snaptcha'),
+            code: true,
             info: info,
 		},
 	],

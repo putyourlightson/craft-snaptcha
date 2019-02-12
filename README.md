@@ -44,7 +44,58 @@ You can optionally use the `getField` and `getFieldValue` methods to pass in con
     
     {{ craft.snaptcha.getFieldValue(config) }}    // Outputs the value of the field
     
-Enabling the One Time Key setting will restrict the number of times that a form can be submitted to one time per page refresh. This is a strong security measure and is recommended for low to medium traffic sites. For high traffic sites, disabling this will prevent the database table that the plugin uses from getting too big. 
+## Settings
+
+### Validation Enabled
+
+With this setting enabled, Snaptcha will validate all forms submitted through POST requests. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.
+
+### One Time Key
+
+Enabling this will restrict the number of times that a form can be submitted to one time per page refresh. This is a strong security measure and is recommended for low to medium traffic sites. For high traffic sites, disabling this will prevent the database table that the plugin uses from getting too big. 
+
+### Log Rejected 
+
+Whether rejected form submissions should be logged (log will be written to `storage/logs/snaptcha.log`).
+
+### Field Name
+
+The name of the hidden Snaptcha input field.
+
+### Error Message
+
+The error message that will be displayed if Snaptcha identifies a submission as spam.
+
+### Expiration Time
+
+The expiration time for form submissions in minutes.
+
+### Minimum Submit Time
+
+The minimum time for form submission in seconds (increase this to harden spam blocking).
+
+### Excluded URI Patterns
+
+The URI patterns to exclude from validation.
+
+URI patterns use PCRE regular expressions. Below are some common use cases. You can reference the full syntax [here](http://php.net/manual/en/reference.pcre.pattern.syntax.php).
+
+- `.` Matches any character
+- `.*` Matches any character 0 or more times
+- `.+` Matches any character 1 or more times
+- `\d` Matches any four digits
+- `\w` Matches any word character
+- `entries` Matches anything containing "entries"
+- `^entries` Matches anything beginning with "entries"
+- `^entries/entry$` Matches exact URI
+
+### Blacklist
+
+IP addresses to blacklist from all form submissions.
+
+### Config Settings
+
+Snaptcha comes with a config file for a multi-environment way to set the plugin settings. To use it, copy the `config.php` to your project’s main `config` directory as `snaptcha.php` and uncomment any settings you wish to change.
 
 ![Settings](docs/images/settings-2.1.0.png)
 
