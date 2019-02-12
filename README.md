@@ -1,4 +1,4 @@
-<p align="center"><img width="200" src="src/icon.svg"></p>
+<p align="center"><img height="180" src="./src/icon.svg"></p>
 
 # Snaptcha Plugin for Craft CMS 3
 
