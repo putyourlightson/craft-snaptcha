@@ -21,7 +21,11 @@ class m181009_120000_update_blacklist_settings extends Migration
         /** @var SettingsModel $settings */
         $settings = Snaptcha::$plugin->getSettings();
 
-        $blacklistedIps = preg_split('/\r\n|\r|\n/', $settings->blacklist);
+        if (!is_string($settings->blacklist)) {
+            return;
+        }
+
+        $blacklistedIps = preg_split('/\R/', $settings->blacklist);
         $settings->blacklist = [];
 
         foreach ($blacklistedIps as $blacklistedIp) {
