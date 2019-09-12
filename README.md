@@ -6,6 +6,8 @@ Snaptcha is an invisible CAPTCHA that automatically validates forms and prevents
 
 Snaptcha (Simple Non-obtrusive Automated Public Turing test to tell Computers and Humans Apart) will validate all POST requests to the front-end of your site, meaning that it will work with any form and any plugin. Note that since this will affect all POST requests, you must add the required template tag before enabling validation (see usage below).
 
+## Documentation
+
 Learn more and read the documentation at [putyourlightson.com/plugins/snaptcha »](https://putyourlightson.com/plugins/snaptcha)
 
 ## License
