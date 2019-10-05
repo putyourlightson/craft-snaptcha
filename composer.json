@@ -31,6 +31,7 @@
         "handle": "snaptcha",
         "developer": "PutYourLightsOn",
         "developerUrl": "https://putyourlightson.com/",
+        "documentationUrl": "https://putyourlightson.com/plugins/snaptcha",
         "schemaVersion": "2.1.0",
         "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v2/CHANGELOG.md",
         "class": "putyourlightson\\snaptcha\\Snaptcha"
