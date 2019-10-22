@@ -22,7 +22,7 @@ use yii\web\ForbiddenHttpException;
 /**
  * Snaptcha Plugin
  *
- * @property  SnaptchaService $snaptcha
+ * @property SnaptchaService $snaptcha
  */
 class Snaptcha extends Plugin
 {
@@ -36,6 +36,11 @@ class Snaptcha extends Plugin
 
     // Properties
     // =========================================================================
+
+    /**
+     * @var bool
+     */
+    public $validated = false;
 
     /**
      * @inherit
@@ -104,9 +109,9 @@ class Snaptcha extends Plugin
 
         $value = $request->getParam($settings->fieldName);
 
-        $valid = $this->snaptcha->validateField($value);
+        $this->validated = $this->validated || $this->snaptcha->validateField($value);
 
-        if ($valid === false) {
+        if ($this->validated === false) {
             throw new ForbiddenHttpException(Craft::t('snaptcha', $settings->errorMessage));
         }
     }
