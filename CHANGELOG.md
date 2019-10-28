@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0 - 2019-10-28
+### Added
+- Added field controller actions for better AJAX support.
+
 ## 2.1.1 - 2019-02-12
 ### Changed
 - Changed script tag to avoid validation error.

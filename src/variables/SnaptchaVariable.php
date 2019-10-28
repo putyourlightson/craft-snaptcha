@@ -18,20 +18,17 @@ use \Twig_Markup;
 class SnaptchaVariable
 {
     /**
-     * Returns the field name
+     * Returns the field name.
      *
      * @return string
      */
     public function getFieldName(): string
     {
-        /** @var SettingsModel $settings */
-        $settings = Snaptcha::$plugin->getSettings();
-
-        return $settings->fieldName;
+        return Snaptcha::$plugin->settings->fieldName;
     }
 
     /**
-     * Returns a field value
+     * Returns a field value.
      *
      * @param array|null $config
      *
@@ -41,17 +38,13 @@ class SnaptchaVariable
     {
         $model = new SnaptchaModel($config);
 
-        $value = Snaptcha::$plugin->snaptcha->getFieldValue($model);
-
-        if ($value === null) {
-            return '';
-        }
+        $value = Snaptcha::$plugin->snaptcha->getFieldValue($model) ?? '';
 
         return $value;
     }
 
     /**
-     * Returns a field
+     * Returns a field.
      *
      * @param array|null $config
      *

@@ -10,7 +10,6 @@ use craft\base\Component;
 use craft\helpers\FileHelper;
 use craft\helpers\StringHelper;
 use putyourlightson\snaptcha\events\ValidateFieldEvent;
-use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\records\SnaptchaRecord;
 use putyourlightson\snaptcha\Snaptcha;
@@ -34,30 +33,11 @@ class SnaptchaService extends Component
      */
     const EVENT_AFTER_VALIDATE_FIELD = 'afterValidateField';
 
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var SettingsModel
-     */
-    private $_settings;
-
     // Public Methods
     // =========================================================================
 
     /**
-    * Init
-    */
-    public function init()
-    {
-        parent::init();
-
-        // Get settings
-        $this->_settings = Snaptcha::$plugin->getSettings();
-    }
-
-    /**
-     * Returns a field value
+     * Returns a field value.
      *
      * @param SnaptchaModel $model
      *
@@ -76,7 +56,7 @@ class SnaptchaService extends Component
             ->one();
 
         // If record does not exist or one time key is enabled or the expiration time has passed
-        if ($record === null || $this->_settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
+        if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
             // Set key to random string
             $model->key = StringHelper::randomString();
 
@@ -87,8 +67,8 @@ class SnaptchaService extends Component
             $model->timestamp = $now;
 
             // Set optional fields from settings if not defined
-            $model->expirationTime = $model->expirationTime ?? $this->_settings->expirationTime;
-            $model->minimumSubmitTime = $model->minimumSubmitTime ?? $this->_settings->minimumSubmitTime;
+            $model->expirationTime = $model->expirationTime ?? Snaptcha::$plugin->settings->expirationTime;
+            $model->minimumSubmitTime = $model->minimumSubmitTime ?? Snaptcha::$plugin->settings->minimumSubmitTime;
 
             if (!$model->validate()) {
                 return null;
@@ -108,7 +88,7 @@ class SnaptchaService extends Component
     }
 
     /**
-     * Returns whether the URI is excluded from validation
+     * Returns whether the URI is excluded from validation.
      *
      * @param string $uri
      *
@@ -116,8 +96,8 @@ class SnaptchaService extends Component
      */
     public function isExcludedUri(string $uri): bool
     {
-        if (is_array($this->_settings->excludedUriPatterns)) {
-            foreach ($this->_settings->excludedUriPatterns as $excludedUriPattern) {
+        if (is_array(Snaptcha::$plugin->settings->excludedUriPatterns)) {
+            foreach (Snaptcha::$plugin->settings->excludedUriPatterns as $excludedUriPattern) {
                 // Normalize to string
                 if (is_array($excludedUriPattern)) {
                     $excludedUriPattern = $excludedUriPattern[0];
@@ -133,7 +113,7 @@ class SnaptchaService extends Component
     }
 
     /**
-     * Returns whether the IP address is blacklisted
+     * Returns whether the IP address is blacklisted.
      *
      * @param string $ipAddress
      *
@@ -141,8 +121,8 @@ class SnaptchaService extends Component
      */
     public function isBlacklisted(string $ipAddress): bool
     {
-        if (is_array($this->_settings->blacklist)) {
-            foreach ($this->_settings->blacklist as $blacklistedIp) {
+        if (is_array(Snaptcha::$plugin->settings->blacklist)) {
+            foreach (Snaptcha::$plugin->settings->blacklist as $blacklistedIp) {
                 // Normalize to string
                 if (is_array($blacklistedIp)) {
                     $blacklistedIp = $blacklistedIp[0];
@@ -158,7 +138,7 @@ class SnaptchaService extends Component
     }
 
     /**
-     * Validates a submitted field
+     * Validates a submitted field.
      *
      * @param string|null $value
      *
@@ -217,7 +197,7 @@ class SnaptchaService extends Component
         }
 
         // Check if record should be deleted
-        if ($this->_settings->oneTimeKey) {
+        if (Snaptcha::$plugin->settings->oneTimeKey) {
             $record->delete();
         }
 
@@ -238,7 +218,7 @@ class SnaptchaService extends Component
     // =========================================================================
 
     /**
-     * Returns the current user's hashed IP address
+     * Returns the current user's hashed IP address.
      *
      * @return string
      */
@@ -250,13 +230,13 @@ class SnaptchaService extends Component
     }
 
     /**
-     * Rejects and logs a form submission
+     * Rejects and logs a form submission.
      *
      * @param string $message
      */
     private function _reject(string $message)
     {
-        if ($this->_settings->logRejected) {
+        if (Snaptcha::$plugin->settings->logRejected) {
             $file = Craft::getAlias('@storage/logs/snaptcha.log');
             $log = date('Y-m-d H:i:s').' '.$message."\n";
 

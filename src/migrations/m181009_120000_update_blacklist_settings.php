@@ -18,8 +18,7 @@ class m181009_120000_update_blacklist_settings extends Migration
     public function safeUp()
     {
         // Resave plugin settings converting blacklist to array of arrays for editable table field
-        /** @var SettingsModel $settings */
-        $settings = Snaptcha::$plugin->getSettings();
+        $settings = Snaptcha::$plugin->settings;
 
         if (!is_string($settings->blacklist)) {
             return;

@@ -23,6 +23,7 @@ use yii\web\ForbiddenHttpException;
  * Snaptcha Plugin
  *
  * @property SnaptchaService $snaptcha
+ * @property SettingsModel $settings
  */
 class Snaptcha extends Plugin
 {
@@ -93,9 +94,6 @@ class Snaptcha extends Plugin
             return;
         }
 
-        /** @var SettingsModel $settings */
-        $settings = $this->getSettings();
-
         /** @var Request $request */
         $request = Craft::$app->getRequest();
 
@@ -103,16 +101,16 @@ class Snaptcha extends Plugin
         $method = $request->getMethod();
 
         // Return if request is for CP or console or live preview, if validation is not enabled, if method is not post or if URI is excluded from validation
-        if ($request->getIsCpRequest() || $request ->getIsConsoleRequest() || $request->getIsLivePreview() || !$settings->validationEnabled || $method !== 'POST' || $this->snaptcha->isExcludedUri($request->getUrl())) {
+        if ($request->getIsCpRequest() || $request ->getIsConsoleRequest() || $request->getIsLivePreview() || !$this->settings->validationEnabled || $method !== 'POST' || $this->snaptcha->isExcludedUri($request->getUrl())) {
             return;
         }
 
-        $value = $request->getParam($settings->fieldName);
+        $value = $request->getParam($this->settings->fieldName);
 
         $this->validated = $this->validated || $this->snaptcha->validateField($value);
 
         if ($this->validated === false) {
-            throw new ForbiddenHttpException(Craft::t('snaptcha', $settings->errorMessage));
+            throw new ForbiddenHttpException(Craft::t('snaptcha', $this->settings->errorMessage));
         }
     }
 
@@ -133,7 +131,7 @@ class Snaptcha extends Plugin
     protected function settingsHtml()
     {
         return Craft::$app->getView()->renderTemplate('snaptcha/_settings', [
-            'settings' => $this->getSettings(),
+            'settings' => $this->settings,
             'config' => Craft::$app->getConfig()->getConfigFromFile('snaptcha'),
         ]);
     }
