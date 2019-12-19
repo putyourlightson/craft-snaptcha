@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 - 2019-12-19
+### Fixed
+- Fixed validate field value action to work with POSTed values.
+
 ## 2.2.0 - 2019-10-28
 ### Added
 - Added field controller actions for better AJAX support.

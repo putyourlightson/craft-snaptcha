@@ -80,7 +80,7 @@ class FieldController extends Controller
      */
     public function actionValidateFieldValue(): Response
     {
-        $value = Craft::$app->getRequest()->get('value');
+        $value = Craft::$app->getRequest()->getParam('value');
 
         $validated = Snaptcha::$plugin->snaptcha->validateField($value);
 
