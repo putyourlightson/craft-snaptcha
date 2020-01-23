@@ -56,7 +56,7 @@ class FieldController extends Controller
     }
 
     /**
-     * Returns a field name and value.
+     * Returns an input field name and value.
      *
      * @return Response
      * @throws BadRequestHttpException
@@ -67,10 +67,14 @@ class FieldController extends Controller
 
         $value = Snaptcha::$plugin->snaptcha->getFieldValue(new SnaptchaModel()) ?? '';
 
-        return $this->asJson([
-            'name' => Snaptcha::$plugin->settings->fieldName,
-            'value' => $value,
-        ]);
+        if (Craft::$app->getRequest()->getAcceptsJson()) {
+            return $this->asJson([
+                'name' => Snaptcha::$plugin->settings->fieldName,
+                'value' => $value,
+            ]);
+        }
+
+        return $this->asRaw('<input type="hidden" name="'.Snaptcha::$plugin->settings->fieldName.'" value="'.$value.'">');
     }
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2 - 2020-01-23
+### Changed
+- Changed `actionGetField` controller action to return a raw input field if the request does not accept JSON.
+
 ## 2.2.1 - 2019-12-19
 ### Fixed
 - Fixed validate field value action to work with POSTed values.
