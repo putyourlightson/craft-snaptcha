@@ -58,13 +58,19 @@ class FieldController extends Controller
     /**
      * Returns an input field name and value.
      *
+     * If the request accepts JSON then a JSON object is returned:
+     *
+     *     {name: "snaptcha", value: "oqSCFUGwoUfvcwKEqaJPGTDNjtoDqfzgvxX0"}
+     *
+     * Otherwise a raw input field is returned:
+     *
+     *     <input type="hidden" name="snaptcha" value="oqSCFUGwoUfvcwKEqaJPGTDNjtoDqfzgvxX0">
+     *
      * @return Response
      * @throws BadRequestHttpException
      */
     public function actionGetField(): Response
     {
-        $this->requireAcceptsJson();
-
         $value = Snaptcha::$plugin->snaptcha->getFieldValue(new SnaptchaModel()) ?? '';
 
         if (Craft::$app->getRequest()->getAcceptsJson()) {
