@@ -97,11 +97,16 @@ class Snaptcha extends Plugin
         /** @var Request $request */
         $request = Craft::$app->getRequest();
 
-        // Get request method
-        $method = $request->getMethod();
-
-        // Return if request is for CP or console or live preview, if validation is not enabled, if method is not post or if URI is excluded from validation
-        if ($request->getIsCpRequest() || $request ->getIsConsoleRequest() || $request->getIsLivePreview() || !$this->settings->validationEnabled || $method !== 'POST' || $this->snaptcha->isExcludedUri($request->getUrl())) {
+        // Return if validation is not enabled, if request is for CP or console or live preview,
+        // if method is not post, if a set password path or if URI is excluded from validation.
+        if (!$this->settings->validationEnabled
+            || $request->getIsCpRequest()
+            || $request ->getIsConsoleRequest()
+            || $request->getIsPreview()
+            || $request->getMethod() !== 'POST'
+            || $request->getFullPath() == Craft::$app->getConfig()->getGeneral()->getSetPasswordPath()
+            || $this->snaptcha->isExcludedUri($request->getUrl())
+        ) {
             return;
         }
 

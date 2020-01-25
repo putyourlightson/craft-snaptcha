@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.3 - 2020-01-25
+### Fixed
+- Fixed validation being unnecessarily applied to the set password path.
+
 ## 2.2.2 - 2020-01-23
 ### Changed
 - Changed `actionGetField` controller action to return a raw input field if the request does not accept JSON.
