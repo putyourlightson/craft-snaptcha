@@ -49,7 +49,6 @@ class Install extends Migration
 
     /**
      * @return boolean
-     * @throws \Throwable
      */
     public function safeDown(): bool
     {

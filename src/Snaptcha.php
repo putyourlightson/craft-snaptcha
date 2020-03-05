@@ -12,7 +12,6 @@ use craft\web\Request;
 use craft\web\twig\variables\CraftVariable;
 use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\services\SnaptchaService;
-use putyourlightson\snaptcha\services\TestsService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
 use yii\base\Event;

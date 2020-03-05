@@ -7,8 +7,8 @@ namespace putyourlightson\snaptcha\services;
 
 use Craft;
 use craft\base\Component;
-use craft\helpers\FileHelper;
 use craft\helpers\StringHelper;
+use putyourlightson\logtofile\LogToFile;
 use putyourlightson\snaptcha\events\ValidateFieldEvent;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\records\SnaptchaRecord;
@@ -186,13 +186,13 @@ class SnaptchaService extends Component
 
         // Check if field has expired
         if ($record->timestamp + ($record->expirationTime * 60) < $now) {
-            $this->_reject('Expiration time of '.$record->expirationTime.' minute(s) has passed.');
+            $this->_reject('Expiration time of {minutes} minute(s) has passed.', ['minutes' => $record->expirationTime]);
             return false;
         }
 
         // Check if minimum submit time has not passed
         if ($record->timestamp + $record->minimumSubmitTime > $now) {
-            $this->_reject('Minimum submit time of '.$record->minimumSubmitTime.' second(s) has not yet passed.');
+            $this->_reject('Minimum submit time of {second} second(s) has not yet passed.', ['second' => $record->minimumSubmitTime]);
             return false;
         }
 
@@ -233,14 +233,14 @@ class SnaptchaService extends Component
      * Rejects and logs a form submission.
      *
      * @param string $message
+     * @param array $params
      */
-    private function _reject(string $message)
+    private function _reject(string $message, array $params = [])
     {
         if (Snaptcha::$plugin->settings->logRejected) {
-            $file = Craft::getAlias('@storage/logs/snaptcha.log');
-            $log = date('Y-m-d H:i:s').' '.$message."\n";
-
-            FileHelper::writeToFile($file, $log, ['append' => true]);
+            $url = Craft::$app->getRequest()->getAbsoluteUrl();
+            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
+            LogToFile::log($message, 'snaptcha');
         }
     }
 }

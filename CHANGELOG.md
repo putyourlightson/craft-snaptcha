@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.3 - 2020-02-05
+### Changed
+- Absolute URL is now added to rejected message in log file ([#7](https://github.com/putyourlightson/craft-snaptcha/issues/7)).
+
 ## 2.2.3 - 2020-01-25
 ### Fixed
 - Fixed validation being unnecessarily applied to the set password path.

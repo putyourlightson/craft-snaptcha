@@ -9,7 +9,6 @@ use Craft;
 use craft\web\Controller;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\Snaptcha;
-use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 class FieldController extends Controller
@@ -67,7 +66,6 @@ class FieldController extends Controller
      *     <input type="hidden" name="snaptcha" value="oqSCFUGwoUfvcwKEqaJPGTDNjtoDqfzgvxX0">
      *
      * @return Response
-     * @throws BadRequestHttpException
      */
     public function actionGetField(): Response
     {

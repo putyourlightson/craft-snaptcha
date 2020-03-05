@@ -4,7 +4,6 @@ namespace putyourlightson\snaptcha\migrations;
 
 use Craft;
 use craft\db\Migration;
-use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\Snaptcha;
 
 class m181009_120000_update_blacklist_settings extends Migration

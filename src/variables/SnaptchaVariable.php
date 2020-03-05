@@ -7,10 +7,9 @@ namespace putyourlightson\snaptcha\variables;
 
 use craft\helpers\StringHelper;
 use craft\helpers\Template;
-use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\Snaptcha;
-use \Twig_Markup;
+use Twig\Markup;
 
 /**
  * Snaptcha Variable
@@ -38,9 +37,7 @@ class SnaptchaVariable
     {
         $model = new SnaptchaModel($config);
 
-        $value = Snaptcha::$plugin->snaptcha->getFieldValue($model) ?? '';
-
-        return $value;
+        return Snaptcha::$plugin->snaptcha->getFieldValue($model) ?? '';
     }
 
     /**
@@ -48,9 +45,9 @@ class SnaptchaVariable
      *
      * @param array|null $config
      *
-     * @return Twig_Markup
+     * @return Markup
      */
-    public function getField($config = null): Twig_Markup
+    public function getField($config = null): Markup
     {
         $value = $this->getFieldValue($config);
 
