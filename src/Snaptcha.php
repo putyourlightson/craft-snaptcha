@@ -109,6 +109,12 @@ class Snaptcha extends Plugin
             return;
         }
 
+        // TODO: remove in 3.0.0
+        // Check `getIsLivePreview()` for plugins that use tokens, such as Campaign
+        if ($request->getIsLivePreview()) {
+            return;
+        }
+
         $value = $request->getParam($this->settings->fieldName);
 
         $this->validated = $this->validated || $this->snaptcha->validateField($value);

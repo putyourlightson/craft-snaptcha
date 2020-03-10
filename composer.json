@@ -1,7 +1,7 @@
 {
     "name": "putyourlightson/craft-snaptcha",
     "description": "Automatically validates forms and prevents spam bots from submitting to your site.",
-    "version": "2.2.4",
+    "version": "2.2.5",
     "type": "craft-plugin",
     "homepage": "https://putyourlightson.com/craft-snaptcha",
     "license": "proprietary",

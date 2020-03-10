@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.5 - 2020-03-10
+### Fixed
+- Fixed validation being applied to live preview using a token query string.
+
 ## 2.2.4 - 2020-03-05
 ### Changed
 - Absolute URL is now added to rejected message in log file ([#7](https://github.com/putyourlightson/craft-snaptcha/issues/7)).
