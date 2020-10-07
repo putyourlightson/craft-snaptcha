@@ -97,13 +97,19 @@ class SnaptchaService extends Component
     public function isExcludedUri(string $uri): bool
     {
         if (is_array(Snaptcha::$plugin->settings->excludedUriPatterns)) {
-            foreach (Snaptcha::$plugin->settings->excludedUriPatterns as $excludedUriPattern) {
+            foreach (Snaptcha::$plugin->settings->excludedUriPatterns as $uriPattern) {
                 // Normalize to string
-                if (is_array($excludedUriPattern)) {
-                    $excludedUriPattern = $excludedUriPattern[0];
+                if (is_array($uriPattern)) {
+                    $uriPattern = $uriPattern[0];
                 }
 
-                if (preg_match('#'.trim($excludedUriPattern, '/').'#', $uri)) {
+                // Trim slashes
+                $uriPattern = trim($uriPattern, '/');
+
+                // Escape delimiter
+                $uriPattern = str_replace('/', '\/', $uriPattern);
+
+                if (preg_match('/'.$uriPattern.'/', trim($uri, '/'))) {
                     return true;
                 }
             }

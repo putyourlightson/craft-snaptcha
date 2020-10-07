@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.6 - Unreleased
+### Changed
+- Improved the excluded URI pattern matching logic.
+
 ## 2.2.5 - 2020-03-10
 ### Fixed
 - Fixed validation being applied to live preview using a token query string.
