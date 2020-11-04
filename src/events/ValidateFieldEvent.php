@@ -16,6 +16,11 @@ class ValidateFieldEvent extends CancelableEvent
     // =========================================================================
 
     /**
+     * @var array
+     */
+    public $excludeControllerActions = [];
+
+    /**
      * @var string|null
      */
     public $value;

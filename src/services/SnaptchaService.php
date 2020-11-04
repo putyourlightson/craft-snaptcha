@@ -26,12 +26,24 @@ class SnaptchaService extends Component
     /**
      * @event ValidateFieldEvent
      */
+    const EVENT_BEFORE_EXCLUDE_CONTROLLER_ACTIONS = 'beforeExcludeControllerActions';
+
+    /**
+     * @event ValidateFieldEvent
+     */
     const EVENT_BEFORE_VALIDATE_FIELD = 'beforeValidateField';
 
     /**
      * @event Event
      */
     const EVENT_AFTER_VALIDATE_FIELD = 'afterValidateField';
+
+    /**
+     * @const string[]
+     */
+    const EXCLUDE_CONTROLLER_ACTIONS = [
+        'commerce/webhooks/process-webhook',
+    ];
 
     // Public Methods
     // =========================================================================
@@ -85,6 +97,26 @@ class SnaptchaService extends Component
         }
 
         return $record->key;
+    }
+
+    /**
+     * Returns whether the controller action is excluded from validation.
+     *
+     * @return bool
+     */
+    public function isExcludedControllerAction()
+    {
+        if (!Craft::$app->getRequest()->getIsActionRequest()) {
+            return false;
+        }
+
+        $controllerAction = implode('/', Craft::$app->getRequest()->getActionSegments());
+
+        // Fire a before event
+        $event = new ValidateFieldEvent(['excludeControllerActions' => self::EXCLUDE_CONTROLLER_ACTIONS]);
+        $this->trigger(self::EVENT_BEFORE_EXCLUDE_CONTROLLER_ACTIONS, $event);
+
+        return in_array($controllerAction, $event->excludeControllerActions);
     }
 
     /**
@@ -166,12 +198,14 @@ class SnaptchaService extends Component
 
         if ($value === null) {
             $this->_reject('Value submitted is null.');
+
             return false;
         }
 
         // Check if IP address is blacklisted
         if ($this->isBlacklisted(Craft::$app->getRequest()->getUserIP()) === true) {
             $this->_reject('IP address is blacklisted.');
+
             return false;
         }
 
@@ -185,6 +219,7 @@ class SnaptchaService extends Component
 
         if ($record === null) {
             $this->_reject('Value not found in database.');
+
             return false;
         }
 
@@ -193,12 +228,14 @@ class SnaptchaService extends Component
         // Check if field has expired
         if ($record->timestamp + ($record->expirationTime * 60) < $now) {
             $this->_reject('Expiration time of {minutes} minute(s) has passed.', ['minutes' => $record->expirationTime]);
+
             return false;
         }
 
         // Check if minimum submit time has not passed
         if ($record->timestamp + $record->minimumSubmitTime > $now) {
             $this->_reject('Minimum submit time of {second} second(s) has not yet passed.', ['second' => $record->minimumSubmitTime]);
+
             return false;
         }
 
