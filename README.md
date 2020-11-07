@@ -12,7 +12,7 @@ Learn more and read the documentation at [putyourlightson.com/plugins/snaptcha Â
 
 ## License
 
-This plugin requires a commercial license which can be purchased through the Craft Plugin Store. The license fee is $29 plus $14 per subsequent year for updates (optional).
+This plugin requires a commercial license purchasable through the [Craft Plugin Store](https://plugins.craftcms.com/snaptcha).
 
 ## Requirements
 
