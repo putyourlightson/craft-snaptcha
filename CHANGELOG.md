@@ -1,11 +1,12 @@
 # Changelog
 
-## 2.2.6 - Unreleased
+## 2.3.0 - Unreleased
 ### Added
 - Added a `beforeExcludeControllerActions` event with the ability to modify controller actions to exclude from validation.
 
 ### Changed
-- Action requests to the Commerce webhooks controller are excluded from validation ([#11](https://github.com/putyourlightson/craft-snaptcha/issues/11)).
+- Action requests to the [Commerce plugin](https://plugins.craftcms.com/commerce) webhooks controller are excluded from validation ([#11](https://github.com/putyourlightson/craft-snaptcha/issues/11)).
+- Action requests to the [Ellera Cookie Consent plugin](https://plugins.craftcms.com/cookie-consent) controller are excluded from validation.
 - Improved the excluded URI pattern matching logic.
 
 ## 2.2.5 - 2020-03-10
