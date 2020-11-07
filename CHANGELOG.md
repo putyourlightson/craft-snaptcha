@@ -6,7 +6,7 @@
 
 ### Changed
 - Action requests to the [Commerce plugin](https://plugins.craftcms.com/commerce) webhooks controller are excluded from validation ([#11](https://github.com/putyourlightson/craft-snaptcha/issues/11)).
-- Action requests to the [Ellera Cookie Consent plugin](https://plugins.craftcms.com/cookie-consent) controller are excluded from validation.
+- Action requests to the [Ellera Cookie Consent plugin](https://plugins.craftcms.com/cookie-consent) controller are excluded from validation ([#12](https://github.com/putyourlightson/craft-snaptcha/issues/12)).
 - Improved the excluded URI pattern matching logic.
 
 ## 2.2.5 - 2020-03-10
