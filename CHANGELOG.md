@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.3.0 - Unreleased
+## 2.3.0 - 2020-11-09
 ### Added
 - Added a `beforeExcludeControllerActions` event with the ability to modify controller actions to exclude from validation.
 
