@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1 - 2020-12-21
+### Changed
+- Action requests to the [Complete Cookie Consent plugin](https://plugins.craftcms.com/complete-cookie-consent) controller are excluded from validation ([#12](https://github.com/putyourlightson/craft-snaptcha/issues/12)).
+
 ## 2.3.0 - 2020-11-09
 ### Added
 - Added a `beforeExcludeControllerActions` event with the ability to modify controller actions to exclude from validation.

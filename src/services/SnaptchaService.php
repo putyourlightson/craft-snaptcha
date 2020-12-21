@@ -44,6 +44,7 @@ class SnaptchaService extends Component
     const EXCLUDE_CONTROLLER_ACTIONS = [
         'commerce/webhooks/process-webhook',
         'cookie-consent/consent/update',
+        'complete-cookie-consent/consent/submit',
     ];
 
     // Public Methods
