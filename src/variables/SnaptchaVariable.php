@@ -5,6 +5,7 @@
 
 namespace putyourlightson\snaptcha\variables;
 
+use craft\helpers\Html;
 use craft\helpers\StringHelper;
 use craft\helpers\Template;
 use putyourlightson\snaptcha\models\SnaptchaModel;
@@ -58,8 +59,11 @@ class SnaptchaVariable
         $fieldName = $this->getFieldName();
         $fieldId = $fieldName.'-'.StringHelper::randomString(5);
 
-        $field = '<input type="hidden" id="'.$fieldId.'" name="'.$fieldName.'" value="">';
-        $field .= '<script>document.getElementById("'.$fieldId.'").value = "'.$value.'";</script>';
+        $field = Html::hiddenInput($fieldName, '', [
+                'id' => $fieldId,
+                'autocomplete' => 'off',
+            ])
+            .Html::script('document.getElementById("'.$fieldId.'").value = "'.$value.'";');
 
         return Template::raw($field);
     }
