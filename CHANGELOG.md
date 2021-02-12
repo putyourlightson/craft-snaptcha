@@ -1,6 +1,9 @@
 # Changelog
 
 ## 2.4.0 - Unreleased
+### Added
+- Added unit tests.
+
 ### Changed
 - The hidden input field now has an `autocomplete` attribute set to `off`.
 
