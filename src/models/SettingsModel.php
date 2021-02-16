@@ -37,7 +37,12 @@ class SettingsModel extends Model
     /**
      * @var string
      */
-    public $errorMessage = 'For some reason your submission was flagged as spam. Please ensure that you have JavaScript enabled and click the button below to resubmit your data.';
+    public $errorMessage = 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.';
+
+    /**
+     * @var string
+     */
+    public $errorJavascriptDisabled = 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.';
 
     /**
      * @var string

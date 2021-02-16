@@ -2,12 +2,23 @@
 
 {% set title = errorTitle %}
 
+{% js %}
+    document.getElementById('warning').remove();
+    document.getElementById('error').classList.remove('hidden');
+    document.getElementById('resubmit').classList.remove('disabled');
+{% endjs %}
 
 {% block message %}
 
     <h2>{{ errorTitle }}</h2>
 
-    <p>{{ errorMessage }}</p>
+    <p id="error" class="hidden">
+        {{ errorMessage }}
+    </p>
+
+    <p id="warning" class="warning">
+        {{ errorJavascriptDisabled }}
+    </p>
 
     <form action="" method="post">
         {% for name, value in postedValues %}
@@ -16,7 +27,7 @@
 
         {{ craft.snaptcha.field }}
 
-        <button type="submit" class="btn submit" style="font-weight: bold; text-transform: uppercase;">
+        <button id="resubmit" type="submit" class="btn submit disabled" style="font-weight: bold; text-transform: uppercase;">
             {{ errorButtonText }}
         </button>
     </form>

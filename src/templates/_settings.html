@@ -72,6 +72,16 @@
 
 {{ forms.textField({
     required: true,
+    label: 'Error JavaScript Disabled'|t('snaptcha'),
+    name: 'errorJavascriptDisabled',
+    instructions: 'The error that will be displayed if Snaptcha identifies a submission as spam and JavaScript is disabled.'|t('snaptcha'),
+    warning: (config.errorMessage is defined ? configWarning('errorJavascriptDisabled')),
+    value: settings.errorJavascriptDisabled,
+    errors: settings.getErrors('errorJavascriptDisabled')
+}) }}
+
+{{ forms.textField({
+    required: true,
     label: 'Error Button Text'|t('snaptcha'),
     name: 'errorButtonText',
     instructions: 'The button text that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),

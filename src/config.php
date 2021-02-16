@@ -32,7 +32,10 @@ return [
         //'fieldName' => 'snaptcha',
 
         // The error message that will be displayed if Snaptcha identifies a submission as spam.
-        //'errorMessage' => 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that, you refresh the page that you are trying to submit.'
+        //'errorMessage' => 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.'
+
+        // The error that will be displayed if Snaptcha identifies a submission as spam and JavaScript is disabled.
+        //'errorJavascriptDisabled' => 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.'
 
         // The text that will be displayed in the button if Snaptcha identifies a submission as spam.
         //'errorButtonText' => 'Click this button to resubmit the form.',

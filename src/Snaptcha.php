@@ -105,6 +105,7 @@ class Snaptcha extends Plugin
             $variables = [
                 'errorTitle' => $this->settings->errorTitle,
                 'errorMessage' => $this->settings->errorMessage,
+                'errorJavascriptDisabled' => $this->settings->errorJavascriptDisabled,
                 'errorButtonText' => $this->settings->errorButtonText,
                 'postedValues' => Craft::$app->request->getBodyParams(),
             ];
