@@ -34,6 +34,12 @@ return [
         // The error message that will be displayed if Snaptcha identifies a submission as spam.
         //'errorMessage' => 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that, you refresh the page that you are trying to submit.'
 
+        // The text that will be displayed in the button if Snaptcha identifies a submission as spam.
+        //'errorButtonText' => 'Click this button to resubmit the form.',
+
+        // The template to use if Snaptcha identifies a submission as spam.
+        //'errorTemplate' => '',
+
         // The expiration time for form submissions in minutes.
         //'expirationTime' => 60,
 

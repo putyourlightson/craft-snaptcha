@@ -173,10 +173,10 @@ class SnaptchaService extends Component
      * Returns whether the IP address is blocked.
      *
      * @param string $ipAddress
-     * @param array $ipList
+     * @param array|string $ipList
      * @return bool
      */
-    public function isIpInList(string $ipAddress, array $ipList): bool
+    public function isIpInList(string $ipAddress, $ipList): bool
     {
         if (is_array($ipList)) {
             foreach ($ipList as $ip) {

@@ -32,7 +32,22 @@ class SettingsModel extends Model
     /**
      * @var string
      */
-    public $errorMessage = 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that you refresh the page that you are trying to submit.';
+    public $errorTitle = 'Error';
+
+    /**
+     * @var string
+     */
+    public $errorMessage = 'For some reason your submission was flagged as spam. Please ensure that you have JavaScript enabled and click the button below to resubmit your data.';
+
+    /**
+     * @var string
+     */
+    public $errorButtonText = 'Resubmit';
+
+    /**
+     * @var string
+     */
+    public $errorTemplate = '';
 
     /**
      * @var int

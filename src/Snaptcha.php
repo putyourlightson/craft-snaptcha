@@ -10,6 +10,7 @@ use craft\base\Plugin;
 use craft\web\Controller;
 use craft\web\Request;
 use craft\web\twig\variables\CraftVariable;
+use craft\web\View;
 use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\services\SnaptchaService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
@@ -101,7 +102,7 @@ class Snaptcha extends Plugin
             return;
         }
 
-        // TODO: remove in 3.0.0
+        // TODO: remove in 4.0.0
         // Check `getIsLivePreview()` for plugins that use tokens, such as Campaign
         if ($request->getIsLivePreview()) {
             return;
@@ -112,7 +113,25 @@ class Snaptcha extends Plugin
         $this->validated = $this->validated || $this->snaptcha->validateField($value);
 
         if ($this->validated === false) {
-            throw new ForbiddenHttpException(Craft::t('snaptcha', $this->settings->errorMessage));
+            $variables = [
+                'errorTitle' => $this->settings->errorTitle,
+                'errorMessage' => $this->settings->errorMessage,
+                'errorButtonText' => $this->settings->errorButtonText,
+                'postedValues' => Craft::$app->request->getBodyParams(),
+            ];
+
+            if ($this->settings->errorTemplate) {
+                $output = Craft::$app->view->renderPageTemplate($this->settings->errorTemplate, $variables);
+            }
+            else {
+                Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
+
+                $output = Craft::$app->view->renderPageTemplate('snaptcha/_error', $variables);
+            }
+
+            Craft::$app->response->statusCode = 400;
+            Craft::$app->response->content = $output;
+            Craft::$app->response->sendAndClose();
         }
     }
 

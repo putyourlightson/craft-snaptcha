@@ -7,9 +7,10 @@ namespace putyourlightson\snaptcha\migrations;
 
 use Craft;
 use craft\db\Migration;
+use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\Snaptcha;
 
-class m210216_120000_migrate_denylist extends Migration
+class m210216_120000_migrate_settings extends Migration
 {
     /**
      * @inheritdoc
@@ -25,6 +26,12 @@ class m210216_120000_migrate_denylist extends Migration
 
         // Resave plugin settings
         $settings = Snaptcha::$plugin->settings;
+
+        // Only update if original is unchanged
+        if ($settings->errorMessage == 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that you refresh the page that you are trying to submit.') {
+            $settings->errorMessage = (new SettingsModel())->errorMessage;
+        }
+
         $settings->denyList = $settings->blacklist;
         $settings->blacklist = [];
 

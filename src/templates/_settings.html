@@ -52,12 +52,44 @@
 
 {{ forms.textField({
     required: true,
+    label: 'Error Title'|t('snaptcha'),
+    name: 'errorTitle',
+    instructions: 'The title that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),
+    warning: (config.errorMessage is defined ? configWarning('errorTitle')),
+    value: settings.errorTitle,
+    errors: settings.getErrors('errorTitle')
+}) }}
+
+{{ forms.textField({
+    required: true,
     label: 'Error Message'|t('snaptcha'),
     name: 'errorMessage',
-    instructions: 'The error message that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),
+    instructions: 'The message that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),
     warning: (config.errorMessage is defined ? configWarning('errorMessage')),
     value: settings.errorMessage,
     errors: settings.getErrors('errorMessage')
+}) }}
+
+{{ forms.textField({
+    required: true,
+    label: 'Error Button Text'|t('snaptcha'),
+    name: 'errorButtonText',
+    instructions: 'The button text that will be displayed if Snaptcha identifies a submission as spam.'|t('snaptcha'),
+    warning: (config.errorMessage is defined ? configWarning('errorButtonText')),
+    value: settings.errorButtonText,
+    errors: settings.getErrors('errorButtonText')
+}) }}
+
+{{ forms.autosuggestField({
+    label: 'Error Template'|t('snaptcha'),
+    instructions: 'The error template to use if Snaptcha identifies a submission as spam. Leave this blank to use the default error template.'|t('snaptcha'),
+    id: 'errorTemplate',
+    name: 'errorTemplate',
+    class: 'code',
+    suggestions: craft.cp.getTemplateSuggestions(),
+    warning: (config.errorMessage is defined ? configWarning('errorTemplate')),
+    value: settings.errorTemplate,
+    errors: settings.getErrors('errorTemplate')
 }) }}
 
 {{ forms.textField({

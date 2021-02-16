@@ -1,0 +1,24 @@
+{% extends '_layouts/message' %}
+
+{% set title = errorTitle %}
+
+
+{% block message %}
+
+    <h2>{{ errorTitle }}</h2>
+
+    <p>{{ errorMessage }}</p>
+
+    <form action="" method="post">
+        {% for name, value in postedValues %}
+            <input type="hidden" name="{{ name }}" value="{{ value }}">
+        {% endfor %}
+
+        {{ craft.snaptcha.field }}
+
+        <button type="submit" class="btn submit" style="font-weight: bold; text-transform: uppercase;">
+            {{ errorButtonText }}
+        </button>
+    </form>
+
+{% endblock %}

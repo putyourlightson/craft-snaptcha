@@ -16,7 +16,7 @@
         "protection"
     ],
     "require": {
-        "craftcms/cms": "^3.1.0",
+        "craftcms/cms": "^3.2.1",
         "putyourlightson/craft-log-to-file": "^1.2.3"
     },
     "require-dev": {

@@ -1,13 +1,16 @@
 # Changelog
 
 ## 3.0.0 - Unreleased
+> {tip} The error screen has been updated. If you previously set a custom error message then it may need some tweaking.
+
 ### Added
-- Added an "Allow List" of IP addresses.
+- Added a customisable error screen that allows users to resubmit their data if a submission is flagged as spam. 
+- Added an "Allow List" of IP addresses that will not be validated.
 - Added unit tests.
 
 ### Changed
-- Changed minimum requirement of Craft to version 3.1.0.
-- Renamed the "Blacklist" to "Deny List".
+- Changed minimum requirement of Craft to version 3.2.1.
+- Renamed "Blacklist" to "Deny List", a list of IP addresses that will always be denied.
 - The hidden input field now has an `autocomplete` attribute set to `off`.
 
 ## 2.3.1 - 2020-12-21
