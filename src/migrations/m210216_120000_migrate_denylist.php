@@ -11,7 +11,7 @@ class m210216_120000_migrate_denylist extends Migration
     /**
      * @inheritdoc
      */
-    public function safeUp()
+    public function safeUp(): bool
     {
         $schemaVersion = Craft::$app->projectConfig
             ->get('plugins.snaptcha.schemaVersion', true);
@@ -26,6 +26,8 @@ class m210216_120000_migrate_denylist extends Migration
         $settings->blacklist = [];
 
         Craft::$app->plugins->savePluginSettings(Snaptcha::$plugin, $settings->getAttributes());
+
+        return true;
     }
 
     /**

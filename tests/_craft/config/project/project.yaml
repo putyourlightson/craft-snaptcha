@@ -1,0 +1,6 @@
+dateModified: 1613502934
+plugins:
+  snaptcha:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.1.0

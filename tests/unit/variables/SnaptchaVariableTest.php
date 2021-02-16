@@ -12,7 +12,7 @@ use UnitTester;
 /**
  * @author    PutYourLightsOn
  * @package   Snaptcha
- * @since     2.4.0
+ * @since     3.0.0
  */
 
 class SnaptchaVariableTest extends Unit

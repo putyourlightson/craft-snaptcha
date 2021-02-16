@@ -10,6 +10,7 @@ use craft\db\ActiveRecord;
 /**
  * Snaptcha Record
  *
+ * @property int $id
  * @property string $key
  * @property string $ipAddress
  * @property int $timestamp
