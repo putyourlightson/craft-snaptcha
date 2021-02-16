@@ -70,22 +70,19 @@ class Snaptcha extends Plugin
      */
     public function validateField(ActionEvent $event)
     {
-        // Return if this is an exception
         if (Craft::$app->getErrorHandler()->exception !== null) {
             return;
         }
 
-        // Return if controller's enableSnaptchaValidation variable exists and is set to false
         if (isset($event->sender->enableSnaptchaValidation) && $event->sender->enableSnaptchaValidation === false) {
             return;
         }
 
-        /** @var Request $request */
         $request = Craft::$app->getRequest();
 
         if (!$this->settings->validationEnabled
+            || $request->getIsConsoleRequest()
             || $request->getIsCpRequest()
-            || $request ->getIsConsoleRequest()
             || $request->getIsPreview()
             || $request->getMethod() !== 'POST'
             || $request->getFullPath() == Craft::$app->getConfig()->getGeneral()->getSetPasswordPath()
