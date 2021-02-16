@@ -62,7 +62,7 @@ class SettingsModel extends Model
     /**
      * @var array
      */
-    public $excludedUriPatterns = [];
+    public $excludeControllerActions = [];
 
     /**
      * @var array

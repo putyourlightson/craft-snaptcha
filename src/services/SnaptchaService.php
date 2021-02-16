@@ -109,35 +109,14 @@ class SnaptchaService extends Component
         $event = new ValidateFieldEvent(['excludeControllerActions' => self::EXCLUDE_CONTROLLER_ACTIONS]);
         $this->trigger(self::EVENT_BEFORE_EXCLUDE_CONTROLLER_ACTIONS, $event);
 
-        return in_array($controllerAction, $event->excludeControllerActions);
-    }
+        if (in_array($controllerAction, $event->excludeControllerActions)) {
+            return true;
+        }
 
-    /**
-     * Returns whether the URI is excluded from validation.
-     *
-     * @param string $uri
-     *
-     * @return bool
-     */
-    public function isExcludedUri(string $uri): bool
-    {
-        if (is_array(Snaptcha::$plugin->settings->excludedUriPatterns)) {
-            foreach (Snaptcha::$plugin->settings->excludedUriPatterns as $uriPattern) {
-                // Normalize to string
-                if (is_array($uriPattern)) {
-                    $uriPattern = $uriPattern[0];
-                }
+        $excludeControllerActions = $this->_getNormalizedArray(Snaptcha::$plugin->settings->excludeControllerActions);
 
-                // Trim slashes
-                $uriPattern = trim($uriPattern, '/');
-
-                // Escape delimiter
-                $uriPattern = str_replace('/', '\/', $uriPattern);
-
-                if (preg_match('/'.$uriPattern.'/', trim($uri, '/'))) {
-                    return true;
-                }
-            }
+        if (in_array($controllerAction, $excludeControllerActions)) {
+            return true;
         }
 
         return false;
@@ -150,10 +129,9 @@ class SnaptchaService extends Component
      */
     public function isIpAllowed(): bool
     {
-        return $this->isIpInList(
-            Craft::$app->getRequest()->getUserIP(),
-            Snaptcha::$plugin->settings->allowList
-        );
+        $allowList = $this->_getNormalizedArray(Snaptcha::$plugin->settings->allowList);
+
+        return in_array(Craft::$app->getRequest()->getUserIP(), $allowList);
     }
 
     /**
@@ -163,35 +141,9 @@ class SnaptchaService extends Component
      */
     public function isIpDenied(): bool
     {
-        return $this->isIpInList(
-            Craft::$app->getRequest()->getUserIP(),
-            Snaptcha::$plugin->settings->denyList
-        );
-    }
+        $denyList = $this->_getNormalizedArray(Snaptcha::$plugin->settings->denyList);
 
-    /**
-     * Returns whether the IP address is blocked.
-     *
-     * @param string $ipAddress
-     * @param array|string $ipList
-     * @return bool
-     */
-    public function isIpInList(string $ipAddress, $ipList): bool
-    {
-        if (is_array($ipList)) {
-            foreach ($ipList as $ip) {
-                // Normalize to string
-                if (is_array($ip)) {
-                    $ip = $ip[0];
-                }
-
-                if ($ipAddress == trim($ip)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return in_array(Craft::$app->getRequest()->getUserIP(), $denyList);
     }
 
     /**
@@ -306,5 +258,30 @@ class SnaptchaService extends Component
             $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
             LogToFile::log($message, 'snaptcha');
         }
+    }
+
+    /**
+     * Returns a normalized array of values.
+     *
+     * @param array|string $values
+     * @return array
+     */
+    private function _getNormalizedArray($values): array
+    {
+        if (is_array($values)) {
+            foreach ($values as $key => $value) {
+                // Normalize to string
+                if (is_array($value)) {
+                    $value = $value[0];
+                }
+
+                $values[$key] = trim($value, " \/");
+            }
+        }
+        else {
+            $values = [];
+        }
+
+        return $values;
     }
 }

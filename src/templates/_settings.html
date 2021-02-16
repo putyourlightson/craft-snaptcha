@@ -114,43 +114,29 @@
     errors: settings.getErrors('minimumSubmitTime'),
 }) }}
 
-{% set info %}
-{{ 'Regular expressions can be used for pattern matching.'|t('snaptcha') }}
-
-- `.` Matches any character
-- `.*` Matches any character 0 or more times
-- `.+` Matches any character 1 or more times
-- `\d` Matches any four digits
-- `\w` Matches any word character
-- `entries` Matches anything containing "entries"
-- `^entries` Matches anything beginning with "entries"
-- `^entries/entry$` Matches exact URI
-{% endset %}
-
-<input type="hidden" name="excludedUriPatterns" value="" />
+<input type="hidden" name="excludeControllerActions" value="" />
 {{ forms.editableTableField({
-    label: "Excluded URI Patterns"|t('snaptcha'),
-    instructions: "The URI patterns to exclude from validation."|t('snaptcha'),
-    warning: (config.cachingEnabled is defined ? configWarning('excludedUriPatterns')),
-    name: 'excludedUriPatterns',
-    id: 'excludedUriPatterns',
+    label: "Exclude Controller Actions"|t('snaptcha'),
+    instructions: "The controller actions to exclude from validation. Example: `users/save-user`"|t('snaptcha'),
+    warning: (config.excludeControllerActions is defined ? configWarning('excludeControllerActions')),
+    name: 'excludeControllerActions',
+    id: 'excludeControllerActions',
     cols: [
         {
             type: 'text',
-            heading: 'URI Pattern'|t('snaptcha'),
+            heading: 'Controller Action'|t('snaptcha'),
             code: true,
-            info: info,
         },
     ],
-    rows: settings.excludedUriPatterns,
-    addRowLabel: "Add a URI pattern"|t('snaptcha'),
+    rows: settings.excludeControllerActions,
+    addRowLabel: "Add a controller action"|t('snaptcha'),
 }) }}
 
 <input type="hidden" name="allowList" value="" />
 {{ forms.editableTableField({
     label: "Allow List"|t('snaptcha'),
     instructions: 'IP addresses to allow for all form submissions.'|t('snaptcha'),
-    warning: (config.cachingEnabled is defined ? configWarning('allowList')),
+    warning: (config.allowList is defined ? configWarning('allowList')),
     name: 'allowList',
     id: 'allowList',
     cols: [
@@ -167,7 +153,7 @@
 {{ forms.editableTableField({
     label: "Deny List"|t('snaptcha'),
     instructions: 'IP addresses to deny from all form submissions.'|t('snaptcha'),
-    warning: (config.cachingEnabled is defined ? configWarning('denyList')),
+    warning: (config.denyList is defined ? configWarning('denyList')),
     name: 'denyList',
     id: 'denyList',
     cols: [

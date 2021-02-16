@@ -46,8 +46,8 @@ return [
         // The minimum time for form submission in seconds (increase this to harden spam blocking).
         //'minimumSubmitTime' => 3,
 
-        // The URI patterns to exclude from validation.
-        //'excludedUriPatterns' => [],
+        // The controller actions to exclude from validation.
+        //'excludedControllerActions' => [],
 
         // IP addresses to allow for all form submissions.
         //'allowList' => [],

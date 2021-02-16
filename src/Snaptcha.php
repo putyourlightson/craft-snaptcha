@@ -18,10 +18,7 @@ use yii\base\ActionEvent;
 use yii\base\Event;
 use yii\web\ForbiddenHttpException;
 
-
 /**
- * Snaptcha Plugin
- *
  * @property SnaptchaService $snaptcha
  * @property SettingsModel $settings
  */
@@ -70,8 +67,6 @@ class Snaptcha extends Plugin
      * Validates a submitted field
      *
      * @param ActionEvent $event
-     *
-     * @throws ForbiddenHttpException
      */
     public function validateField(ActionEvent $event)
     {
@@ -88,8 +83,6 @@ class Snaptcha extends Plugin
         /** @var Request $request */
         $request = Craft::$app->getRequest();
 
-        // Return if validation is not enabled, if request is for CP or console or live preview,
-        // if method is not post, if a set password path or if URI is excluded from validation.
         if (!$this->settings->validationEnabled
             || $request->getIsCpRequest()
             || $request ->getIsConsoleRequest()
@@ -97,7 +90,6 @@ class Snaptcha extends Plugin
             || $request->getMethod() !== 'POST'
             || $request->getFullPath() == Craft::$app->getConfig()->getGeneral()->getSetPasswordPath()
             || $this->snaptcha->isExcludedControllerAction()
-            || $this->snaptcha->isExcludedUri($request->getUrl())
         ) {
             return;
         }

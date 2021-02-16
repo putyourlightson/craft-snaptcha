@@ -26,16 +26,22 @@ class SnaptchaServiceTest extends Unit
     public function testIsIpAllowed()
     {
         $ipAddress = Craft::$app->getRequest()->getUserIP();
-        Snaptcha::$plugin->settings->allowList = [$ipAddress];
 
+        Snaptcha::$plugin->settings->allowList = [$ipAddress];
+        $this->assertTrue(Snaptcha::$plugin->snaptcha->isIpAllowed());
+
+        Snaptcha::$plugin->settings->allowList = [[ $ipAddress]];
         $this->assertTrue(Snaptcha::$plugin->snaptcha->isIpAllowed());
     }
 
     public function testIsIpDenied()
     {
         $ipAddress = Craft::$app->getRequest()->getUserIP();
-        Snaptcha::$plugin->settings->denyList = [$ipAddress];
 
+        Snaptcha::$plugin->settings->denyList = [$ipAddress];
+        $this->assertTrue(Snaptcha::$plugin->snaptcha->isIpDenied());
+
+        Snaptcha::$plugin->settings->denyList = [[ $ipAddress]];
         $this->assertTrue(Snaptcha::$plugin->snaptcha->isIpDenied());
     }
 }
