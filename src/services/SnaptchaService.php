@@ -15,14 +15,8 @@ use putyourlightson\snaptcha\records\SnaptchaRecord;
 use putyourlightson\snaptcha\Snaptcha;
 use yii\base\Event;
 
-/**
- * Snaptcha Service
- */
 class SnaptchaService extends Component
 {
-    // Constants
-    // =========================================================================
-
     /**
      * @event ValidateFieldEvent
      */
@@ -46,9 +40,6 @@ class SnaptchaService extends Component
         'cookie-consent/consent/update',
         'complete-cookie-consent/consent/submit',
     ];
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * Returns a field value.
@@ -289,9 +280,6 @@ class SnaptchaService extends Component
 
         return true;
     }
-
-    // Private Methods
-    // =========================================================================
 
     /**
      * Returns the current user's hashed IP address.

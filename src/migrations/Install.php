@@ -14,9 +14,6 @@ use putyourlightson\snaptcha\records\SnaptchaRecord;
  */
 class Install extends Migration
 {
-    // Public Methods
-    // =========================================================================
-
     /**
      * @return boolean
      */

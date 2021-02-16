@@ -13,16 +13,10 @@ use yii\web\Response;
 
 class FieldController extends Controller
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @inheritdoc
      */
     protected $allowAnonymous = true;
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * Returns the field name.

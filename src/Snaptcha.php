@@ -26,16 +26,10 @@ use yii\web\ForbiddenHttpException;
  */
 class Snaptcha extends Plugin
 {
-    // Static Properties
-    // =========================================================================
-
     /**
      * @var Snaptcha
      */
     public static $plugin;
-
-    // Properties
-    // =========================================================================
 
     /**
      * @var bool
@@ -46,9 +40,6 @@ class Snaptcha extends Plugin
      * @inherit
      */
     public $hasCpSettings = true;
-
-    // Public Methods
-    // =========================================================================
 
     public function init()
     {
@@ -124,9 +115,6 @@ class Snaptcha extends Plugin
             throw new ForbiddenHttpException(Craft::t('snaptcha', $this->settings->errorMessage));
         }
     }
-
-    // Protected Methods
-    // =========================================================================
 
     /**
      * @inheritdoc

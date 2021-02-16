@@ -7,14 +7,8 @@ namespace putyourlightson\snaptcha\models;
 
 use craft\base\Model;
 
-/**
- * Snaptcha Model
- */
 class SnaptchaModel extends Model
 {
-    // Public Properties
-    // =========================================================================
-
     /**
      * @var string
      */
@@ -39,10 +33,6 @@ class SnaptchaModel extends Model
      * @var int|null
      */
     public $minimumSubmitTime;
-
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @return array

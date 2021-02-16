@@ -8,8 +8,6 @@ namespace putyourlightson\snaptcha\records;
 use craft\db\ActiveRecord;
 
 /**
- * Snaptcha Record
- *
  * @property int $id
  * @property string $key
  * @property string $ipAddress
@@ -19,9 +17,6 @@ use craft\db\ActiveRecord;
  */
 class SnaptchaRecord extends ActiveRecord
 {
-    // Public Static Methods
-    // =========================================================================
-
      /**
      * @inheritdoc
      *

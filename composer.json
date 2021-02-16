@@ -3,7 +3,7 @@
     "description": "Automatically validates forms and prevents spam bots from submitting to your site.",
     "version": "3.0.0",
     "type": "craft-plugin",
-    "homepage": "https://putyourlightson.com/craft-snaptcha",
+    "homepage": "https://putyourlightson.com/plugins/snaptcha",
     "license": "proprietary",
     "keywords": [
         "craft",
@@ -11,7 +11,9 @@
         "craftcms",
         "security",
         "spam",
-        "blocker"
+        "blocker",
+        "form",
+        "protection"
     ],
     "require": {
         "craftcms/cms": "^3.1.0",
@@ -40,7 +42,7 @@
         "developerUrl": "https://putyourlightson.com/",
         "documentationUrl": "https://putyourlightson.com/plugins/snaptcha",
         "schemaVersion": "3.0.0",
-        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v2/CHANGELOG.md",
+        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v3/CHANGELOG.md",
         "class": "putyourlightson\\snaptcha\\Snaptcha"
     }
 }

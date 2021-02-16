@@ -6,6 +6,7 @@
 - Added unit tests.
 
 ### Changed
+- Changed minimum requirement of Craft to version 3.1.0.
 - Renamed the "Blacklist" to "Deny List".
 - The hidden input field now has an `autocomplete` attribute set to `off`.
 

@@ -7,14 +7,8 @@ namespace putyourlightson\snaptcha\models;
 
 use craft\base\Model;
 
-/**
- * Settings Model
- */
 class SettingsModel extends Model
 {
-    // Public Properties
-    // =========================================================================
-
     /**
      * @var bool
      */
@@ -72,9 +66,6 @@ class SettingsModel extends Model
      * @depracated
      */
     public $blacklist = [];
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @return array

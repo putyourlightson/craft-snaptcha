@@ -1,4 +1,7 @@
 <?php
+/**
+ * @copyright Copyright (c) PutYourLightsOn
+ */
 
 namespace putyourlightson\snaptcha\migrations;
 
