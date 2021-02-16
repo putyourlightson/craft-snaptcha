@@ -58,6 +58,19 @@ class SettingsModel extends Model
     /**
      * @var array
      */
+    public $allowList = [];
+
+    /**
+     * @var array
+     */
+    public $denyList = [];
+
+    /**
+     * Keep this around so migrations don't break!
+     *
+     * @var array
+     * @depracated
+     */
     public $blacklist = [];
 
     // Public Methods

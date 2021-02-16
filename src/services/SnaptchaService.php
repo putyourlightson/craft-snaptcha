@@ -106,7 +106,7 @@ class SnaptchaService extends Component
      *
      * @return bool
      */
-    public function isExcludedControllerAction()
+    public function isExcludedControllerAction(): bool
     {
         if (!Craft::$app->getRequest()->getIsActionRequest()) {
             return false;
@@ -153,22 +153,48 @@ class SnaptchaService extends Component
     }
 
     /**
-     * Returns whether the IP address is blacklisted.
-     *
-     * @param string $ipAddress
+     * Returns whether the IP address is allowed.
      *
      * @return bool
      */
-    public function isBlacklisted(string $ipAddress): bool
+    public function isIpAllowed(): bool
     {
-        if (is_array(Snaptcha::$plugin->settings->blacklist)) {
-            foreach (Snaptcha::$plugin->settings->blacklist as $blacklistedIp) {
+        return $this->isIpInList(
+            Craft::$app->getRequest()->getUserIP(),
+            Snaptcha::$plugin->settings->allowList
+        );
+    }
+
+    /**
+     * Returns whether the IP address is denied.
+     *
+     * @return bool
+     */
+    public function isIpDenied(): bool
+    {
+        return $this->isIpInList(
+            Craft::$app->getRequest()->getUserIP(),
+            Snaptcha::$plugin->settings->denyList
+        );
+    }
+
+    /**
+     * Returns whether the IP address is blocked.
+     *
+     * @param string $ipAddress
+     * @param array $ipList
+     * @return bool
+     */
+    public function isIpInList(string $ipAddress, array $ipList): bool
+    {
+        if (is_array($ipList)) {
+            foreach ($ipList as $ip) {
                 // Normalize to string
-                if (is_array($blacklistedIp)) {
-                    $blacklistedIp = $blacklistedIp[0];
+                if (is_array($ip)) {
+                    $ip = $ip[0];
                 }
 
-                if ($ipAddress == trim($blacklistedIp)) {
+                if ($ipAddress == trim($ip)) {
                     return true;
                 }
             }
@@ -198,15 +224,20 @@ class SnaptchaService extends Component
             return false;
         }
 
+        // Check if IP address is allowed
+        if ($this->isIpAllowed()) {
+            return true;
+        }
+
         if ($value === null) {
             $this->_reject('Value submitted is null.');
 
             return false;
         }
 
-        // Check if IP address is blacklisted
-        if ($this->isBlacklisted(Craft::$app->getRequest()->getUserIP()) === true) {
-            $this->_reject('IP address is blacklisted.');
+        // Check if IP address is denied
+        if ($this->isIpDenied()) {
+            $this->_reject('IP address was denied.');
 
             return false;
         }

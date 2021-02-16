@@ -1,10 +1,12 @@
 # Changelog
 
-## 2.4.0 - Unreleased
+## 3.0.0 - Unreleased
 ### Added
+- Added an Allow List of IP addresses.
 - Added unit tests.
 
 ### Changed
+- Renamed the Blacklist to Deny List.
 - The hidden input field now has an `autocomplete` attribute set to `off`.
 
 ## 2.3.1 - 2020-12-21

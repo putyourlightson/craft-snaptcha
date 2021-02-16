@@ -18,30 +18,35 @@
  */
 
 return [
-    // Whether form submissions should be validated. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.
-    //'validationEnabled' => false,
+    '*' => [
+        // Whether form submissions should be validated. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.
+        //'validationEnabled' => false,
 
-    // Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).
-    //'oneTimeKey' => true,
+        // Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).
+        //'oneTimeKey' => true,
 
-    // Whether rejected form submissions should be logged (log will be written to /Users/ben/Sites/craft3/storage/logs/snaptcha.log).
-    //'logRejected' => true,
+        // Whether rejected form submissions should be logged (log will be written to /Users/ben/Sites/craft3/storage/logs/snaptcha.log).
+        //'logRejected' => true,
 
-    // The name of the hidden Snaptcha input field.
-    //'fieldName' => 'snaptcha',
+        // The name of the hidden Snaptcha input field.
+        //'fieldName' => 'snaptcha',
 
-    // The error message that will be displayed if Snaptcha identifies a submission as spam.
-    //'errorMessage' => 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that, you refresh the page that you are trying to submit.'
+        // The error message that will be displayed if Snaptcha identifies a submission as spam.
+        //'errorMessage' => 'Sorry, you have failed the security test. Please ensure that you have javascript enabled and that, you refresh the page that you are trying to submit.'
 
-    // The expiration time for form submissions in minutes.
-    //'expirationTime' => 60,
+        // The expiration time for form submissions in minutes.
+        //'expirationTime' => 60,
 
-    // The minimum time for form submission in seconds (increase this to harden spam blocking).
-    //'minimumSubmitTime' => 3,
+        // The minimum time for form submission in seconds (increase this to harden spam blocking).
+        //'minimumSubmitTime' => 3,
 
-    // The URI patterns to exclude from validation.
-    //'excludedUriPatterns' => [],
+        // The URI patterns to exclude from validation.
+        //'excludedUriPatterns' => [],
 
-    // IP addresses to blacklist from all form submissions.
-    //'blacklist' => [],
+        // IP addresses to allow for all form submissions.
+        //'allowList' => [],
+
+        // IP addresses to deny for all form submissions.
+        //'denyList' => [],
+    ],
 ];

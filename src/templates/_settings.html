@@ -97,36 +97,53 @@
 
 <input type="hidden" name="excludedUriPatterns" value="" />
 {{ forms.editableTableField({
-	label: "Excluded URI Patterns"|t('snaptcha'),
-	instructions: "The URI patterns to exclude from validation."|t('snaptcha'),
+    label: "Excluded URI Patterns"|t('snaptcha'),
+    instructions: "The URI patterns to exclude from validation."|t('snaptcha'),
     warning: (config.cachingEnabled is defined ? configWarning('excludedUriPatterns')),
     name: 'excludedUriPatterns',
     id: 'excludedUriPatterns',
-	cols: [
-		{
-			type: 'text',
-			heading: 'URI Pattern'|t('snaptcha'),
+    cols: [
+        {
+            type: 'text',
+            heading: 'URI Pattern'|t('snaptcha'),
             code: true,
             info: info,
-		},
-	],
-	rows: settings.excludedUriPatterns,
-	addRowLabel: "Add a URI pattern"|t('snaptcha'),
+        },
+    ],
+    rows: settings.excludedUriPatterns,
+    addRowLabel: "Add a URI pattern"|t('snaptcha'),
 }) }}
 
-<input type="hidden" name="blacklist" value="" />
+<input type="hidden" name="allowList" value="" />
 {{ forms.editableTableField({
-	label: "Blacklist"|t('snaptcha'),
-    instructions: 'IP addresses to blacklist from all form submissions.'|t('snaptcha'),
-    warning: (config.cachingEnabled is defined ? configWarning('excludedUriPatterns')),
-    name: 'blacklist',
-    id: 'blacklist',
-	cols: [
-		{
-			type: 'text',
-			heading: 'IP Address'|t('snaptcha'),
-		},
-	],
-	rows: settings.blacklist,
-	addRowLabel: "Add an IP address"|t('snaptcha'),
+    label: "Allow List"|t('snaptcha'),
+    instructions: 'IP addresses to allow for all form submissions.'|t('snaptcha'),
+    warning: (config.cachingEnabled is defined ? configWarning('allowList')),
+    name: 'allowList',
+    id: 'allowList',
+    cols: [
+        {
+            type: 'text',
+            heading: 'IP Address'|t('snaptcha'),
+        },
+    ],
+    rows: settings.blacklist,
+    addRowLabel: "Add an IP address"|t('snaptcha'),
+}) }}
+
+<input type="hidden" name="denyList" value="" />
+{{ forms.editableTableField({
+    label: "Deny List"|t('snaptcha'),
+    instructions: 'IP addresses to deny from all form submissions.'|t('snaptcha'),
+    warning: (config.cachingEnabled is defined ? configWarning('denyList')),
+    name: 'denyList',
+    id: 'denyList',
+    cols: [
+        {
+            type: 'text',
+            heading: 'IP Address'|t('snaptcha'),
+        },
+    ],
+    rows: settings.blacklist,
+    addRowLabel: "Add an IP address"|t('snaptcha'),
 }) }}
