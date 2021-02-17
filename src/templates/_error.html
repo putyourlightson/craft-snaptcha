@@ -19,7 +19,7 @@
 
     <form action="" method="post">
         {% for name, value in postedValues if name != 'snaptcha' %}
-            <input type="hidden" name="{{ name }}" value="{{ value }}">
+            {{ hiddenInput(name, value) }}
         {% endfor %}
 
         {{ craft.snaptcha.field }}

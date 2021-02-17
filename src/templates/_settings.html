@@ -1,7 +1,7 @@
 {% import '_includes/forms' as forms %}
 
 {% macro configWarning(setting) -%}
-    {{ "This is being overridden by the {setting} config setting."|t('app', {setting: '<code>' ~ setting ~ '</code>' })|raw }}
+    {{ 'This is being overridden by the `{setting}` config setting.'|t('snaptcha', {setting: setting })|markdown(inlineOnly=true) }}
 {%- endmacro %}
 
 {% from _self import configWarning %}
@@ -124,10 +124,10 @@
     errors: settings.getErrors('minimumSubmitTime'),
 }) }}
 
-<input type="hidden" name="excludeControllerActions" value="" />
+{{ hiddenInput('excludeControllerActions', '') }}
 {{ forms.editableTableField({
-    label: "Exclude Controller Actions"|t('snaptcha'),
-    instructions: "The controller actions to exclude from validation. Example: `users/save-user`"|t('snaptcha'),
+    label: 'Exclude Controller Actions'|t('snaptcha'),
+    instructions: 'The controller actions to exclude from validation. Example: `users/save-user`'|t('snaptcha'),
     warning: (config.excludeControllerActions is defined ? configWarning('excludeControllerActions')),
     name: 'excludeControllerActions',
     id: 'excludeControllerActions',
@@ -139,12 +139,12 @@
         },
     ],
     rows: settings.excludeControllerActions,
-    addRowLabel: "Add a controller action"|t('snaptcha'),
+    addRowLabel: 'Add a controller action'|t('snaptcha'),
 }) }}
 
-<input type="hidden" name="allowList" value="" />
+{{ hiddenInput('allowList', '') }}
 {{ forms.editableTableField({
-    label: "Allow List"|t('snaptcha'),
+    label: 'Allow List'|t('snaptcha'),
     instructions: 'IP addresses to allow for all form submissions.'|t('snaptcha'),
     warning: (config.allowList is defined ? configWarning('allowList')),
     name: 'allowList',
@@ -155,13 +155,13 @@
             heading: 'IP Address'|t('snaptcha'),
         },
     ],
-    rows: settings.blacklist,
-    addRowLabel: "Add an IP address"|t('snaptcha'),
+    rows: settings.allowList,
+    addRowLabel: 'Add an IP address'|t('snaptcha'),
 }) }}
 
-<input type="hidden" name="denyList" value="" />
+{{ hiddenInput('denyList', '') }}
 {{ forms.editableTableField({
-    label: "Deny List"|t('snaptcha'),
+    label: 'Deny List'|t('snaptcha'),
     instructions: 'IP addresses to deny for all form submissions.'|t('snaptcha'),
     warning: (config.denyList is defined ? configWarning('denyList')),
     name: 'denyList',
@@ -172,6 +172,6 @@
             heading: 'IP Address'|t('snaptcha'),
         },
     ],
-    rows: settings.blacklist,
-    addRowLabel: "Add an IP address"|t('snaptcha'),
+    rows: settings.denyList,
+    addRowLabel: 'Add an IP address'|t('snaptcha'),
 }) }}
