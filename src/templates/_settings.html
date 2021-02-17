@@ -118,7 +118,7 @@
     required: true,
     label: 'Minimum Submit Time'|t('snaptcha'),
     name: 'minimumSubmitTime',
-    instructions: 'The minimum time for form submission in seconds (increase this to harden spam blocking).'|t('snaptcha'),
+    instructions: 'The minimum time for form submission in seconds. Increase this to harden spam protection.'|t('snaptcha'),
     warning: (config.minimumSubmitTime is defined ? configWarning('minimumSubmitTime')),
     value: settings.minimumSubmitTime,
     errors: settings.getErrors('minimumSubmitTime'),

@@ -67,7 +67,7 @@ class SettingsModel extends Model
     /**
      * @var int
      */
-    public $minimumSubmitTime = 2;
+    public $minimumSubmitTime = 3;
 
     /**
      * @var array|string
