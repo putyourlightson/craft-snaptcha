@@ -122,6 +122,28 @@ class SnaptchaService extends Component
     }
 
     /**
+     * Returns whether a record is expired.
+     *
+     * @param SnaptchaRecord $record
+     * @return bool
+     */
+    public function isExpired(SnaptchaRecord $record): bool
+    {
+        return $record->timestamp + ($record->expirationTime * 60) < time();
+    }
+
+    /**
+     * Returns whether a record is submitted too soon.
+     *
+     * @param SnaptchaRecord $record
+     * @return bool
+     */
+    public function isTooSoon(SnaptchaRecord $record): bool
+    {
+        return $record->timestamp + $record->minimumSubmitTime > time();
+    }
+
+    /**
      * Validates a submitted field.
      *
      * @param string|null $value
@@ -174,17 +196,15 @@ class SnaptchaService extends Component
             return false;
         }
 
-        $now = time();
-
         // Check if field has expired
-        if ($record->timestamp + ($record->expirationTime * 60) < $now) {
+        if ($this->isExpired($record)) {
             $this->_reject('Expiration time of {minutes} minute(s) has passed.', ['minutes' => $record->expirationTime]);
 
             return false;
         }
 
         // Check if minimum submit time has not passed
-        if ($record->timestamp + $record->minimumSubmitTime > $now) {
+        if ($this->isTooSoon($record)) {
             $this->_reject('Minimum submit time of {second} second(s) has not yet passed.', ['second' => $record->minimumSubmitTime]);
 
             return false;
@@ -197,7 +217,7 @@ class SnaptchaService extends Component
 
         // Delete all expired records
         SnaptchaRecord::deleteAll([
-            '<', 'timestamp', $now - ($record->expirationTime * 60)
+            '<', 'timestamp', time() - ($record->expirationTime * 60)
         ]);
 
         // Fire an after event
@@ -216,7 +236,6 @@ class SnaptchaService extends Component
      */
     private function _getSnaptchaRecord(SnaptchaModel $model)
     {
-        $now = time();
         $hashedIpAddress = $this->_getHashedIpAddress();
 
         // Get most recent record with IP address from DB
@@ -227,7 +246,7 @@ class SnaptchaService extends Component
             ->one();
 
         // If record does not exist or one time key is enabled or the expiration time has passed
-        if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
+        if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $this->isExpired($record)) {
             // Set key to random string
             $model->key = StringHelper::randomString(16);
             $model->value = $this->_getHashedValue($model->key, Snaptcha::$plugin->settings->salt);
@@ -236,7 +255,7 @@ class SnaptchaService extends Component
             $model->ipAddress = $hashedIpAddress;
 
             // Set timestamp to current time
-            $model->timestamp = $now;
+            $model->timestamp = time();
 
             // Set optional fields from settings if not defined
             $model->expirationTime = $model->expirationTime ?? Snaptcha::$plugin->settings->expirationTime;
@@ -250,7 +269,7 @@ class SnaptchaService extends Component
         }
 
         // Refresh timestamp
-        $record->timestamp = $now;
+        $record->timestamp = time();
 
         if (!$record->save()) {
             return null;
@@ -266,7 +285,7 @@ class SnaptchaService extends Component
      * @param string $salt
      * @return string
      */
-    private function _getHashedValue(string $key, string $salt)
+    private function _getHashedValue(string $key, string $salt): string
     {
         return base64_encode($key.$salt);
     }
