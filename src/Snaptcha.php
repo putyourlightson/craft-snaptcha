@@ -101,10 +101,7 @@ class Snaptcha extends Plugin
 
         if ($this->validated === false) {
             $variables = [
-                'errorTitle' => $this->settings->errorTitle,
-                'errorMessage' => $this->settings->errorMessage,
-                'errorJavascriptDisabled' => $this->settings->errorJavascriptDisabled,
-                'errorButtonText' => $this->settings->errorButtonText,
+                'settings' => $this->settings,
                 'postedValues' => Craft::$app->request->getBodyParams(),
             ];
 

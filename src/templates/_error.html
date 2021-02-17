@@ -1,23 +1,26 @@
 {% extends '_layouts/message' %}
 
-{% set title = errorTitle %}
+{% set title = settings.errorTitle %}
 
 {% js %}
     document.getElementById('warning').remove();
     document.getElementById('error').classList.remove('hidden');
-    document.getElementById('resubmit').classList.remove('disabled');
+    setTimeout(function() {
+        document.getElementById('graphic').remove();
+        document.getElementById('resubmit').classList.remove('disabled');
+    }, {{ (settings.minimumSubmitTime * 1000) + random(1, 100) }});
 {% endjs %}
 
 {% block message %}
 
-    <h2>{{ errorTitle }}</h2>
+    <h2>{{ settings.errorTitle }}</h2>
 
     <p id="error" class="hidden">
-        {{ errorMessage }}
+        {{ settings.errorMessage }}
     </p>
 
     <p id="warning" class="warning">
-        {{ errorJavascriptDisabled }}
+        {{ settings.errorJavascriptDisabled }}
     </p>
 
     <form action="" method="post">
@@ -28,8 +31,9 @@
         {{ craft.snaptcha.field }}
 
         <button id="resubmit" type="submit" class="btn submit disabled" style="font-weight: bold; text-transform: uppercase;">
-            {{ errorButtonText }}
+            {{ settings.errorButtonText }}
         </button>
+        <div id="graphic" class="spinner"></div>
     </form>
 
 {% endblock %}
