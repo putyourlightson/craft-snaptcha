@@ -67,7 +67,7 @@ class SettingsModel extends Model
     /**
      * @var int
      */
-    public $minimumSubmitTime = 3;
+    public $minimumSubmitTime = 2;
 
     /**
      * @var array|string
@@ -98,9 +98,9 @@ class SettingsModel extends Model
     public function rules(): array
     {
         return [
-            [['fieldName', 'expirationTime', 'minimumSubmitTime', 'errorMessage'], 'required'],
+            [['fieldName', 'errorTitle', 'errorMessage', 'errorJavascriptDisabled', 'errorButtonText', 'expirationTime', 'minimumSubmitTime'], 'required'],
             [['validationEnabled', 'oneTimeKey', 'logRejected'], 'boolean'],
-            [['fieldName', 'errorMessage'], 'string'],
+            [['fieldName', 'errorTitle', 'errorMessage', 'errorJavascriptDisabled', 'errorButtonText'], 'string'],
             [['expirationTime', 'minimumSubmitTime'], 'integer'],
         ];
     }

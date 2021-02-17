@@ -6,7 +6,7 @@
 
 {% from _self import configWarning %}
 
-{% do view.registerAssetBundle("putyourlightson\\snaptcha\\assets\\SnaptchaAsset") %}
+{% do view.registerAssetBundle("putyourlightson\\snaptcha\\assets\\CpAsset") %}
 
 
 {{ forms.lightswitchField({
@@ -162,7 +162,7 @@
 <input type="hidden" name="denyList" value="" />
 {{ forms.editableTableField({
     label: "Deny List"|t('snaptcha'),
-    instructions: 'IP addresses to deny from all form submissions.'|t('snaptcha'),
+    instructions: 'IP addresses to deny for all form submissions.'|t('snaptcha'),
     warning: (config.denyList is defined ? configWarning('denyList')),
     name: 'denyList',
     id: 'denyList',

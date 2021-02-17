@@ -31,7 +31,7 @@ return [
         // The name of the hidden Snaptcha input field.
         //'fieldName' => 'snaptcha',
 
-        // The error message that will be displayed if Snaptcha identifies a submission as spam.
+        // The message that will be displayed if Snaptcha identifies a submission as spam.
         //'errorMessage' => 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.'
 
         // The error that will be displayed if Snaptcha identifies a submission as spam and JavaScript is disabled.
@@ -50,7 +50,7 @@ return [
         //'minimumSubmitTime' => 3,
 
         // The controller actions to exclude from validation.
-        //'excludedControllerActions' => [],
+        //'excludeControllerActions' => [],
 
         // IP addresses to allow for all form submissions.
         //'allowList' => [],
