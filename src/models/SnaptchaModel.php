@@ -17,6 +17,11 @@ class SnaptchaModel extends Model
     /**
      * @var string
      */
+    public $value;
+
+    /**
+     * @var string
+     */
     public $ipAddress;
 
     /**
@@ -40,7 +45,7 @@ class SnaptchaModel extends Model
     public function rules(): array
     {
         return [
-            [['key', 'ipAddress'], 'required'],
+            [['key', 'value', 'ipAddress'], 'required'],
             [['timestamp', 'expirationTime', 'minimumSubmitTime'], 'integer'],
         ];
     }

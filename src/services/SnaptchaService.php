@@ -42,54 +42,29 @@ class SnaptchaService extends Component
     ];
 
     /**
+     * Returns a field key.
+     *
+     * @param SnaptchaModel $model
+     * @return string|null
+     */
+    public function getFieldKey(SnaptchaModel $model)
+    {
+        $record = $this->_getSnaptchaRecord($model);
+
+        return $record ? $record->key : null;
+    }
+
+    /**
      * Returns a field value.
      *
      * @param SnaptchaModel $model
-     *
      * @return string|null
      */
     public function getFieldValue(SnaptchaModel $model)
     {
-        $now = time();
-        $hashedIpAddress = $this->_getHashedIpAddress();
+        $record = $this->_getSnaptchaRecord($model);
 
-        // Get most recent record with IP address from DB
-        /** @var SnaptchaRecord|null $record */
-        $record = SnaptchaRecord::find()
-            ->where(['ipAddress' => $hashedIpAddress])
-            ->orderBy('timestamp desc')
-            ->one();
-
-        // If record does not exist or one time key is enabled or the expiration time has passed
-        if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
-            // Set key to random string
-            $model->key = StringHelper::randomString();
-
-            // Hash IP address for privacy
-            $model->ipAddress = $hashedIpAddress;
-
-            // Set timestamp to current time
-            $model->timestamp = $now;
-
-            // Set optional fields from settings if not defined
-            $model->expirationTime = $model->expirationTime ?? Snaptcha::$plugin->settings->expirationTime;
-            $model->minimumSubmitTime = $model->minimumSubmitTime ?? Snaptcha::$plugin->settings->minimumSubmitTime;
-
-            if (!$model->validate()) {
-                return null;
-            }
-
-            $record = new SnaptchaRecord($model);
-        }
-
-        // Refresh timestamp
-        $record->timestamp = $now;
-
-        if (!$record->save()) {
-            return null;
-        }
-
-        return $record->key;
+        return $record ? $record->value : null;
     }
 
     /**
@@ -188,7 +163,7 @@ class SnaptchaService extends Component
         /** @var SnaptchaRecord|null $record */
         $record = SnaptchaRecord::find()
             ->where([
-                'key' => $value,
+                'value' => $value,
                 'ipAddress' => $this->_getHashedIpAddress(),
             ])
             ->one();
@@ -234,6 +209,69 @@ class SnaptchaService extends Component
     }
 
     /**
+     * Returns a Snaptcha record.
+     *
+     * @param SnaptchaModel $model
+     * @return SnaptchaRecord|null
+     */
+    private function _getSnaptchaRecord(SnaptchaModel $model)
+    {
+        $now = time();
+        $hashedIpAddress = $this->_getHashedIpAddress();
+
+        // Get most recent record with IP address from DB
+        /** @var SnaptchaRecord|null $record */
+        $record = SnaptchaRecord::find()
+            ->where(['ipAddress' => $hashedIpAddress])
+            ->orderBy('timestamp desc')
+            ->one();
+
+        // If record does not exist or one time key is enabled or the expiration time has passed
+        if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $record->timestamp + ($record->expirationTime * 60) < $now) {
+            // Set key to random string
+            $model->key = StringHelper::randomString(16);
+            $model->value = $this->_getHashedValue($model->key, Snaptcha::$plugin->settings->salt);
+
+            // Hash IP address for privacy
+            $model->ipAddress = $hashedIpAddress;
+
+            // Set timestamp to current time
+            $model->timestamp = $now;
+
+            // Set optional fields from settings if not defined
+            $model->expirationTime = $model->expirationTime ?? Snaptcha::$plugin->settings->expirationTime;
+            $model->minimumSubmitTime = $model->minimumSubmitTime ?? Snaptcha::$plugin->settings->minimumSubmitTime;
+
+            if (!$model->validate()) {
+                return null;
+            }
+
+            $record = new SnaptchaRecord($model);
+        }
+
+        // Refresh timestamp
+        $record->timestamp = $now;
+
+        if (!$record->save()) {
+            return null;
+        }
+
+        return $record;
+    }
+
+    /**
+     * Returns the hashed value.
+     *
+     * @param string $key
+     * @param string $salt
+     * @return string
+     */
+    private function _getHashedValue(string $key, string $salt)
+    {
+        return base64_encode($key.$salt);
+    }
+
+    /**
      * Returns the current user's hashed IP address.
      *
      * @return string
@@ -243,21 +281,6 @@ class SnaptchaService extends Component
         $ipAddress = Craft::$app->getRequest()->getUserIP();
 
         return $ipAddress === null ? '' : md5($ipAddress);
-    }
-
-    /**
-     * Rejects and logs a form submission.
-     *
-     * @param string $message
-     * @param array $params
-     */
-    private function _reject(string $message, array $params = [])
-    {
-        if (Snaptcha::$plugin->settings->logRejected) {
-            $url = Craft::$app->getRequest()->getAbsoluteUrl();
-            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
-            LogToFile::log($message, 'snaptcha');
-        }
     }
 
     /**
@@ -283,5 +306,20 @@ class SnaptchaService extends Component
         }
 
         return $values;
+    }
+
+    /**
+     * Rejects and logs a form submission.
+     *
+     * @param string $message
+     * @param array $params
+     */
+    private function _reject(string $message, array $params = [])
+    {
+        if (Snaptcha::$plugin->settings->logRejected) {
+            $url = Craft::$app->getRequest()->getAbsoluteUrl();
+            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
+            LogToFile::log($message, 'snaptcha');
+        }
     }
 }

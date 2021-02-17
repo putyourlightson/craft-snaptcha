@@ -8,7 +8,6 @@ namespace putyourlightson\snaptcha;
 use Craft;
 use craft\base\Plugin;
 use craft\web\Controller;
-use craft\web\Request;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\View;
 use putyourlightson\snaptcha\models\SettingsModel;
@@ -16,7 +15,6 @@ use putyourlightson\snaptcha\services\SnaptchaService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
 use yii\base\Event;
-use yii\web\ForbiddenHttpException;
 
 /**
  * @property SnaptchaService $snaptcha

@@ -50,9 +50,11 @@ class SnaptchaVariable
      */
     public function getField($config = null): Markup
     {
-        $value = $this->getFieldValue($config);
+        $model = new SnaptchaModel($config);
+        $key = Snaptcha::$plugin->snaptcha->getFieldKey($model);
+        $salt = Snaptcha::$plugin->settings->salt;
 
-        if ($value === '') {
+        if ($key === '') {
             return Template::raw('<!-- Snaptcha field could not be created. -->');
         }
 
@@ -60,10 +62,11 @@ class SnaptchaVariable
         $fieldId = $fieldName.'-'.StringHelper::randomString(5);
 
         $field = Html::hiddenInput($fieldName, '', [
-                'id' => $fieldId,
-                'autocomplete' => 'off',
-            ])
-            .Html::script('document.getElementById("'.$fieldId.'").value = "'.$value.'";');
+            'id' => $fieldId,
+            'data-key' => $key,
+            'autocomplete' => 'off',
+        ]);
+        $field .= Html::script('document.getElementById("'.$fieldId.'").value = btoa(document.getElementById("'.$fieldId.'").dataset.key + "'.$salt.'");');
 
         return Template::raw($field);
     }

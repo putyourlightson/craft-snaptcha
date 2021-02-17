@@ -32,6 +32,11 @@ class SettingsModel extends Model
     /**
      * @var string
      */
+    public $salt = '';
+
+    /**
+     * @var string
+     */
     public $errorTitle = 'Error';
 
     /**
@@ -65,17 +70,17 @@ class SettingsModel extends Model
     public $minimumSubmitTime = 3;
 
     /**
-     * @var array
+     * @var array|string
      */
     public $excludeControllerActions = [];
 
     /**
-     * @var array
+     * @var array|string
      */
     public $allowList = [];
 
     /**
-     * @var array
+     * @var array|string
      */
     public $denyList = [];
 

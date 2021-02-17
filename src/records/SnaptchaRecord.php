@@ -10,6 +10,7 @@ use craft\db\ActiveRecord;
 /**
  * @property int $id
  * @property string $key
+ * @property string $value
  * @property string $ipAddress
  * @property int $timestamp
  * @property int|null $expirationTime
