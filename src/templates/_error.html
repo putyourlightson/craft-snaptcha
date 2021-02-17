@@ -1,15 +1,9 @@
 {% extends '_layouts/message' %}
 
+{% do view.registerAssetBundle('putyourlightson\\snaptcha\\assets\\ErrorAsset') %}
+
 {% set title = settings.errorTitle %}
 
-{% js %}
-    document.getElementById('warning').remove();
-    document.getElementById('error').classList.remove('hidden');
-    setTimeout(function() {
-        document.getElementById('graphic').remove();
-        document.getElementById('resubmit').classList.remove('disabled');
-    }, {{ (settings.minimumSubmitTime * 1000) + random(1, 100) }});
-{% endjs %}
 
 {% block message %}
 
@@ -30,10 +24,10 @@
 
         {{ craft.snaptcha.field }}
 
-        <button id="resubmit" type="submit" class="btn submit disabled" style="font-weight: bold; text-transform: uppercase;">
+        <button id="resubmit" type="submit" class="btn submit disabled" data-timeout="{{ settings.minimumSubmitTime * 1000 }}">
             {{ settings.errorButtonText }}
         </button>
-        <div id="graphic" class="spinner"></div>
+        <div id="graphic" class="spinner hidden"></div>
     </form>
 
 {% endblock %}
