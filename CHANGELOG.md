@@ -15,6 +15,7 @@
 - Changed the minimum requirement of Craft to version 3.2.1.
 - Renamed “Blacklist” to “Deny List”, a list of IP addresses that will always be denied.
 - The hidden input field now has an `autocomplete` attribute set to `off`.
+- IP addresses are now stored as anonymous hash values.
 
 ### Removed
 - Removed the “Excluded URI Patterns” setting. Use the new “Exclude Controller Actions” setting instead.

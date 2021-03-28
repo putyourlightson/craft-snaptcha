@@ -217,7 +217,7 @@ class SnaptchaService extends Component
 
         // Delete all expired records
         SnaptchaRecord::deleteAll([
-            '<', 'timestamp', time() - ($record->expirationTime * 60)
+            '<', 'timestamp', time() - (Snaptcha::$plugin->settings->expirationTime * 60)
         ]);
 
         // Fire an after event
