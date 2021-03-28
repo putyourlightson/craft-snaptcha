@@ -24,7 +24,7 @@
 
         {{ craft.snaptcha.field }}
 
-        <button id="resubmit" type="submit" class="btn submit disabled" data-timeout="{{ settings.minimumSubmitTime * 1000 }}">
+        <button id="resubmit" type="submit" class="btn submit disabled" data-timeout="{{ settings.minimumSubmitTime }}">
             {{ settings.errorButtonText }}
         </button>
         <div id="graphic" class="spinner hidden"></div>

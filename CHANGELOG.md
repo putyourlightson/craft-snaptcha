@@ -1,23 +1,23 @@
 # Changelog
 
 ## 3.0.0 - Unreleased
-> {warning} The Excluded URI Patterns setting has been removed. Use the new Exclude Controller Actions setting instead.
+> {warning} The “Excluded URI Patterns” setting has been removed. Use the new “Exclude Controller Actions” setting instead.
 
-> {tip} The error screen has been updated. If you previously set a custom error message then it may need some tweaking.
+> {tip} The error screen has been updated. If you previously set a custom error message then you should review the plugin settings.
 
 ### Added
 - Added a customisable error screen that allows users to resubmit their data if a submission is flagged as spam.
-- Added an Exclude Controller Actions setting.
-- Added an Allow List of IP addresses that will not be validated.
+- Added an “Exclude Controller Actions” setting.
+- Added an “Allow List” of IP addresses that will not be validated.
 - Added unit tests.
 
 ### Changed
-- Changed minimum requirement of Craft to version 3.2.1.
-- Renamed Blacklist to Deny List, a list of IP addresses that will always be denied.
+- Changed the minimum requirement of Craft to version 3.2.1.
+- Renamed “Blacklist” to “Deny List”, a list of IP addresses that will always be denied.
 - The hidden input field now has an `autocomplete` attribute set to `off`.
 
 ### Removed
-- Removed the Excluded URI Patterns setting. Use the new Exclude Controller Actions setting instead.
+- Removed the “Excluded URI Patterns” setting. Use the new “Exclude Controller Actions” setting instead.
 
 ## 2.3.1 - 2020-12-21
 ### Changed

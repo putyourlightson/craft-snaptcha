@@ -5,4 +5,4 @@ document.getElementById('graphic').classList.remove('hidden');
 setTimeout(function() {
     document.getElementById('graphic').remove();
     document.getElementById('resubmit').classList.remove('disabled');
-}, document.getElementById('resubmit').dataset.timeout);
+}, document.getElementById('resubmit').dataset.timeout * 1000);
