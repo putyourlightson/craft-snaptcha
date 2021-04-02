@@ -67,12 +67,12 @@ class SettingsModel extends Model
     /**
      * @var int
      */
-    public $expirationTime = 60;
+    public $minimumSubmitTime = 1;
 
     /**
      * @var int
      */
-    public $minimumSubmitTime = 1;
+    public $expirationTime = 60;
 
     /**
      * @var array|string

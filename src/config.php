@@ -46,11 +46,11 @@ return [
         // The template to use if Snaptcha identifies a submission as spam.
         //'errorTemplate' => '',
 
+        // The minimum time for form submission in seconds (increase this to harden spam blocking).
+        //'minimumSubmitTime' => 1,
+
         // The expiration time for form submissions in minutes.
         //'expirationTime' => 60,
-
-        // The minimum time for form submission in seconds (increase this to harden spam blocking).
-        //'minimumSubmitTime' => 3,
 
         // The controller actions to exclude from validation.
         //'excludeControllerActions' => [],

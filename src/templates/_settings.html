@@ -11,7 +11,6 @@
 
 {{ forms.lightswitchField({
     first: true,
-    required: true,
     label: 'Validation Enabled'|t('snaptcha'),
     name: 'validationEnabled',
     instructions: 'Whether form submissions should be validated. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.'|t('snaptcha'),
@@ -21,7 +20,6 @@
 }) }}
 
 {{ forms.lightswitchField({
-    required: true,
     label: 'Validate Users'|t('snaptcha'),
     name: 'validateUsers',
     instructions: 'Whether form submissions should be validated for logged-in users (recommended if public user registration is enabled).'|t('snaptcha'),
@@ -31,7 +29,6 @@
 }) }}
 
 {{ forms.lightswitchField({
-    required: true,
     label: 'One Time Key'|t('snaptcha'),
     name: 'oneTimeKey',
     instructions: 'Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).'|t('snaptcha'),
@@ -41,7 +38,6 @@
 }) }}
 
 {{ forms.lightswitchField({
-    required: true,
     label: 'Log Rejected'|t('snaptcha'),
     name: 'logRejected',
     instructions: 'Whether rejected form submissions should be logged (log will be written to `{log}`).'|t('snaptcha', {log: alias('@storage/logs/snaptcha.log')}),
@@ -115,23 +111,23 @@
 {{ forms.textField({
     type: 'number',
     required: true,
-    label: 'Expiration Time'|t('snaptcha'),
-    name: 'expirationTime',
-    instructions: 'The expiration time for form submissions in minutes.'|t('snaptcha'),
-    warning: (config.expirationTime is defined ? configWarning('expirationTime')),
-    value: settings.expirationTime,
-    errors: settings.getErrors('expirationTime'),
-}) }}
-
-{{ forms.textField({
-    type: 'number',
-    required: true,
     label: 'Minimum Submit Time'|t('snaptcha'),
     name: 'minimumSubmitTime',
     instructions: 'The minimum time for form submission in seconds. Increase this to harden spam protection.'|t('snaptcha'),
     warning: (config.minimumSubmitTime is defined ? configWarning('minimumSubmitTime')),
     value: settings.minimumSubmitTime,
     errors: settings.getErrors('minimumSubmitTime'),
+}) }}
+
+{{ forms.textField({
+    type: 'number',
+    required: true,
+    label: 'Expiration Time'|t('snaptcha'),
+    name: 'expirationTime',
+    instructions: 'The expiration time for form submissions in minutes.'|t('snaptcha'),
+    warning: (config.expirationTime is defined ? configWarning('expirationTime')),
+    value: settings.expirationTime,
+    errors: settings.getErrors('expirationTime'),
 }) }}
 
 {{ hiddenInput('excludeControllerActions', '') }}
