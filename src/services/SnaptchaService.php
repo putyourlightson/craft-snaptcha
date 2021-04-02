@@ -98,6 +98,16 @@ class SnaptchaService extends Component
     }
 
     /**
+     * Returns whether the user is allowed.
+     *
+     * @return bool
+     */
+    public function isUserAllowed(): bool
+    {
+        return !Snaptcha::$plugin->settings->validateUsers && Craft::$app->getUser()->getIsGuest() === false;
+    }
+
+    /**
      * Returns whether the IP address is allowed.
      *
      * @return bool
@@ -162,6 +172,11 @@ class SnaptchaService extends Component
 
         if (!$event->isValid) {
             return false;
+        }
+
+        // Check if user is allowed
+        if ($this->isUserAllowed()) {
+            return true;
         }
 
         // Check if IP address is allowed

@@ -7,15 +7,16 @@
 
 ### Added
 - Added a customisable error screen that allows users to resubmit their data if a submission is flagged as spam.
-- Added an “Exclude Controller Actions” setting.
+- Added a “Validate Users” setting that lets you disable validation for logged-in users.
+- Added an “Exclude Controller Actions” setting that lets you disable validation for specific controller actions.
 - Added an “Allow List” of IP addresses that will not be validated.
 - Added unit tests.
 
 ### Changed
 - Changed the minimum requirement of Craft to version 3.2.1.
-- Renamed “Blacklist” to “Deny List”, a list of IP addresses that will always be denied.
+- Renamed “Blacklist” to “Deny List”.
 - The hidden input field now has an `autocomplete` attribute set to `off`.
-- IP addresses are now stored as anonymous hash values.
+- IP addresses are now stored as anonymous hashed values.
 
 ### Removed
 - Removed the “Excluded URI Patterns” setting. Use the new “Exclude Controller Actions” setting instead.

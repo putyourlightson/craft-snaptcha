@@ -12,14 +12,15 @@ modules:
     config:
         \craft\test\Craft:
             configFile: 'tests/_craft/config/test.php'
-            entryUrl: 'http://craft3/index.php'
+            entryUrl: 'http://craft.nitro/index.php'
             entryScript: 'index.php'
             projectConfig: {}
             migrations: []
             plugins:
-                sprig:
+                snaptcha:
                     class: '\putyourlightson\snaptcha\Snaptcha'
                     handle: snaptcha
-#            cleanup: true
+            cleanup: true
             transaction: false
-#            dbSetup: {clean: true, setupCraft: true}
+            dbSetup: {clean: true, setupCraft: true}
+            fullMock: false

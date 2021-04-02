@@ -22,6 +22,16 @@
 
 {{ forms.lightswitchField({
     required: true,
+    label: 'Validate Users'|t('snaptcha'),
+    name: 'validateUsers',
+    instructions: 'Whether form submissions should be validated for logged-in users (recommended if public user registration is enabled).'|t('snaptcha'),
+    warning: (config.validateUsers is defined ? configWarning('validateUsers')),
+    on: settings.validateUsers,
+    errors: settings.getErrors('validateUsers')
+}) }}
+
+{{ forms.lightswitchField({
+    required: true,
     label: 'One Time Key'|t('snaptcha'),
     name: 'oneTimeKey',
     instructions: 'Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).'|t('snaptcha'),

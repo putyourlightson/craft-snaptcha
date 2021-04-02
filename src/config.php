@@ -22,6 +22,9 @@ return [
         // Whether form submissions should be validated. Ensure that all of your forms that submit via POST requests have the necessary tags in place before enabling this.
         //'validationEnabled' => false,
 
+        // Whether form submissions should be validated for logged-in users (recommended if public user registration is enabled).
+        //'validateUsers' => true,
+
         // Whether form submissions should be limited to one time per page refresh (recommended for low to medium traffic sites).
         //'oneTimeKey' => true,
 

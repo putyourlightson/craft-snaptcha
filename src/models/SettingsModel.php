@@ -17,6 +17,11 @@ class SettingsModel extends Model
     /**
      * @var bool
      */
+    public $validateUsers = true;
+
+    /**
+     * @var bool
+     */
     public $oneTimeKey = true;
 
     /**
