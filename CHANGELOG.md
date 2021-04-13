@@ -1,7 +1,7 @@
 # Changelog
 
 ## 3.0.0 - 2021-04-13
-> {warning} The “Excluded URI Patterns” setting has been removed. Use the new “Exclude Controller Actions” setting instead.
+> {warning} The “Excluded URI Patterns” setting has been removed. Use the new “Exclude Controller Actions” setting instead. [Read more](https://putyourlightson.com/articles/snaptcha-3-released)
 
 > {tip} The error screen has been updated. If you previously set a custom error message then you should review the plugin settings.
 
