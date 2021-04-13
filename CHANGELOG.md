@@ -1,12 +1,12 @@
 # Changelog
 
-## 3.0.0 - Unreleased
+## 3.0.0 - 2021-04-13
 > {warning} The “Excluded URI Patterns” setting has been removed. Use the new “Exclude Controller Actions” setting instead.
 
 > {tip} The error screen has been updated. If you previously set a custom error message then you should review the plugin settings.
 
 ### Added
-- Added a customisable error screen that allows users to resubmit their data if a submission is flagged as spam.
+- Added a customisable template that allows users to resubmit their data if a submission is flagged as spam.
 - Added a “Validate Users” setting that lets you disable validation for logged-in users.
 - Added an “Exclude Controller Actions” setting that lets you disable validation for specific controller actions.
 - Added an “Allow List” of IP addresses that will not be validated.
