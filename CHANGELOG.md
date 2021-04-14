@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1 - 2021-04-14
+### Fixed
+- Fixed a bug in which an error could be thrown if values were passed in as an array and a submission was flagged as spam.
+
 ## 3.0.0 - 2021-04-13
 > {warning} The “Excluded URI Patterns” setting has been removed. Use the new “Exclude Controller Actions” setting instead. [Read more](https://putyourlightson.com/articles/snaptcha-3-released)
 

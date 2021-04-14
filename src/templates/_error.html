@@ -4,6 +4,16 @@
 
 {% set title = settings.errorTitle %}
 
+{% macro hiddenInput(name, value) %}
+    {% if value is iterable %}
+        {% for val in value %}
+            {{ _self.hiddenInput(name ~ '[]', val) }}
+        {% endfor %}
+    {% else %}
+        {{ hiddenInput(name, value) }}
+    {% endif %}
+{% endmacro %}
+
 
 {% block message %}
 
@@ -19,7 +29,7 @@
 
     <form action="" method="post">
         {% for name, value in postedValues if name != 'snaptcha' %}
-            {{ hiddenInput(name, value) }}
+            {{ _self.hiddenInput(name, value) }}
         {% endfor %}
 
         {{ craft.snaptcha.field }}
