@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.2 - 2021-04-16
+### Changed
+- The keys of posted arrays are now preserved when a submission is flagged as spam.
+
 ## 3.0.1 - 2021-04-14
 ### Fixed
 - Fixed a bug in which an error could be thrown if values were passed in as an array and a submission was flagged as spam.

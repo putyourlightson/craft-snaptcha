@@ -67,6 +67,17 @@ class SnaptchaService extends Component
         return $record ? $record->value : null;
     }
 
+    public function getPostedValues(): array
+    {
+        $values = Craft::$app->request->getBodyParams();
+
+        if (isset($values[Snaptcha::$plugin->settings->fieldName])) {
+            unset($values[Snaptcha::$plugin->settings->fieldName]);
+        }
+
+        return $this->_flattenValues($values);
+    }
+
     /**
      * Returns whether the controller action is excluded from validation.
      *
@@ -340,6 +351,32 @@ class SnaptchaService extends Component
         }
 
         return $values;
+    }
+
+    /**
+     * Flattens a multi-dimensional array of values to a flat array that can
+     * be used to output hidden fields, preserving the keys.
+     *
+     * @param array $values
+     * @param string $currentKey
+     * @return array
+     */
+    private function _flattenValues(array $values, string $currentKey = ''): array
+    {
+        $flattened = [];
+
+        foreach ($values as $key => $value) {
+            $key = $currentKey ? $currentKey.'['.$key.']' : $key;
+
+            if (is_array($value)) {
+                $flattened = array_merge($flattened, $this->_flattenValues($value, $key));
+            }
+            else {
+                $flattened[$key] = $value;
+            }
+        }
+
+        return $flattened;
     }
 
     /**
