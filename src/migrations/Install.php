@@ -57,7 +57,7 @@ class Install extends Migration
      */
     public function safeDown(): bool
     {
-        $this->dropTableIfExists('{{%snaptcha}}');
+        $this->dropTableIfExists(SnaptchaRecord::tableName());
 
         return true;
     }

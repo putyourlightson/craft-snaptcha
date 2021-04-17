@@ -40,7 +40,7 @@ class m181009_120000_update_blacklist_settings extends Migration
      */
     public function safeDown(): bool
     {
-        echo "m181009_120000_update_blacklist_settings cannot be reverted.\n";
+        echo self::class." cannot be reverted.\n";
 
         return false;
     }
