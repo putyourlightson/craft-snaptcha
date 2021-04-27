@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3 - 2021-04-27
+### Fixed
+- Fixed a bug in which the PHP script was allowed to continue even if a submission was flagged as spam ([#16](https://github.com/putyourlightson/craft-snaptcha/issues/16)).
+
 ## 3.0.2 - 2021-04-16
 ### Changed
 - The keys of posted arrays are now preserved when a submission is flagged as spam.

@@ -116,7 +116,7 @@ class Snaptcha extends Plugin
 
             Craft::$app->response->statusCode = 400;
             Craft::$app->response->content = $output;
-            Craft::$app->response->sendAndClose();
+            Craft::$app->end();
         }
     }
 
