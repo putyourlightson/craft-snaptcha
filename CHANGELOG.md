@@ -2,7 +2,7 @@
 
 ## 3.0.4 - 2021-05-06
 ### Changed
-- Excluded the `graphql/api` controller action from validation.
+- Excluded requests to the GraphQL API from being validated ([#17](https://github.com/putyourlightson/craft-snaptcha/issues/17)).
 
 ## 3.0.3 - 2021-04-27
 ### Fixed

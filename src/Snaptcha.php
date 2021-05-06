@@ -81,6 +81,7 @@ class Snaptcha extends Plugin
         if (!$this->settings->validationEnabled
             || $request->getIsConsoleRequest()
             || $request->getIsCpRequest()
+            || $request->getIsGraphql()
             || $request->getIsPreview()
             || $request->getMethod() !== 'POST'
             || $request->getFullPath() == Craft::$app->getConfig()->getGeneral()->getSetPasswordPath()
