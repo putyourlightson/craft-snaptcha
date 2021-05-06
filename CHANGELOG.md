@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.4 - 2021-05-06
+### Changed
+- Excluded the `graphql/api` controller action from validation.
+
 ## 3.0.3 - 2021-04-27
 ### Fixed
 - Fixed a bug in which the PHP script was allowed to continue even if a submission was flagged as spam ([#16](https://github.com/putyourlightson/craft-snaptcha/issues/16)).
