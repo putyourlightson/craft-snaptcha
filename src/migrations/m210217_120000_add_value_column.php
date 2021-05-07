@@ -17,10 +17,10 @@ class m210217_120000_add_value_column extends Migration
      */
     public function safeUp(): bool
     {
-        $schemaVersion = Craft::$app->projectConfig
-            ->get('plugins.snaptcha.schemaVersion', true);
+        $schemaVersion = Craft::$app->projectConfig->get('plugins.snaptcha.schemaVersion', true);
 
-        if (!version_compare($schemaVersion, '3.0.0', '<')) {
+        // Ensure schema version exists to help prevent https://github.com/putyourlightson/craft-snaptcha/issues/15
+        if ($schemaVersion && !version_compare($schemaVersion, '3.0.0', '<')) {
             return true;
         }
 

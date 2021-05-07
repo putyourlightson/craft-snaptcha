@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.5 - Unreleased
+### Fixed
+- Fixed a bug in which config changes could be made twice if the plugin was installed via project config ([#15](https://github.com/putyourlightson/craft-snaptcha/issues/15)).
+
 ## 3.0.4 - 2021-05-06
 ### Changed
 - Excluded requests to the GraphQL API from being validated ([#17](https://github.com/putyourlightson/craft-snaptcha/issues/17)).

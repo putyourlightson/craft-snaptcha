@@ -44,6 +44,13 @@ class Install extends Migration
             Craft::$app->db->schema->refresh();
         }
 
+        // Don't make the same config changes twice
+        $schemaVersion = Craft::$app->projectConfig->get('plugins.snaptcha.schemaVersion', true);
+
+        if ($schemaVersion !== null) {
+            return true;
+        }
+
         // Create and save default settings
         $settings = Snaptcha::$plugin->settings;
         $settings->salt = StringHelper::randomString(16);
