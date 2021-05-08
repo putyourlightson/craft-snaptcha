@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.5 - Unreleased
+## 3.0.5 - 2021-05-08
 ### Fixed
 - Fixed a bug in which config changes could be made twice if the plugin was installed via project config ([#15](https://github.com/putyourlightson/craft-snaptcha/issues/15)).
 
