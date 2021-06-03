@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.6 - 2021-06-03
+### Fixed
+- Fixed a bug in which a migration was not run when updating from v2 to v3 ([#15](https://github.com/putyourlightson/craft-snaptcha/issues/15)).
+
 ## 3.0.5 - 2021-05-08
 ### Fixed
 - Fixed a bug in which config changes could be made twice if the plugin was installed via project config ([#15](https://github.com/putyourlightson/craft-snaptcha/issues/15)).
