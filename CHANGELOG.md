@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.7 - Unreleased
+### Changed
+- Excluded GraphQL requests that do not use `application/graphql` as their MIME type from being validated ([#17](https://github.com/putyourlightson/craft-snaptcha/issues/17)).
+
 ## 3.0.6 - 2021-06-03
 ### Fixed
 - Fixed a bug in which a migration was not run when updating from v2 to v3 ([#15](https://github.com/putyourlightson/craft-snaptcha/issues/15)).

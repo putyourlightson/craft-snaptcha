@@ -85,7 +85,7 @@ class Snaptcha extends Plugin
             || $request->getIsPreview()
             || $request->getMethod() !== 'POST'
             || $request->getFullPath() == Craft::$app->getConfig()->getGeneral()->getSetPasswordPath()
-            || $this->snaptcha->isExcludedControllerAction()
+            || $this->snaptcha->isExcludedControllerAction($event->action)
         ) {
             return;
         }

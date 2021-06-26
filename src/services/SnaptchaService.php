@@ -13,8 +13,13 @@ use putyourlightson\snaptcha\events\ValidateFieldEvent;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\records\SnaptchaRecord;
 use putyourlightson\snaptcha\Snaptcha;
+use yii\base\Action;
 use yii\base\Event;
 
+/**
+ *
+ * @property-read array $postedValues
+ */
 class SnaptchaService extends Component
 {
     /**
@@ -37,8 +42,9 @@ class SnaptchaService extends Component
      */
     const EXCLUDE_CONTROLLER_ACTIONS = [
         'commerce/webhooks/process-webhook',
-        'cookie-consent/consent/update',
         'complete-cookie-consent/consent/submit',
+        'cookie-consent/consent/update',
+        'graphql/api',
     ];
 
     /**
@@ -81,15 +87,16 @@ class SnaptchaService extends Component
     /**
      * Returns whether the controller action is excluded from validation.
      *
+     * @param Action $action
      * @return bool
      */
-    public function isExcludedControllerAction(): bool
+    public function isExcludedControllerAction(Action $action): bool
     {
         if (!Craft::$app->getRequest()->getIsActionRequest()) {
             return false;
         }
 
-        $controllerAction = implode('/', Craft::$app->getRequest()->getActionSegments());
+        $controllerAction = $action->getUniqueId();
 
         // Fire a before event
         $event = new ValidateFieldEvent(['excludeControllerActions' => self::EXCLUDE_CONTROLLER_ACTIONS]);
