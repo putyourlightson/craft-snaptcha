@@ -92,10 +92,6 @@ class SnaptchaService extends Component
      */
     public function isExcludedControllerAction(Action $action): bool
     {
-        if (!Craft::$app->getRequest()->getIsActionRequest()) {
-            return false;
-        }
-
         $controllerAction = $action->getUniqueId();
 
         // Fire a before event
