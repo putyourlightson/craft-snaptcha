@@ -45,6 +45,7 @@ class SnaptchaService extends Component
         'complete-cookie-consent/consent/submit',
         'cookie-consent/consent/update',
         'graphql/api',
+        'templates/render',
     ];
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.8 - 2021-08-25
+### Changed
+- Excluded the `templates/render` controller action from being validated ([#20](https://github.com/putyourlightson/craft-snaptcha/issues/20)).
+
 ## 3.0.7 - 2021-06-28
 ### Changed
 - Excluded GraphQL requests that do not use `application/graphql` as their MIME type from being validated ([#17](https://github.com/putyourlightson/craft-snaptcha/issues/17)).
