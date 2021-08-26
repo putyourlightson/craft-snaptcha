@@ -172,6 +172,7 @@ class SnaptchaService extends Component
      * Validates a submitted field.
      *
      * @param string|null $value
+     * @param Action|null $action
      *
      * @return bool
      */
