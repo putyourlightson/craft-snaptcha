@@ -6,6 +6,7 @@
 namespace putyourlightson\snaptcha\events;
 
 use craft\events\CancelableEvent;
+use yii\base\Action;
 
 class ValidateFieldEvent extends CancelableEvent
 {
@@ -18,6 +19,11 @@ class ValidateFieldEvent extends CancelableEvent
      * @var string|null
      */
     public $value;
+
+    /**
+     * @var Action|null
+     */
+    public $action;
 
     /**
      * @var bool

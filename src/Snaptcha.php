@@ -98,7 +98,7 @@ class Snaptcha extends Plugin
 
         $value = $request->getParam($this->settings->fieldName);
 
-        $this->validated = $this->validated || $this->snaptcha->validateField($value);
+        $this->validated = $this->validated || $this->snaptcha->validateField($value, $event->action);
 
         if ($this->validated === false) {
             $variables = [

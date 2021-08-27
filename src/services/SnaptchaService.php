@@ -179,8 +179,10 @@ class SnaptchaService extends Component
     public function validateField(string $value = null, Action $action = null): bool
     {
         // Fire a before event
-        $event = new ValidateFieldEvent(['value' => $value]);
-        $actionName = $action ? $action->getUniqueId() : 'NO_ACTION';
+        $event = new ValidateFieldEvent([
+            'value' => $value,
+            'action' => $action,
+        ]);
 
         $this->trigger(self::EVENT_BEFORE_VALIDATE_FIELD, $event);
 
@@ -203,14 +205,14 @@ class SnaptchaService extends Component
         }
 
         if ($value === null) {
-            $this->_reject('{actionName} - Value submitted is null.', ['actionName' => $actionName]);
+            $this->_reject('Value submitted is null.', [], $action);
 
             return false;
         }
 
         // Check if IP address is denied
         if ($this->isIpDenied()) {
-            $this->_reject('IP address was denied.');
+            $this->_reject('IP address was denied.', [], $action);
 
             return false;
         }
@@ -224,7 +226,7 @@ class SnaptchaService extends Component
             ->one();
 
         if ($record === null) {
-            $this->_reject('{actionName} - Value not found in database.', ['actionName' => $actionName]);
+            $this->_reject('Value not found in database.', [], $action);
 
             return false;
         }
@@ -232,8 +234,9 @@ class SnaptchaService extends Component
         // Check if field has expired
         if ($this->isExpired($record)) {
             $this->_reject(
-                '{actionName} - Expiration time of {minutes} minute(s) has passed.',
-                ['minutes' => $record->expirationTime, 'actionName' => $actionName]
+                'Expiration time of {minutes} minute(s) has passed.',
+                ['minutes' => $record->expirationTime],
+                $action
             );
 
             return false;
@@ -242,8 +245,9 @@ class SnaptchaService extends Component
         // Check if minimum submit time has not passed
         if ($this->isTooSoon($record)) {
             $this->_reject(
-                '{actionName} - Minimum submit time of {second} second(s) has not yet passed.',
-                ['second' => $record->minimumSubmitTime, 'actionName' => $actionName]
+                'Minimum submit time of {second} second(s) has not yet passed.',
+                ['second' => $record->minimumSubmitTime],
+                $action
             );
 
             return false;
@@ -397,12 +401,14 @@ class SnaptchaService extends Component
      *
      * @param string $message
      * @param array $params
+     * @param Action|null $action
      */
-    private function _reject(string $message, array $params = [])
+    private function _reject(string $message, array $params = [], Action $action = null)
     {
         if (Snaptcha::$plugin->settings->logRejected) {
             $url = Craft::$app->getRequest()->getAbsoluteUrl();
-            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
+            $action = $action ? $action->getUniqueId() : 'NO_ACTION';
+            $message = Craft::t('snaptcha', $message, $params).' ['.$url.'] ['.$action.']';
             LogToFile::log($message, 'snaptcha');
         }
     }
