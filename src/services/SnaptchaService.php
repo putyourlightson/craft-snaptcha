@@ -172,13 +172,16 @@ class SnaptchaService extends Component
      * Validates a submitted field.
      *
      * @param string|null $value
+     * @param Action|null $action
      *
      * @return bool
      */
-    public function validateField(string $value = null): bool
+    public function validateField(string $value = null, Action $action = null): bool
     {
         // Fire a before event
         $event = new ValidateFieldEvent(['value' => $value]);
+        $actionName = $action ? $action->getUniqueId() : 'NO_ACTION';
+
         $this->trigger(self::EVENT_BEFORE_VALIDATE_FIELD, $event);
 
         if ($event->skipValidation) {
@@ -200,7 +203,7 @@ class SnaptchaService extends Component
         }
 
         if ($value === null) {
-            $this->_reject('Value submitted is null.');
+            $this->_reject('{actionName} - Value submitted is null.', ['actionName' => $actionName]);
 
             return false;
         }
@@ -221,21 +224,27 @@ class SnaptchaService extends Component
             ->one();
 
         if ($record === null) {
-            $this->_reject('Value not found in database.');
+            $this->_reject('{actionName} - Value not found in database.', ['actionName' => $actionName]);
 
             return false;
         }
 
         // Check if field has expired
         if ($this->isExpired($record)) {
-            $this->_reject('Expiration time of {minutes} minute(s) has passed.', ['minutes' => $record->expirationTime]);
+            $this->_reject(
+                '{actionName} - Expiration time of {minutes} minute(s) has passed.',
+                ['minutes' => $record->expirationTime, 'actionName' => $actionName]
+            );
 
             return false;
         }
 
         // Check if minimum submit time has not passed
         if ($this->isTooSoon($record)) {
-            $this->_reject('Minimum submit time of {second} second(s) has not yet passed.', ['second' => $record->minimumSubmitTime]);
+            $this->_reject(
+                '{actionName} - Minimum submit time of {second} second(s) has not yet passed.',
+                ['second' => $record->minimumSubmitTime, 'actionName' => $actionName]
+            );
 
             return false;
         }
