@@ -407,8 +407,8 @@ class SnaptchaService extends Component
     {
         if (Snaptcha::$plugin->settings->logRejected) {
             $url = Craft::$app->getRequest()->getAbsoluteUrl();
-            $action = $action ? $action->getUniqueId() : 'NO_ACTION';
-            $message = Craft::t('snaptcha', $message, $params).' ['.$url.'] ['.$action.']';
+            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
+            $message .= $action ? ' ['.$action->getUniqueId().']' : '';
             LogToFile::log($message, 'snaptcha');
         }
     }
