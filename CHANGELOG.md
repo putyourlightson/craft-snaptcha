@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.10 - 2021-11-23
+### Changed
+- Excluded the `enupal-stripe/checkout/create-session` controller action from being validated ([#23](https://github.com/putyourlightson/craft-snaptcha/issues/23)).
+
 ## 3.0.9 - 2021-08-27
 ### Changed
 - The controller action is now logged when a form submission is rejected for easier debugging ([#21](https://github.com/putyourlightson/craft-snaptcha/issues/21)).

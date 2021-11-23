@@ -44,6 +44,7 @@ class SnaptchaService extends Component
         'commerce/webhooks/process-webhook',
         'complete-cookie-consent/consent/submit',
         'cookie-consent/consent/update',
+        'enupal-stripe/checkout/create-session',
         'graphql/api',
         'templates/render',
     ];
