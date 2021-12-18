@@ -41,6 +41,7 @@ class SnaptchaService extends Component
      * @const string[]
      */
     const EXCLUDE_CONTROLLER_ACTIONS = [
+        'ad-wizard/tracking/click',
         'commerce/webhooks/process-webhook',
         'complete-cookie-consent/consent/submit',
         'cookie-consent/consent/update',

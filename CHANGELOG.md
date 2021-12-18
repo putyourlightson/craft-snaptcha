@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.11 - 2021-12-18
+### Changed
+- Excluded the `ad-wizard/tracking/click` controller action from being validated.
+
 ## 3.0.10 - 2021-11-23
 ### Changed
 - Excluded the `enupal-stripe/checkout/create-session` controller action from being validated ([#23](https://github.com/putyourlightson/craft-snaptcha/issues/23)).
