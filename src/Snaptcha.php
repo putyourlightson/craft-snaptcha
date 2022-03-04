@@ -14,6 +14,7 @@ use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\services\SnaptchaService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
+use yii\base\Controller as BaseController;
 use yii\base\Event;
 
 /**
@@ -25,19 +26,32 @@ class Snaptcha extends Plugin
     /**
      * @var Snaptcha
      */
-    public static $plugin;
+    public static Snaptcha $plugin;
 
     /**
      * @var bool
      */
-    public $validated = false;
+    public bool $validated = false;
 
     /**
-     * @inherit
+     * @inheritdoc
      */
-    public $hasCpSettings = true;
+    public bool $hasCpSettings = true;
 
-    public function init()
+    /**
+     * @inheritdoc
+     */
+    public string $schemaVersion = '3.0.6';
+
+    /**
+     * @inheritdoc
+     */
+    public string $minVersionRequired = '3.0.6';
+
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
     {
         parent::init();
 
@@ -56,15 +70,13 @@ class Snaptcha extends Plugin
         });
 
         // Register action event
-        Event::on(Controller::class, Controller::EVENT_BEFORE_ACTION, function(ActionEvent $event) {
+        Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION, function(ActionEvent $event) {
             $this->validateField($event);
         });
     }
 
     /**
      * Validates a submitted field
-     *
-     * @param ActionEvent $event
      */
     public function validateField(ActionEvent $event)
     {
@@ -132,7 +144,7 @@ class Snaptcha extends Plugin
     /**
      * @inheritdoc
      */
-    protected function settingsHtml(): string
+    protected function settingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate('snaptcha/_settings', [
             'settings' => $this->settings,

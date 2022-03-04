@@ -13,20 +13,20 @@ class ValidateFieldEvent extends CancelableEvent
     /**
      * @var array
      */
-    public $excludeControllerActions = [];
+    public array $excludeControllerActions = [];
 
     /**
      * @var string|null
      */
-    public $value;
+    public ?string $value = null;
 
     /**
      * @var Action|null
      */
-    public $action;
+    public ?Action $action = null;
 
     /**
      * @var bool
      */
-    public $skipValidation = false;
+    public bool $skipValidation = false;
 }

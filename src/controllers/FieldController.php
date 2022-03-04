@@ -6,6 +6,7 @@
 namespace putyourlightson\snaptcha\controllers;
 
 use Craft;
+use craft\helpers\Html;
 use craft\web\Controller;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\Snaptcha;
@@ -16,12 +17,10 @@ class FieldController extends Controller
     /**
      * @inheritdoc
      */
-    protected $allowAnonymous = true;
+    protected array|bool|int $allowAnonymous = true;
 
     /**
      * Returns the field name.
-     *
-     * @return Response
      */
     public function actionGetFieldName(): Response
     {
@@ -34,8 +33,6 @@ class FieldController extends Controller
 
     /**
      * Returns a field value.
-     *
-     * @return Response
      */
     public function actionGetFieldValue(): Response
     {
@@ -58,8 +55,6 @@ class FieldController extends Controller
      * Otherwise a raw input field is returned:
      *
      *     <input type="hidden" name="snaptcha" value="oqSCFUGwoUfvcwKEqaJPGTDNjtoDqfzgvxX0">
-     *
-     * @return Response
      */
     public function actionGetField(): Response
     {
@@ -72,13 +67,11 @@ class FieldController extends Controller
             ]);
         }
 
-        return $this->asRaw('<input type="hidden" name="'.Snaptcha::$plugin->settings->fieldName.'" value="'.$value.'">');
+        return $this->asRaw(Html::hiddenInput(Snaptcha::$plugin->settings->fieldName, $value));
     }
 
     /**
      * Validates a field value.
-     *
-     * @return Response
      */
     public function actionValidateFieldValue(): Response
     {
@@ -88,7 +81,7 @@ class FieldController extends Controller
 
         if ($validated === false) {
             if (Craft::$app->getRequest()->getAcceptsJson()) {
-                return $this->asErrorJson(Craft::t('snaptcha', Snaptcha::$plugin->settings->errorMessage));
+                return $this->asFailure(Craft::t('snaptcha', Snaptcha::$plugin->settings->errorMessage));
             }
 
             return $this->asRaw(Craft::t('snaptcha', Snaptcha::$plugin->settings->errorMessage));

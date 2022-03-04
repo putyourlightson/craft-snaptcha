@@ -20,8 +20,6 @@ class SnaptchaRecord extends ActiveRecord
 {
      /**
      * @inheritdoc
-     *
-     * @return string the table name
      */
     public static function tableName(): string
     {

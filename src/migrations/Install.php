@@ -11,13 +11,10 @@ use craft\helpers\StringHelper;
 use putyourlightson\snaptcha\records\SnaptchaRecord;
 use putyourlightson\snaptcha\Snaptcha;
 
-/**
- * Install Migration
- */
 class Install extends Migration
 {
     /**
-     * @return boolean
+     * @inheritdoc
      */
     public function safeUp(): bool
     {
@@ -60,7 +57,7 @@ class Install extends Migration
     }
 
     /**
-     * @return boolean
+     * @inheritdoc
      */
     public function safeDown(): bool
     {

@@ -16,7 +16,6 @@ class ErrorAsset extends AssetBundle
     {
         $this->sourcePath = '@putyourlightson/snaptcha/resources';
 
-        // define the relative path to CSS/JS files that should be registered with the page when this asset bundle is registered
         $this->css = [
             'css/error.css',
         ];

@@ -12,37 +12,37 @@ class SnaptchaModel extends Model
     /**
      * @var string
      */
-    public $key;
+    public string $key;
 
     /**
      * @var string
      */
-    public $value;
+    public string $value;
 
     /**
      * @var string
      */
-    public $ipAddress;
+    public string $ipAddress;
 
     /**
      * @var int
      */
-    public $timestamp;
+    public int $timestamp;
 
     /**
      * @var int|null
      */
-    public $expirationTime;
+    public ?int $expirationTime;
 
     /**
      * @var int|null
      */
-    public $minimumSubmitTime;
+    public ?int $minimumSubmitTime;
 
     /**
-     * @return array
+     * @inheritdoc
      */
-    public function rules(): array
+    public function defineRules(): array
     {
         return [
             [['key', 'value', 'ipAddress'], 'required'],

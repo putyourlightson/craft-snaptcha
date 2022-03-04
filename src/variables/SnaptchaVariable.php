@@ -12,15 +12,10 @@ use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\Snaptcha;
 use Twig\Markup;
 
-/**
- * Snaptcha Variable
- */
 class SnaptchaVariable
 {
     /**
      * Returns the field name.
-     *
-     * @return string
      */
     public function getFieldName(): string
     {
@@ -29,12 +24,8 @@ class SnaptchaVariable
 
     /**
      * Returns a field value.
-     *
-     * @param array|null $config
-     *
-     * @return string
      */
-    public function getFieldValue($config = null): string
+    public function getFieldValue(array $config = null): string
     {
         $model = new SnaptchaModel($config);
 
@@ -43,12 +34,8 @@ class SnaptchaVariable
 
     /**
      * Returns a field.
-     *
-     * @param array|null $config
-     *
-     * @return Markup
      */
-    public function getField($config = null): Markup
+    public function getField(array $config = null): Markup
     {
         $model = new SnaptchaModel($config);
         $key = Snaptcha::$plugin->snaptcha->getFieldKey($model);

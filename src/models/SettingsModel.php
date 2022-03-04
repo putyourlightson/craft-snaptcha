@@ -12,95 +12,87 @@ class SettingsModel extends Model
     /**
      * @var bool
      */
-    public $validationEnabled = false;
+    public bool $validationEnabled = false;
 
     /**
      * @var bool
      */
-    public $validateUsers = true;
+    public bool $validateUsers = true;
 
     /**
      * @var bool
      */
-    public $oneTimeKey = true;
+    public bool $oneTimeKey = true;
 
     /**
      * @var bool
      */
-    public $logRejected = true;
+    public bool $logRejected = true;
 
     /**
      * @var string
      */
-    public $fieldName = 'snaptcha';
+    public string $fieldName = 'snaptcha';
 
     /**
      * @var string
      */
-    public $salt = '';
+    public string $salt = '';
 
     /**
      * @var string
      */
-    public $errorTitle = 'Error';
+    public string $errorTitle = 'Error';
 
     /**
      * @var string
      */
-    public $errorMessage = 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.';
+    public string $errorMessage = 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.';
 
     /**
      * @var string
      */
-    public $errorJavascriptDisabled = 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.';
+    public string $errorJavascriptDisabled = 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.';
 
     /**
      * @var string
      */
-    public $errorButtonText = 'Resubmit';
+    public string $errorButtonText = 'Resubmit';
 
     /**
      * @var string
      */
-    public $errorTemplate = '';
+    public string $errorTemplate = '';
 
     /**
      * @var int
      */
-    public $minimumSubmitTime = 1;
+    public int $minimumSubmitTime = 1;
 
     /**
      * @var int
      */
-    public $expirationTime = 60;
+    public int $expirationTime = 60;
 
     /**
      * @var array|string
      */
-    public $excludeControllerActions = [];
+    public string|array $excludeControllerActions = [];
 
     /**
      * @var array|string
      */
-    public $allowList = [];
+    public string|array $allowList = [];
 
     /**
      * @var array|string
      */
-    public $denyList = [];
+    public string|array $denyList = [];
 
     /**
-     * Keep this around so migrations don't break!
-     *
-     * @var array
-     * @depracated
+     * @inheritdoc
      */
-    public $blacklist = [];
-
-    /**
-     * @return array
-     */
-    public function rules(): array
+    public function defineRules(): array
     {
         return [
             [['fieldName', 'errorTitle', 'errorMessage', 'errorJavascriptDisabled', 'errorButtonText', 'expirationTime', 'minimumSubmitTime'], 'required'],

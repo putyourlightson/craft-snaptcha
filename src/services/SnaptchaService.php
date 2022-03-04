@@ -17,7 +17,6 @@ use yii\base\Action;
 use yii\base\Event;
 
 /**
- *
  * @property-read array $postedValues
  */
 class SnaptchaService extends Component
@@ -25,22 +24,22 @@ class SnaptchaService extends Component
     /**
      * @event ValidateFieldEvent
      */
-    const EVENT_BEFORE_EXCLUDE_CONTROLLER_ACTIONS = 'beforeExcludeControllerActions';
+    public const EVENT_BEFORE_EXCLUDE_CONTROLLER_ACTIONS = 'beforeExcludeControllerActions';
 
     /**
      * @event ValidateFieldEvent
      */
-    const EVENT_BEFORE_VALIDATE_FIELD = 'beforeValidateField';
+    public const EVENT_BEFORE_VALIDATE_FIELD = 'beforeValidateField';
 
     /**
      * @event Event
      */
-    const EVENT_AFTER_VALIDATE_FIELD = 'afterValidateField';
+    public const EVENT_AFTER_VALIDATE_FIELD = 'afterValidateField';
 
     /**
      * @const string[]
      */
-    const EXCLUDE_CONTROLLER_ACTIONS = [
+    public const EXCLUDE_CONTROLLER_ACTIONS = [
         'ad-wizard/tracking/click',
         'commerce/webhooks/process-webhook',
         'complete-cookie-consent/consent/submit',
@@ -52,11 +51,8 @@ class SnaptchaService extends Component
 
     /**
      * Returns a field key.
-     *
-     * @param SnaptchaModel $model
-     * @return string|null
      */
-    public function getFieldKey(SnaptchaModel $model)
+    public function getFieldKey(SnaptchaModel $model): ?string
     {
         $record = $this->_getSnaptchaRecord($model);
 
@@ -65,17 +61,17 @@ class SnaptchaService extends Component
 
     /**
      * Returns a field value.
-     *
-     * @param SnaptchaModel $model
-     * @return string|null
      */
-    public function getFieldValue(SnaptchaModel $model)
+    public function getFieldValue(SnaptchaModel $model): ?string
     {
         $record = $this->_getSnaptchaRecord($model);
 
         return $record ? $record->value : null;
     }
 
+    /**
+     * Returns flattened posted values.
+     */
     public function getPostedValues(): array
     {
         $values = Craft::$app->request->getBodyParams();
@@ -89,9 +85,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether the controller action is excluded from validation.
-     *
-     * @param Action $action
-     * @return bool
      */
     public function isExcludedControllerAction(Action $action): bool
     {
@@ -262,7 +255,9 @@ class SnaptchaService extends Component
 
         // Delete all expired records
         SnaptchaRecord::deleteAll([
-            '<', 'timestamp', time() - (Snaptcha::$plugin->settings->expirationTime * 60)
+            '<',
+            'timestamp',
+            time() - (Snaptcha::$plugin->settings->expirationTime * 60),
         ]);
 
         // Fire an after event
@@ -275,11 +270,8 @@ class SnaptchaService extends Component
 
     /**
      * Returns a Snaptcha record.
-     *
-     * @param SnaptchaModel $model
-     * @return SnaptchaRecord|null
      */
-    private function _getSnaptchaRecord(SnaptchaModel $model)
+    private function _getSnaptchaRecord(SnaptchaModel $model): ?SnaptchaRecord
     {
         $hashedIpAddress = $this->_getHashedIpAddress();
 
@@ -325,10 +317,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns the hashed value.
-     *
-     * @param string $key
-     * @param string $salt
-     * @return string
      */
     private function _getHashedValue(string $key, string $salt): string
     {
@@ -337,8 +325,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns the current user's hashed IP address.
-     *
-     * @return string
      */
     private function _getHashedIpAddress(): string
     {
@@ -349,11 +335,8 @@ class SnaptchaService extends Component
 
     /**
      * Returns a normalized array of values.
-     *
-     * @param array|string $values
-     * @return array
      */
-    private function _getNormalizedArray($values): array
+    private function _getNormalizedArray(array|string $values): array
     {
         if (is_array($values)) {
             foreach ($values as $key => $value) {
@@ -400,10 +383,6 @@ class SnaptchaService extends Component
 
     /**
      * Rejects and logs a form submission.
-     *
-     * @param string $message
-     * @param array $params
-     * @param Action|null $action
      */
     private function _reject(string $message, array $params = [], Action $action = null)
     {
