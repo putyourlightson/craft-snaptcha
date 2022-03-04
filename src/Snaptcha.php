@@ -80,10 +80,11 @@ class Snaptcha extends Plugin
     }
 
     /**
-     * Validates a submitted field
+     * Validates a submitted field.
      */
     public function validateField(ActionEvent $event): void
     {
+        // Only validate once.
         if ($this->_validated === true) {
             return;
         }
