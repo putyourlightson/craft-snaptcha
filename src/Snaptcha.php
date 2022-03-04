@@ -29,11 +29,6 @@ class Snaptcha extends Plugin
     public static Snaptcha $plugin;
 
     /**
-     * @var bool
-     */
-    public bool $validated = false;
-
-    /**
      * @inheritdoc
      */
     public bool $hasCpSettings = true;
@@ -47,6 +42,11 @@ class Snaptcha extends Plugin
      * @inheritdoc
      */
     public string $minVersionRequired = '3.0.6';
+
+    /**
+     * @var bool Whether the current request has already been validated.
+     */
+    private bool $_validated = false;
 
     /**
      * @inheritdoc
@@ -63,23 +63,31 @@ class Snaptcha extends Plugin
         ]);
 
         // Register variable
-        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT, function(Event $event) {
-            /** @var CraftVariable $variable */
-            $variable = $event->sender;
-            $variable->set('snaptcha', SnaptchaVariable::class);
-        });
+        Event::on(CraftVariable::class, CraftVariable::EVENT_INIT,
+            function(Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('snaptcha', SnaptchaVariable::class);
+            }
+        );
 
         // Register action event
-        Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION, function(ActionEvent $event) {
-            $this->validateField($event);
-        });
+        Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION,
+            function(ActionEvent $event) {
+                $this->validateField($event);
+            }
+        );
     }
 
     /**
      * Validates a submitted field
      */
-    public function validateField(ActionEvent $event)
+    public function validateField(ActionEvent $event): void
     {
+        if ($this->_validated === true) {
+            return;
+        }
+
         if (Craft::$app->getErrorHandler()->exception !== null) {
             return;
         }
@@ -102,17 +110,14 @@ class Snaptcha extends Plugin
             return;
         }
 
-        // TODO: remove in 4.0.0
-        // Check `getIsLivePreview()` for plugins that use tokens, such as Campaign
+        // Check `getIsLivePreview()` for plugins that use tokens
         if ($request->getIsLivePreview()) {
             return;
         }
 
         $value = $request->getParam($this->settings->fieldName);
 
-        $this->validated = $this->validated || $this->snaptcha->validateField($value, $event->action);
-
-        if ($this->validated === false) {
+        if (!$this->snaptcha->validateField($value, $event->action)) {
             $variables = [
                 'settings' => $this->settings,
                 'postedValues' => $this->snaptcha->getPostedValues(),
@@ -131,6 +136,8 @@ class Snaptcha extends Plugin
             Craft::$app->response->content = $output;
             Craft::$app->end();
         }
+
+        $this->_validated = true;
     }
 
     /**

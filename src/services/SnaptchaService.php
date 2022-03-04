@@ -109,8 +109,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether the user is allowed.
-     *
-     * @return bool
      */
     public function isUserAllowed(): bool
     {
@@ -119,8 +117,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether the IP address is allowed.
-     *
-     * @return bool
      */
     public function isIpAllowed(): bool
     {
@@ -131,8 +127,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether the IP address is denied.
-     *
-     * @return bool
      */
     public function isIpDenied(): bool
     {
@@ -143,9 +137,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether a record is expired.
-     *
-     * @param SnaptchaRecord $record
-     * @return bool
      */
     public function isExpired(SnaptchaRecord $record): bool
     {
@@ -154,9 +145,6 @@ class SnaptchaService extends Component
 
     /**
      * Returns whether a record is submitted too soon.
-     *
-     * @param SnaptchaRecord $record
-     * @return bool
      */
     public function isTooSoon(SnaptchaRecord $record): bool
     {
@@ -165,11 +153,6 @@ class SnaptchaService extends Component
 
     /**
      * Validates a submitted field.
-     *
-     * @param string|null $value
-     * @param Action|null $action
-     *
-     * @return bool
      */
     public function validateField(string $value = null, Action $action = null): bool
     {
@@ -358,10 +341,6 @@ class SnaptchaService extends Component
     /**
      * Flattens a multi-dimensional array of values to a flat array that can
      * be used to output hidden fields, preserving the keys.
-     *
-     * @param array $values
-     * @param string $currentKey
-     * @return array
      */
     private function _flattenValues(array $values, string $currentKey = ''): array
     {
