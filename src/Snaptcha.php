@@ -7,9 +7,12 @@ namespace putyourlightson\snaptcha;
 
 use Craft;
 use craft\base\Plugin;
+use craft\log\MonologTarget;
 use craft\web\Controller;
 use craft\web\twig\variables\CraftVariable;
 use craft\web\View;
+use Monolog\Formatter\LineFormatter;
+use Psr\Log\LogLevel;
 use putyourlightson\snaptcha\models\SettingsModel;
 use putyourlightson\snaptcha\services\SnaptchaService;
 use putyourlightson\snaptcha\variables\SnaptchaVariable;
@@ -27,6 +30,18 @@ class Snaptcha extends Plugin
      * @var Snaptcha
      */
     public static Snaptcha $plugin;
+
+    /**
+     * @inheritdoc
+     */
+    public static function config(): array
+    {
+        return [
+            'components' => [
+                'snaptcha' => ['class' => SnaptchaService::class],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -54,15 +69,18 @@ class Snaptcha extends Plugin
     public function init(): void
     {
         parent::init();
-
         self::$plugin = $this;
 
-        // Register services as components
-        $this->setComponents([
-            'snaptcha' => SnaptchaService::class,
-        ]);
+        $this->_registerVariables();
+        $this->_registerLogTarget();
+        $this->_registerActionEvents();
+    }
 
-        // Register variable
+    /**
+     * Registers variables.
+     */
+    private function _registerVariables(): void
+    {
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT,
             function(Event $event) {
                 /** @var CraftVariable $variable */
@@ -70,7 +88,31 @@ class Snaptcha extends Plugin
                 $variable->set('snaptcha', SnaptchaVariable::class);
             }
         );
+    }
 
+    /**
+     * Registers a custom log target, keeping the format as simple as possible.
+     *
+     * @see LineFormatter::SIMPLE_FORMAT
+     */
+    private function _registerLogTarget(): void
+    {
+        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+            'name' => 'snaptcha',
+            'categories' => ['snaptcha'],
+            'level' => LogLevel::INFO,
+            'formatter' => new LineFormatter(
+                format: "[%datetime%] %message%\n",
+                dateFormat: 'Y-m-d H:i:s',
+            ),
+        ]);
+    }
+
+    /**
+     * Registers action events.
+     */
+    private function _registerActionEvents(): void
+    {
         // Register action event
         Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION,
             function(ActionEvent $event) {
