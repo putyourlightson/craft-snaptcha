@@ -1,6 +1,6 @@
 # Release Notes for Snaptcha
 
-## 4.0.0-alpha.1 - 2022-03-04
+## 4.0.0 - 2022-05-04
 ### Added
 - Added compatibility with Craft 4.
 

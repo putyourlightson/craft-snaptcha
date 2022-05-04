@@ -42,7 +42,7 @@ class SnaptchaModel extends Model
     /**
      * @inheritdoc
      */
-    public function defineRules(): array
+    protected function defineRules(): array
     {
         return [
             [['key', 'value', 'ipAddress'], 'required'],

@@ -18,9 +18,9 @@ use craft\db\ActiveRecord;
  */
 class SnaptchaRecord extends ActiveRecord
 {
-     /**
-     * @inheritdoc
-     */
+    /**
+    * @inheritdoc
+    */
     public static function tableName(): string
     {
         return '{{%snaptcha}}';

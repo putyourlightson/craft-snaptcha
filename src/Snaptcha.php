@@ -19,6 +19,7 @@ use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
 use yii\base\Controller as BaseController;
 use yii\base\Event;
+use yii\log\Logger;
 
 /**
  * @property SnaptchaService $snaptcha
@@ -74,6 +75,16 @@ class Snaptcha extends Plugin
         $this->_registerVariables();
         $this->_registerLogTarget();
         $this->_registerActionEvents();
+    }
+
+    /**
+     * Logs a message.
+     */
+    public function log(string $message, array $params = [], int $type = Logger::LEVEL_INFO): void
+    {
+        $message = Craft::t('snaptcha', $message, $params);
+
+        Craft::getLogger()->log($message, $type, 'snaptcha');
     }
 
     /**

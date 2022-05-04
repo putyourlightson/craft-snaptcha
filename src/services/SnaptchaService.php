@@ -8,7 +8,6 @@ namespace putyourlightson\snaptcha\services;
 use Craft;
 use craft\base\Component;
 use craft\helpers\StringHelper;
-use putyourlightson\logtofile\LogToFile;
 use putyourlightson\snaptcha\events\ValidateFieldEvent;
 use putyourlightson\snaptcha\models\SnaptchaModel;
 use putyourlightson\snaptcha\records\SnaptchaRecord;
@@ -285,7 +284,8 @@ class SnaptchaService extends Component
                 return null;
             }
 
-            $record = new SnaptchaRecord($model);
+            $record = new SnaptchaRecord();
+            $record->setAttributes($model->getAttributes(), false);
         }
 
         // Refresh timestamp
@@ -303,7 +303,7 @@ class SnaptchaService extends Component
      */
     private function _getHashedValue(string $key, string $salt): string
     {
-        return base64_encode($key.$salt);
+        return base64_encode($key . $salt);
     }
 
     /**
@@ -347,7 +347,7 @@ class SnaptchaService extends Component
         $flattened = [];
 
         foreach ($values as $key => $value) {
-            $key = $currentKey ? $currentKey.'['.$key.']' : $key;
+            $key = $currentKey ? $currentKey . '[' . $key . ']' : $key;
 
             if (is_array($value)) {
                 $flattened = array_merge($flattened, $this->_flattenValues($value, $key));
@@ -367,9 +367,9 @@ class SnaptchaService extends Component
     {
         if (Snaptcha::$plugin->settings->logRejected) {
             $url = Craft::$app->getRequest()->getAbsoluteUrl();
-            $message = Craft::t('snaptcha', $message, $params).' ['.$url.']';
-            $message .= $action ? ' ['.$action->getUniqueId().']' : '';
-            LogToFile::log($message, 'snaptcha');
+            $message = Craft::t('snaptcha', $message, $params) . ' [' . $url . ']';
+            $message .= $action ? ' [' . $action->getUniqueId() . ']' : '';
+            Snaptcha::$plugin->log($message);
         }
     }
 }

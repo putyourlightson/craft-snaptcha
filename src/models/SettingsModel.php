@@ -92,7 +92,7 @@ class SettingsModel extends Model
     /**
      * @inheritdoc
      */
-    public function defineRules(): array
+    protected function defineRules(): array
     {
         return [
             [['fieldName', 'errorTitle', 'errorMessage', 'errorJavascriptDisabled', 'errorButtonText', 'expirationTime', 'minimumSubmitTime'], 'required'],

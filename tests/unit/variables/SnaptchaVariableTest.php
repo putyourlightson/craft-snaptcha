@@ -39,7 +39,7 @@ class SnaptchaVariableTest extends Unit
         $field = $this->variable->getField();
 
         $this->assertStringContainsString(
-            'name="'.$this->variable->getFieldName().'" value="" data-key=',
+            'name="' . $this->variable->getFieldName() . '" value="" data-key=',
             $field
         );
     }

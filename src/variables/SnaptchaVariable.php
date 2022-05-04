@@ -35,7 +35,7 @@ class SnaptchaVariable
     /**
      * Returns a field.
      */
-    public function getField(array $config = null): Markup
+    public function getField(array $config = []): Markup
     {
         $model = new SnaptchaModel($config);
         $key = Snaptcha::$plugin->snaptcha->getFieldKey($model);
@@ -46,14 +46,14 @@ class SnaptchaVariable
         }
 
         $fieldName = $this->getFieldName();
-        $fieldId = $fieldName.'-'.StringHelper::randomString(5);
+        $fieldId = $fieldName . '-' . StringHelper::randomString(5);
 
         $field = Html::hiddenInput($fieldName, '', [
             'id' => $fieldId,
             'data-key' => $key,
             'autocomplete' => 'off',
         ]);
-        $field .= Html::script('document.getElementById("'.$fieldId.'").value = btoa(document.getElementById("'.$fieldId.'").dataset.key + "'.$salt.'");');
+        $field .= Html::script('document.getElementById("' . $fieldId . '").value = btoa(document.getElementById("' . $fieldId . '").dataset.key + "' . $salt . '");');
 
         return Template::raw($field);
     }
