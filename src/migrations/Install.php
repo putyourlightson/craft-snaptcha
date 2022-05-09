@@ -34,8 +34,8 @@ class Install extends Migration
                 'uid' => $this->uid(),
             ]);
 
-            $this->createIndex(null, $table, 'value', false);
-            $this->createIndex(null, $table, 'ipAddress', false);
+            $this->createIndex(null, $table, 'value');
+            $this->createIndex(null, $table, 'ipAddress');
 
             // Refresh the db schema caches
             Craft::$app->db->schema->refresh();

@@ -10,34 +10,34 @@ use craft\base\Model;
 class SnaptchaModel extends Model
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public string $key;
+    public ?string $key = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $value;
+    public ?string $value = null;
 
     /**
-     * @var string
+     * @var string|null
      */
-    public string $ipAddress;
-
-    /**
-     * @var int
-     */
-    public int $timestamp;
+    public ?string $ipAddress = null;
 
     /**
      * @var int|null
      */
-    public ?int $expirationTime;
+    public ?int $timestamp = null;
 
     /**
      * @var int|null
      */
-    public ?int $minimumSubmitTime;
+    public ?int $expirationTime = null;
+
+    /**
+     * @var int|null
+     */
+    public ?int $minimumSubmitTime = null;
 
     /**
      * @inheritdoc

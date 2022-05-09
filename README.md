@@ -19,12 +19,16 @@ This plugin requires a commercial license purchasable through the [Craft Plugin 
 
 ## Requirements
 
-Craft CMS 3.2.1 or later.
+This plugin requires [Craft CMS](https://craftcms.com/) 3.2.1 or later, or 4.0.0 or later.
 
 ## Installation
 
 To install the plugin, search for "Snaptcha" in the Craft Plugin Store, or install manually using composer.
 
-    composer require putyourlightson/craft-snaptcha
+```shell
+composer require putyourlightson/craft-snaptcha
+```
 
-<small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>
+---
+
+Created by [PutYourLightsOn](https://putyourlightson.com/).

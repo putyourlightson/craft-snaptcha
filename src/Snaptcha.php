@@ -112,6 +112,8 @@ class Snaptcha extends Plugin
             'name' => 'snaptcha',
             'categories' => ['snaptcha'],
             'level' => LogLevel::INFO,
+            'logContext' => false,
+            'allowLineBreaks' => false,
             'formatter' => new LineFormatter(
                 format: "[%datetime%] %message%\n",
                 dateFormat: 'Y-m-d H:i:s',
