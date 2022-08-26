@@ -1,5 +1,9 @@
 # Release Notes for Snaptcha
 
+## 4.0.1 - 2022-08-26
+### Fixed
+- Fixed a bug in which an error could be thrown if `craft.snaptcha.fieldValue()` was used without passing iin a config array ([#24](https://github.com/putyourlightson/craft-snaptcha/issues/24)).
+
 ## 4.0.0 - 2022-05-04
 ### Added
 - Added compatibility with Craft 4.

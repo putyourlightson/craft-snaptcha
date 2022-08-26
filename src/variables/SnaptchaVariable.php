@@ -25,7 +25,7 @@ class SnaptchaVariable
     /**
      * Returns a field value.
      */
-    public function getFieldValue(array $config = null): string
+    public function getFieldValue(array $config = []): string
     {
         $model = new SnaptchaModel($config);
 
