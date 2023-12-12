@@ -34,6 +34,9 @@ return [
         // The name of the hidden Snaptcha input field.
         //'fieldName' => 'snaptcha',
 
+        // The title that will be displayed if Snaptcha identifies a submission as spam.
+        //'errorTitle' => 'Error',
+
         // The message that will be displayed if Snaptcha identifies a submission as spam.
         //'errorMessage' => 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.'
 
