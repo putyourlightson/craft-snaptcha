@@ -93,7 +93,7 @@ class Snaptcha extends Plugin
     private function _registerVariables(): void
     {
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT,
-            function(Event $event) {
+            function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('snaptcha', SnaptchaVariable::class);
@@ -128,7 +128,7 @@ class Snaptcha extends Plugin
     {
         // Register action event
         Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION,
-            function(ActionEvent $event) {
+            function (ActionEvent $event) {
                 $this->validateField($event);
             }
         );
@@ -181,8 +181,7 @@ class Snaptcha extends Plugin
 
             if ($this->settings->errorTemplate) {
                 $output = Craft::$app->view->renderPageTemplate($this->settings->errorTemplate, $variables);
-            }
-            else {
+            } else {
                 Craft::$app->view->setTemplateMode(View::TEMPLATE_MODE_CP);
 
                 $output = Craft::$app->view->renderPageTemplate('snaptcha/_error', $variables);
