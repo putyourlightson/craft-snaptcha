@@ -62,7 +62,7 @@ class Snaptcha extends Plugin
     /**
      * @var bool Whether the current request has already been validated.
      */
-    private bool $_validated = false;
+    private bool $validated = false;
 
     /**
      * @inheritdoc
@@ -72,9 +72,9 @@ class Snaptcha extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        $this->_registerVariables();
-        $this->_registerLogTarget();
-        $this->_registerActionEvents();
+        $this->registerVariables();
+        $this->registerLogTarget();
+        $this->registerActionEvents();
     }
 
     /**
@@ -90,10 +90,10 @@ class Snaptcha extends Plugin
     /**
      * Registers variables.
      */
-    private function _registerVariables(): void
+    private function registerVariables(): void
     {
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT,
-            function (Event $event) {
+            function(Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('snaptcha', SnaptchaVariable::class);
@@ -106,7 +106,7 @@ class Snaptcha extends Plugin
      *
      * @see LineFormatter::SIMPLE_FORMAT
      */
-    private function _registerLogTarget(): void
+    private function registerLogTarget(): void
     {
         Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
             'name' => 'snaptcha',
@@ -124,11 +124,11 @@ class Snaptcha extends Plugin
     /**
      * Registers action events.
      */
-    private function _registerActionEvents(): void
+    private function registerActionEvents(): void
     {
         // Register action event
         Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION,
-            function (ActionEvent $event) {
+            function(ActionEvent $event) {
                 $this->validateField($event);
             }
         );
@@ -140,7 +140,7 @@ class Snaptcha extends Plugin
     public function validateField(ActionEvent $event): void
     {
         // Only validate once.
-        if ($this->_validated === true) {
+        if ($this->validated === true) {
             return;
         }
 
@@ -192,7 +192,7 @@ class Snaptcha extends Plugin
             Craft::$app->end();
         }
 
-        $this->_validated = true;
+        $this->validated = true;
     }
 
     /**

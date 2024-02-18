@@ -53,7 +53,7 @@ class SnaptchaService extends Component
      */
     public function getFieldKey(SnaptchaModel $model): ?string
     {
-        $record = $this->_getSnaptchaRecord($model);
+        $record = $this->getSnaptchaRecord($model);
 
         return $record ? $record->key : null;
     }
@@ -63,7 +63,7 @@ class SnaptchaService extends Component
      */
     public function getFieldValue(SnaptchaModel $model): ?string
     {
-        $record = $this->_getSnaptchaRecord($model);
+        $record = $this->getSnaptchaRecord($model);
 
         return $record ? $record->value : null;
     }
@@ -79,7 +79,7 @@ class SnaptchaService extends Component
             unset($values[Snaptcha::$plugin->settings->fieldName]);
         }
 
-        return $this->_flattenValues($values);
+        return $this->flattenValues($values);
     }
 
     /**
@@ -97,7 +97,7 @@ class SnaptchaService extends Component
             return true;
         }
 
-        $excludeControllerActions = $this->_getNormalizedArray(Snaptcha::$plugin->settings->excludeControllerActions);
+        $excludeControllerActions = $this->getNormalizedArray(Snaptcha::$plugin->settings->excludeControllerActions);
 
         if (in_array($controllerAction, $excludeControllerActions)) {
             return true;
@@ -119,7 +119,7 @@ class SnaptchaService extends Component
      */
     public function isIpAllowed(): bool
     {
-        $allowList = $this->_getNormalizedArray(Snaptcha::$plugin->settings->allowList);
+        $allowList = $this->getNormalizedArray(Snaptcha::$plugin->settings->allowList);
 
         return in_array(Craft::$app->getRequest()->getUserIP(), $allowList);
     }
@@ -129,7 +129,7 @@ class SnaptchaService extends Component
      */
     public function isIpDenied(): bool
     {
-        $denyList = $this->_getNormalizedArray(Snaptcha::$plugin->settings->denyList);
+        $denyList = $this->getNormalizedArray(Snaptcha::$plugin->settings->denyList);
 
         return in_array(Craft::$app->getRequest()->getUserIP(), $denyList);
     }
@@ -182,14 +182,14 @@ class SnaptchaService extends Component
         }
 
         if ($value === null) {
-            $this->_reject('Value submitted is null.', [], $action);
+            $this->reject('Value submitted is null.', [], $action);
 
             return false;
         }
 
         // Check if IP address is denied
         if ($this->isIpDenied()) {
-            $this->_reject('IP address was denied.', [], $action);
+            $this->reject('IP address was denied.', [], $action);
 
             return false;
         }
@@ -198,19 +198,19 @@ class SnaptchaService extends Component
         $record = SnaptchaRecord::find()
             ->where([
                 'value' => $value,
-                'ipAddress' => $this->_getHashedIpAddress(),
+                'ipAddress' => $this->getHashedIpAddress(),
             ])
             ->one();
 
         if ($record === null) {
-            $this->_reject('Value not found in database.', [], $action);
+            $this->reject('Value not found in database.', [], $action);
 
             return false;
         }
 
         // Check if field has expired
         if ($this->isExpired($record)) {
-            $this->_reject(
+            $this->reject(
                 'Expiration time of {minutes} minute(s) has passed.',
                 ['minutes' => $record->expirationTime],
                 $action
@@ -221,7 +221,7 @@ class SnaptchaService extends Component
 
         // Check if minimum submit time has not passed
         if ($this->isTooSoon($record)) {
-            $this->_reject(
+            $this->reject(
                 'Minimum submit time of {second} second(s) has not yet passed.',
                 ['second' => $record->minimumSubmitTime],
                 $action
@@ -253,9 +253,9 @@ class SnaptchaService extends Component
     /**
      * Returns a Snaptcha record.
      */
-    private function _getSnaptchaRecord(SnaptchaModel $model): ?SnaptchaRecord
+    private function getSnaptchaRecord(SnaptchaModel $model): ?SnaptchaRecord
     {
-        $hashedIpAddress = $this->_getHashedIpAddress();
+        $hashedIpAddress = $this->getHashedIpAddress();
 
         // Get most recent record with IP address from DB
         /** @var SnaptchaRecord|null $record */
@@ -268,7 +268,7 @@ class SnaptchaService extends Component
         if ($record === null || Snaptcha::$plugin->settings->oneTimeKey || $this->isExpired($record)) {
             // Set key to random string
             $model->key = StringHelper::randomString(16);
-            $model->value = $this->_getHashedValue($model->key, Snaptcha::$plugin->settings->salt);
+            $model->value = $this->getHashedValue($model->key, Snaptcha::$plugin->settings->salt);
 
             // Hash IP address for privacy
             $model->ipAddress = $hashedIpAddress;
@@ -301,7 +301,7 @@ class SnaptchaService extends Component
     /**
      * Returns the hashed value.
      */
-    private function _getHashedValue(string $key, string $salt): string
+    private function getHashedValue(string $key, string $salt): string
     {
         return base64_encode($key . $salt);
     }
@@ -309,7 +309,7 @@ class SnaptchaService extends Component
     /**
      * Returns the current user's hashed IP address.
      */
-    private function _getHashedIpAddress(): string
+    private function getHashedIpAddress(): string
     {
         $ipAddress = Craft::$app->getRequest()->getUserIP();
 
@@ -319,7 +319,7 @@ class SnaptchaService extends Component
     /**
      * Returns a normalized array of values.
      */
-    private function _getNormalizedArray(array|string $values): array
+    private function getNormalizedArray(array|string $values): array
     {
         if (is_array($values)) {
             foreach ($values as $key => $value) {
@@ -330,8 +330,7 @@ class SnaptchaService extends Component
 
                 $values[$key] = trim($value, " \/");
             }
-        }
-        else {
+        } else {
             $values = [];
         }
 
@@ -342,7 +341,7 @@ class SnaptchaService extends Component
      * Flattens a multi-dimensional array of values to a flat array that can
      * be used to output hidden fields, preserving the keys.
      */
-    private function _flattenValues(array $values, string $currentKey = ''): array
+    private function flattenValues(array $values, string $currentKey = ''): array
     {
         $flattened = [];
 
@@ -350,9 +349,8 @@ class SnaptchaService extends Component
             $key = $currentKey ? $currentKey . '[' . $key . ']' : $key;
 
             if (is_array($value)) {
-                $flattened = array_merge($flattened, $this->_flattenValues($value, $key));
-            }
-            else {
+                $flattened = array_merge($flattened, $this->flattenValues($value, $key));
+            } else {
                 $flattened[$key] = $value;
             }
         }
@@ -363,7 +361,7 @@ class SnaptchaService extends Component
     /**
      * Rejects and logs a form submission.
      */
-    private function _reject(string $message, array $params = [], Action $action = null)
+    private function reject(string $message, array $params = [], Action $action = null): void
     {
         if (Snaptcha::$plugin->settings->logRejected) {
             $url = Craft::$app->getRequest()->getAbsoluteUrl();

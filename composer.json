@@ -1,47 +1,64 @@
 {
-    "name": "putyourlightson/craft-snaptcha",
-    "description": "Automatically validates forms and prevents spam bots from submitting to your site.",
-    "version": "4.0.1",
-    "type": "craft-plugin",
-    "homepage": "https://putyourlightson.com/plugins/snaptcha",
-    "license": "proprietary",
-    "keywords": [
-        "craft",
-        "cms",
-        "craftcms",
-        "security",
-        "spam",
-        "blocker",
-        "form",
-        "protection"
-    ],
-    "require": {
-        "php": "^8.0.2",
-        "craftcms/cms": "^4.0.0"
-    },
-    "require-dev": {
-        "codeception/codeception": "^4.0.0",
-        "vlucas/phpdotenv": "^3.0",
-        "codeception/module-asserts": "^1.0.0",
-        "codeception/module-yii2": "^1.0.0"
-    },
-    "autoload": {
-        "psr-4": {
-          "putyourlightson\\snaptcha\\": "src/"
-        }
-    },
-    "support": {
-        "docs": "https://putyourlightson.com/plugins/snaptcha",
-        "source": "https://github.com/putyourlightson/craft-snaptcha",
-        "issues": "https://github.com/putyourlightson/craft-snaptcha/issues"
-    },
-    "extra": {
-        "name": "Snaptcha",
-        "handle": "snaptcha",
-        "developer": "PutYourLightsOn",
-        "developerUrl": "https://putyourlightson.com/",
-        "documentationUrl": "https://putyourlightson.com/plugins/snaptcha",
-        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v4/CHANGELOG.md",
-        "class": "putyourlightson\\snaptcha\\Snaptcha"
+  "name": "putyourlightson/craft-snaptcha",
+  "description": "Automatically validates forms and prevents spam bots from submitting to your site.",
+  "version": "5.0.0-beta.1",
+  "type": "craft-plugin",
+  "homepage": "https://putyourlightson.com/plugins/snaptcha",
+  "license": "proprietary",
+  "keywords": [
+    "security",
+    "spam",
+    "blocker",
+    "form",
+    "protection"
+  ],
+  "require": {
+    "php": "^8.2",
+    "craftcms/cms": "^5.0.0-beta.1"
+  },
+  "require-dev": {
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main",
+    "markhuot/craft-pest-core": "v3.x-dev",
+    "putyourlightson/craft-generate-test-spec": "v2.x-dev"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/bencroker/craft-pest-core"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "putyourlightson\\snaptcha\\": "src/"
+    }
+  },
+  "scripts": {
+    "phpstan": "phpstan --ansi --memory-limit=1G",
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --fix --ansi"
+  },
+  "config": {
+    "allow-plugins": {
+      "craftcms/plugin-installer": true,
+      "pestphp/pest-plugin": true,
+      "yiisoft/yii2-composer": true
+    },
+    "optimize-autoloader": true,
+    "sort-packages": true
+  },
+  "support": {
+    "docs": "https://putyourlightson.com/plugins/snaptcha",
+    "source": "https://github.com/putyourlightson/craft-snaptcha",
+    "issues": "https://github.com/putyourlightson/craft-snaptcha/issues"
+  },
+  "extra": {
+    "name": "Snaptcha",
+    "handle": "snaptcha",
+    "developer": "PutYourLightsOn",
+    "developerUrl": "https://putyourlightson.com/",
+    "documentationUrl": "https://putyourlightson.com/plugins/snaptcha",
+    "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-snaptcha/v5/CHANGELOG.md",
+    "class": "putyourlightson\\snaptcha\\Snaptcha"
+  }
 }
