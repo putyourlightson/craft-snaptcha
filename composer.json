@@ -34,7 +34,7 @@
     }
   },
   "scripts": {
-    "pest": "pest --configuration=tests/pest/phpunit.xml --test-directory=tests/pest --display-deprecations",
+    "pest": "pest tests/pest --test-directory=tests/pest",
     "phpstan": "phpstan --ansi --memory-limit=1G",
     "check-cs": "ecs check --ansi",
     "fix-cs": "ecs check --fix --ansi"

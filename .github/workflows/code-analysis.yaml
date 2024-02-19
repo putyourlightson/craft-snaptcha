@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         actions:
-          - name: 'Pest'
+          - name: 'Pest Tests'
             run: composer pest
           - name: 'PHPStan'
             run: composer phpstan
