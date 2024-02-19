@@ -50,5 +50,5 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+          mysql -e 'CREATE DATABASE ${{ env.CRAFT_DB_DATABASE }};' -u${{ env.CRAFT_DB_USER }} -p${{ env.CRAFT_DB_PASSWORD }}
       - run: ${{ matrix.actions.run }}
