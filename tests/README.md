@@ -1,23 +1,41 @@
-# Static Analysis
-
-To run static analysis on the plugin, install PHPStan and run the following command from the root of your project.
-
-```shell
-./vendor/bin/phpstan analyse -c vendor/putyourlightson/craft-snaptcha/phpstan.neon
-```
-
 # Testing
 
-To test the plugin, install Codeception, update `.env` and run the following command from the root of your project.
+## Static Analysis
+
+To run static analysis on the plugin,
+install [PHPStan for Craft CMS](https://github.com/craftcms/phpstan) and run the
+following command from the root of your project.
 
 ```shell
-./vendor/bin/codecept run -c ./vendor/putyourlightson/craft-snaptcha unit
+./vendor/bin/phpstan analyse -c vendor/putyourlightson/craft-snaptcha/phpstan.neon  --memory-limit 1G
+```
+
+## Easy Coding Standard
+
+To run the Easy Coding Standard on the plugin,
+install [ECS for Craft CMS](https://github.com/craftcms/ecs) and run the
+following command from the root of your project.
+
+```shell
+./vendor/bin/ecs check -c vendor/putyourlightson/craft-snaptcha/ecs.php
+```
+
+## Pest Tests
+
+To run Pest tests, first install [Craft Pest](https://craft-pest.com/) core as a dev dependency.
+
+```shell
+composer require markhuot/craft-pest-core:^2.0.0-rc2 --dev
+```
+
+Then run the following command from the root of your project.
+
+```shell
+php php vendor/bin/pest --test-directory=vendor/putyourlightson/craft-snaptcha/tests/pest
 ```
 
 Or to run a specific test.
 
 ```shell
-./vendor/bin/codecept run -c ./vendor/putyourlightson/craft-snaptcha unit variables/SnaptchaVariableTest:getField
+php php vendor/bin/pest --test-directory=vendor/putyourlightson/craft-snaptcha/tests/pest --filter=CacheRequestTest
 ```
-
-> Ensure that the database you specify in `.env` is not one that actually contains any data as it will be cleared when the tests are run. 
