@@ -23,6 +23,13 @@ jobs:
             run: composer fix-cs
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest
+    env:
+      CRAFT_DB_DRIVER: mysql
+      CRAFT_DB_SERVER: db
+      CRAFT_DB_PORT: 3306
+      CRAFT_DB_DATABASE: db
+      CRAFT_DB_USER: db
+      CRAFT_DB_PASSWORD: db
     steps:
       - uses: actions/checkout@v4
       - name: Cache Composer dependencies
@@ -40,4 +47,8 @@ jobs:
           tools: composer:v2
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-ansi --no-progress
+      - name: Set up MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
       - run: ${{ matrix.actions.run }}
