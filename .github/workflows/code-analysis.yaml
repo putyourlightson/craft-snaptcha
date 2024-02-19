@@ -57,5 +57,5 @@ jobs:
         run: composer install --no-interaction --no-ansi --no-progress
       - name: Create MySQL database
         run: |
-          mysql -e 'CREATE DATABASE IF NOT EXISTS db;'Z
+          mysql -e 'CREATE DATABASE IF NOT EXISTS db;'
       - run: ${{ matrix.actions.run }}
