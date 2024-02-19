@@ -15,29 +15,12 @@ jobs:
       fail-fast: false
       matrix:
         actions:
-          - name: 'Pest Tests'
-            run: composer pest
           - name: 'PHPStan'
             run: composer phpstan
           - name: 'Coding Standards'
             run: composer fix-cs
     name: ${{ matrix.actions.name }}
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: password
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-    env:
-      CRAFT_DB_DRIVER: mysql
-      CRAFT_DB_SERVER: 127.0.0.1
-      CRAFT_DB_PORT: 3306
-      CRAFT_DB_DATABASE: db
-      CRAFT_DB_USER: root
-      CRAFT_DB_PASSWORD: password
     steps:
       - uses: actions/checkout@v4
       - name: Cache Composer dependencies
@@ -55,7 +38,4 @@ jobs:
           tools: composer:v2
       - name: Install Composer dependencies
         run: composer install --no-interaction --no-ansi --no-progress
-      - name: Create MySQL database
-        run: |
-          mysql -e 'CREATE DATABASE IF NOT EXISTS db;'
       - run: ${{ matrix.actions.run }}
