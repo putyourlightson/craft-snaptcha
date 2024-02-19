@@ -26,14 +26,14 @@ test('User is allowed when validation is disabled', function() {
 });
 
 test('User IP is allowed when in the allow list', function() {
-    Snaptcha::$plugin->settings->allowList = ['127.0.0.1'];
+    Snaptcha::$plugin->settings->allowList = [IP_ADDRESS];
 
     expect(Snaptcha::$plugin->snaptcha->isIpAllowed())
         ->toBeTrue();
 });
 
 test('User IP is allowed when in a nested array in the allow list', function() {
-    Snaptcha::$plugin->settings->allowList = [['127.0.0.1']];
+    Snaptcha::$plugin->settings->allowList = [[IP_ADDRESS]];
 
     expect(Snaptcha::$plugin->snaptcha->isIpAllowed())
         ->toBeTrue();
@@ -47,14 +47,14 @@ test('User IP is not allowed when not in the allow list', function() {
 });
 
 test('User IP is denied when in the deny list', function() {
-    Snaptcha::$plugin->settings->denyList = ['127.0.0.1'];
+    Snaptcha::$plugin->settings->denyList = [IP_ADDRESS];
 
     expect(Snaptcha::$plugin->snaptcha->isIpDenied())
         ->toBeTrue();
 });
 
 test('User IP is denied when in a nested array in the deny list', function() {
-    Snaptcha::$plugin->settings->denyList = [['127.0.0.1']];
+    Snaptcha::$plugin->settings->denyList = [[IP_ADDRESS]];
 
     expect(Snaptcha::$plugin->snaptcha->isIpDenied())
         ->toBeTrue();

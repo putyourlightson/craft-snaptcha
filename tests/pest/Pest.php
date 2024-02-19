@@ -16,7 +16,7 @@ use markhuot\craftpest\test\TestCase;
 uses(TestCase::class)
     ->beforeAll(function() {
         /** @see \craft\web\Request::getRemoteIP() */
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = IP_ADDRESS;
     })
     ->in('./');
 
@@ -36,6 +36,8 @@ uses(TestCase::class)
 | Constants
 |--------------------------------------------------------------------------
 */
+
+const IP_ADDRESS = '127.0.0.1';
 
 /*
 |--------------------------------------------------------------------------
