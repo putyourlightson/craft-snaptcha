@@ -1,5 +1,11 @@
 # Release Notes for Snaptcha
 
+## 4.0.2 - 2024-03-05
+### Changed
+- A custom log target is now only registered if a dispatcher exists.
+### Fixed
+- Fixed the table field formatting on the plugin settings page.
+
 ## 4.0.1 - 2022-08-26
 ### Fixed
 - Fixed a bug in which an error could be thrown if `craft.snaptcha.fieldValue()` was used without passing iin a config array ([#24](https://github.com/putyourlightson/craft-snaptcha/issues/24)).
