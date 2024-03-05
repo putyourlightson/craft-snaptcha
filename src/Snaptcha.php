@@ -19,6 +19,7 @@ use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
 use yii\base\Controller as BaseController;
 use yii\base\Event;
+use yii\log\Dispatcher;
 use yii\log\Logger;
 
 /**
@@ -93,7 +94,7 @@ class Snaptcha extends Plugin
     private function _registerVariables(): void
     {
         Event::on(CraftVariable::class, CraftVariable::EVENT_INIT,
-            function (Event $event) {
+            function(Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
                 $variable->set('snaptcha', SnaptchaVariable::class);
@@ -108,17 +109,19 @@ class Snaptcha extends Plugin
      */
     private function _registerLogTarget(): void
     {
-        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
-            'name' => 'snaptcha',
-            'categories' => ['snaptcha'],
-            'level' => LogLevel::INFO,
-            'logContext' => false,
-            'allowLineBreaks' => false,
-            'formatter' => new LineFormatter(
-                format: "[%datetime%] %message%\n",
-                dateFormat: 'Y-m-d H:i:s',
-            ),
-        ]);
+        if (Craft::getLogger()->dispatcher instanceof Dispatcher) {
+            Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+                'name' => 'snaptcha',
+                'categories' => ['snaptcha'],
+                'level' => LogLevel::INFO,
+                'logContext' => false,
+                'allowLineBreaks' => false,
+                'formatter' => new LineFormatter(
+                    format: "[%datetime%] %message%\n",
+                    dateFormat: 'Y-m-d H:i:s',
+                ),
+            ]);
+        }
     }
 
     /**
@@ -128,7 +131,7 @@ class Snaptcha extends Plugin
     {
         // Register action event
         Event::on(Controller::class, BaseController::EVENT_BEFORE_ACTION,
-            function (ActionEvent $event) {
+            function(ActionEvent $event) {
                 $this->validateField($event);
             }
         );
