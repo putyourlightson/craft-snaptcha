@@ -1,5 +1,9 @@
 # Release Notes for Snaptcha
 
+## 4.0.3 - Unreleased
+### Added
+- Added a `nonce` field configuration setting that adds a nonce value to the script.
+
 ## 4.0.2 - 2024-03-05
 ### Changed
 - A custom log target is now only registered if a dispatcher exists.

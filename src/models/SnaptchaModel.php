@@ -40,6 +40,11 @@ class SnaptchaModel extends Model
     public ?int $minimumSubmitTime = null;
 
     /**
+     * @var string|null
+     */
+    public ?string $nonce = null;
+
+    /**
      * @inheritdoc
      */
     protected function defineRules(): array

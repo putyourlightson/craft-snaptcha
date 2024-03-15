@@ -53,7 +53,12 @@ class SnaptchaVariable
             'data-key' => $key,
             'autocomplete' => 'off',
         ]);
-        $field .= Html::script('document.getElementById("' . $fieldId . '").value = btoa(document.getElementById("' . $fieldId . '").dataset.key + "' . $salt . '");');
+
+        $options = [];
+        if ($model->nonce !== null) {
+            $options['nonce'] = $model->nonce;
+        }
+        $field .= Html::script('document.getElementById("' . $fieldId . '").value = btoa(document.getElementById("' . $fieldId . '").dataset.key + "' . $salt . '");', $options);
 
         return Template::raw($field);
     }
