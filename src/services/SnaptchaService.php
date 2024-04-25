@@ -261,7 +261,7 @@ class SnaptchaService extends Component
         /** @var SnaptchaRecord|null $record */
         $record = SnaptchaRecord::find()
             ->where(['ipAddress' => $hashedIpAddress])
-            ->orderBy('timestamp desc')
+            ->orderBy(['timestamp' => SORT_DESC])
             ->one();
 
         // If record does not exist or one time key is enabled or the expiration time has passed
@@ -330,8 +330,7 @@ class SnaptchaService extends Component
 
                 $values[$key] = trim($value, " \/");
             }
-        }
-        else {
+        } else {
             $values = [];
         }
 
@@ -351,8 +350,7 @@ class SnaptchaService extends Component
 
             if (is_array($value)) {
                 $flattened = array_merge($flattened, $this->_flattenValues($value, $key));
-            }
-            else {
+            } else {
                 $flattened[$key] = $value;
             }
         }
