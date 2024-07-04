@@ -1,7 +1,7 @@
 [![Stable Version](https://img.shields.io/packagist/v/putyourlightson/craft-snaptcha?label=stable)]((https://packagist.org/packages/putyourlightson/craft-snaptcha))
 [![Total Downloads](https://img.shields.io/packagist/dt/putyourlightson/craft-snaptcha)](https://packagist.org/packages/putyourlightson/craft-snaptcha)
 
-<p align="center"><img width="130" src="https://putyourlightson.com/assets/logos/snaptcha-3.svg"></p>
+<p align="center"><img width="130" src="https://putyourlightson.com/assets/logos/snaptcha-v5.svg"></p>
 
 # Snaptcha Plugin for Craft CMS
 
