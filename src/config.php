@@ -40,6 +40,9 @@ return [
         // The message that will be displayed if Snaptcha identifies a submission as spam.
         //'errorMessage' => 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.'
 
+        // The message that will be displayed when a file is uploaded, in which case the user must go back and resubmit their data.
+        //'errorMessageFileUploaded' => 'For some reason your submission was flagged as spam. Since a file was uploaded, you must go back and resubmit your data.'
+
         // The error that will be displayed if Snaptcha identifies a submission as spam and JavaScript is disabled.
         //'errorJavascriptDisabled' => 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.'
 

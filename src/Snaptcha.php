@@ -179,6 +179,8 @@ class Snaptcha extends Plugin
         if (!$this->snaptcha->validateField($value, $event->action)) {
             $variables = [
                 'settings' => $this->settings,
+                'hasFileUpload' => $this->snaptcha->hasFileUpload(),
+                'encodingType' => $this->snaptcha->getEncodingType(),
                 'postedValues' => $this->snaptcha->getPostedValues(),
             ];
 

@@ -52,6 +52,11 @@ class SettingsModel extends Model
     /**
      * @var string
      */
+    public string $errorMessageFileUploaded = 'For some reason your submission was flagged as spam. Since a file was uploaded, you must go back and resubmit your data.';
+
+    /**
+     * @var string
+     */
     public string $errorJavascriptDisabled = 'JavaScript must be enabled for your submission to be verified. Please enable it and refresh the page.';
 
     /**

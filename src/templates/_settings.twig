@@ -78,6 +78,16 @@
 
 {{ forms.textField({
     required: true,
+    label: 'Error Message File Uploaded'|t('snaptcha'),
+    name: 'errorMessageFileUploaded',
+    instructions: 'The message that will be displayed when a file is uploaded, in which case the user must go back and resubmit their data.'|t('snaptcha'),
+    warning: (config.errorMessageFileUploaded is defined ? configWarning('errorMessageFileUploaded')),
+    value: settings.errorMessageFileUploaded,
+    errors: settings.getErrors('errorMessageFileUploaded')
+}) }}
+
+{{ forms.textField({
+    required: true,
     label: 'Error JavaScript Disabled'|t('snaptcha'),
     name: 'errorJavascriptDisabled',
     instructions: 'The error that will be displayed if Snaptcha identifies a submission as spam and JavaScript is disabled.'|t('snaptcha'),

@@ -10,24 +10,28 @@
     <h2>{{ settings.errorTitle }}</h2>
 
     <p id="error" class="hidden">
-        {{ settings.errorMessage }}
+        {{ hasFileUpload ? settings.errorMessageFileUpload : settings.errorMessage }}
     </p>
 
     <p id="warning" class="warning">
         {{ settings.errorJavascriptDisabled }}
     </p>
 
-    <form action="" method="post">
-        {% for name, value in postedValues %}
-            {{ hiddenInput(name, value) }}
-        {% endfor %}
+    {% if hasFileUpload %}
+        <button onclick="history.back()" class="btn submit">Back</button>
+    {% else %}
+        <form action="" method="post" enctype="{{ encodingType }}">
+            {% for name, value in postedValues %}
+                {{ hiddenInput(name, value) }}
+            {% endfor %}
 
-        {{ craft.snaptcha.field }}
+            {{ craft.snaptcha.field }}
 
-        <button id="resubmit" type="submit" class="btn submit disabled" data-timeout="{{ settings.minimumSubmitTime }}">
-            {{ settings.errorButtonText }}
-        </button>
-        <div id="graphic" class="spinner hidden"></div>
-    </form>
+            <button id="resubmit" type="submit" class="btn submit disabled" data-timeout="{{ settings.minimumSubmitTime }}">
+                {{ settings.errorButtonText }}
+            </button>
+            <div id="graphic" class="spinner hidden"></div>
+        </form>
+    {% endif %}
 
 {% endblock %}
