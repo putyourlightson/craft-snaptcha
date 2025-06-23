@@ -69,6 +69,16 @@ class SnaptchaService extends Component
     }
 
     /**
+     * Returns the encoding type of the request.
+     */
+    public function getEncodingType(): string
+    {
+        $contentType = Craft::$app->getRequest()->getHeaders()->get('Content-Type');
+
+        return is_string($contentType) ? $contentType : '';
+    }
+
+    /**
      * Returns flattened posted values.
      */
     public function getPostedValues(): array
@@ -80,6 +90,14 @@ class SnaptchaService extends Component
         }
 
         return $this->_flattenValues($values);
+    }
+
+    /**
+     * Returns whether the request has a file upload.
+     */
+    public function hasFileUpload(): bool
+    {
+        return !empty($_FILES) && $_FILES['file']['error'] === UPLOAD_ERR_OK;
     }
 
     /**

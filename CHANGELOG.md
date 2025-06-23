@@ -1,5 +1,10 @@
 # Release Notes for Snaptcha
 
+## 4.1.0 - 2025-06-23
+
+- Added an error message that is displayed if Snaptcha identifies a submission as spam when a file is uploaded, in which case the user must go back and resubmit their data ([#32](https://github.com/putyourlightson/craft-snaptcha/issues/32)).
+- Added the ability to maintain the encoding type of the submitted form on the error page.
+
 ## 4.0.2 - 2024-03-05
 
 ### Changed
