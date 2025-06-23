@@ -47,12 +47,12 @@ class SettingsModel extends Model
     /**
      * @var string
      */
-    public string $errorMessage = 'For some reason your submission was flagged as spam. Please click the button below to resubmit your data.';
+    public string $errorMessage = 'Your submission was flagged as spam. Please click the button below to resubmit your data.';
 
     /**
      * @var string
      */
-    public string $errorMessageFileUploaded = 'For some reason your submission was flagged as spam. Since a file was uploaded, you must go back and resubmit your data.';
+    public string $errorMessageFileUploaded = 'Your submission was flagged as spam. Since a file was uploaded, you must go back and resubmit your data.';
 
     /**
      * @var string
