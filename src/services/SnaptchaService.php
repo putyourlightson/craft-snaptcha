@@ -97,7 +97,18 @@ class SnaptchaService extends Component
      */
     public function hasFileUpload(): bool
     {
-        return !empty($_FILES) && $_FILES['file']['error'] === UPLOAD_ERR_OK;
+        foreach ($_FILES as $file) {
+            $error = $file['error'] ?? null;
+            if (is_array($error)) {
+                if (in_array(UPLOAD_ERR_OK, $error, true)) {
+                    return true;
+                }
+            } elseif ($error === UPLOAD_ERR_OK) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -346,7 +357,7 @@ class SnaptchaService extends Component
                     $value = $value[0];
                 }
 
-                $values[$key] = trim($value, " \/");
+                $values[$key] = trim($value, ' \/');
             }
         } else {
             $values = [];
