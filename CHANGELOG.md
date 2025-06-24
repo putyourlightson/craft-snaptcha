@@ -1,6 +1,6 @@
 # Release Notes for Snaptcha
 
-## 4.1.1 - Unreleased
+## 4.1.1 - 2025-06-23
 
 - Improved the check for uploaded files.
 

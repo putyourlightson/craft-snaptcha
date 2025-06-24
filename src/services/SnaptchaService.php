@@ -97,7 +97,20 @@ class SnaptchaService extends Component
      */
     public function hasFileUpload(): bool
     {
-        return !empty($_FILES);
+        foreach ($_FILES as $file) {
+            $error = $file['error'] ?? null;
+            if (is_array($error)) {
+                if (in_array(UPLOAD_ERR_OK, $error, true)) {
+                    return true;
+                }
+            } else {
+                if ($error === UPLOAD_ERR_OK) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
