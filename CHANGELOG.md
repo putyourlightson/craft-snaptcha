@@ -1,5 +1,9 @@
 # Release Notes for Snaptcha
 
+## 4.1.2 - Unreleased
+
+- Improved the check for nested uploaded file fields.
+
 ## 4.1.1 - 2025-06-23
 
 - Improved the check for uploaded files.
