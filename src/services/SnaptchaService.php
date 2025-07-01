@@ -97,7 +97,18 @@ class SnaptchaService extends Component
      */
     public function hasFileUpload(): bool
     {
-        return $this->_hasUploadedFileRecursive($_FILES);
+        foreach ($_FILES as $file) {
+            $error = $file['error'] ?? null;
+            if (is_array($error)) {
+                if ($this->_hasUploadedFileRecursive($error)) {
+                    return true;
+                }
+            } elseif ($error !== UPLOAD_ERR_NO_FILE) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -358,22 +369,15 @@ class SnaptchaService extends Component
     /**
      *  Returns whether the request has a file upload by recursively checking.
      */
-    private function _hasUploadedFileRecursive(array $files): bool
+    private function _hasUploadedFileRecursive(array $errors): bool
     {
-        foreach ($files as $file) {
-            if (is_array($file)) {
-                $error = $file['error'] ?? null;
-                if ($error !== null) {
-                    if (is_array($error)) {
-                        if ($this->_hasUploadedFileRecursive($error)) {
-                            return true;
-                        }
-                    } elseif ($error === UPLOAD_ERR_OK) {
-                        return true;
-                    }
-                } elseif ($this->_hasUploadedFileRecursive($file)) {
+        foreach ($errors as $error) {
+            if (is_array($error)) {
+                if ($this->_hasUploadedFileRecursive($error)) {
                     return true;
                 }
+            } elseif ($error !== UPLOAD_ERR_NO_FILE) {
+                return true;
             }
         }
 
