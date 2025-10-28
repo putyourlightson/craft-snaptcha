@@ -1,5 +1,9 @@
 # Release Notes for Snaptcha
 
+## 5.2.0 - Unreleased
+
+- Added front-end login actions to the list of excluded actions ([#34](https://github.com/putyourlightson/craft-snaptcha/issues/34)).
+
 ## 5.1.2 - 2025-07-01
 
 - Improved the check for nested uploaded file fields.

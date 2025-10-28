@@ -39,13 +39,17 @@ class SnaptchaService extends Component
      * @const string[]
      */
     public const EXCLUDE_CONTROLLER_ACTIONS = [
+        // Craft CMS actions
+        'users/login',
+        'graphql/api',
+        'templates/render',
+        'auth/verify-totp',
+        // Plugins actions
         'ad-wizard/tracking/click',
         'commerce/webhooks/process-webhook',
         'complete-cookie-consent/consent/submit',
         'cookie-consent/consent/update',
         'enupal-stripe/checkout/create-session',
-        'graphql/api',
-        'templates/render',
     ];
 
     /**
