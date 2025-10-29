@@ -40,10 +40,8 @@ class SnaptchaService extends Component
      */
     public const EXCLUDE_CONTROLLER_ACTIONS = [
         // Craft CMS actions
-        'users/login',
         'graphql/api',
         'templates/render',
-        'auth/verify-totp',
         // Plugins actions
         'ad-wizard/tracking/click',
         'commerce/webhooks/process-webhook',
@@ -133,6 +131,12 @@ class SnaptchaService extends Component
         $excludeControllerActions = $this->getNormalizedArray(Snaptcha::$plugin->settings->excludeControllerActions);
 
         if (in_array($controllerAction, $excludeControllerActions)) {
+            return true;
+        }
+
+        // Exclude auth and user controllers (except for `users/save-user`)
+        if (str_starts_with($controllerAction, 'auth/') ||
+            (str_starts_with($controllerAction, 'users/') && $controllerAction !== 'users/save-user')) {
             return true;
         }
 

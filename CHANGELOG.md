@@ -2,7 +2,7 @@
 
 ## 5.2.0 - Unreleased
 
-- Added front-end login actions to the list of excluded actions ([#34](https://github.com/putyourlightson/craft-snaptcha/issues/34)).
+- The `auth` and `users` controllers are now excluded from validation, except for `users/save-user` ([#34](https://github.com/putyourlightson/craft-snaptcha/issues/34)).
 
 ## 5.1.2 - 2025-07-01
 
