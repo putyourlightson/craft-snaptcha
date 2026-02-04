@@ -1,6 +1,6 @@
 # Release Notes for Snaptcha
 
-## 5.2.0 - Unreleased
+## 5.2.0 - 2026-02-04
 
 - The `auth` and `users` controllers are now excluded from validation, except for `users/save-user` ([#34](https://github.com/putyourlightson/craft-snaptcha/issues/34)).
 
