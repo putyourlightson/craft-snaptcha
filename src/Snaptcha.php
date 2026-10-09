@@ -19,7 +19,6 @@ use putyourlightson\snaptcha\variables\SnaptchaVariable;
 use yii\base\ActionEvent;
 use yii\base\Controller as BaseController;
 use yii\base\Event;
-use yii\log\Dispatcher;
 use yii\log\Logger;
 
 /**
@@ -109,19 +108,17 @@ class Snaptcha extends Plugin
      */
     private function registerLogTarget(): void
     {
-        if (Craft::getLogger()->dispatcher instanceof Dispatcher) {
-            Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
-                'name' => 'snaptcha',
-                'categories' => ['snaptcha'],
-                'level' => LogLevel::INFO,
-                'logContext' => false,
-                'allowLineBreaks' => false,
-                'formatter' => new LineFormatter(
-                    format: "[%datetime%] %message%\n",
-                    dateFormat: 'Y-m-d H:i:s',
-                ),
-            ]);
-        }
+        Craft::getLogger()->dispatcher->targets[] = new MonologTarget([
+            'name' => 'snaptcha',
+            'categories' => ['snaptcha'],
+            'level' => LogLevel::INFO,
+            'logContext' => false,
+            'allowLineBreaks' => false,
+            'formatter' => new LineFormatter(
+                format: "[%datetime%] %message%\n",
+                dateFormat: 'Y-m-d H:i:s',
+            ),
+        ]);
     }
 
     /**

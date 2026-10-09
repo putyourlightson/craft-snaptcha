@@ -97,6 +97,26 @@ class SettingsModel extends Model
     /**
      * @inheritdoc
      */
+    public function setAttributes($values, $safeOnly = true): void
+    {
+        parent::setAttributes($values, $safeOnly);
+
+        // Normalize flat lists to editable table rows.
+        foreach (['excludeControllerActions', 'allowList', 'denyList'] as $settingName) {
+            if (is_array($this->{$settingName})) {
+                foreach ($this->{$settingName} as &$value) {
+                    if (!is_array($value)) {
+                        $value = [$value];
+                    }
+                }
+                unset($value);
+            }
+        }
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function defineRules(): array
     {
         return [

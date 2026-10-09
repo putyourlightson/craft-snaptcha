@@ -1,5 +1,9 @@
 # Release Notes for Snaptcha
 
+## 5.2.1 - 2026-10-09
+
+- Fixed blank rows in the settings when `excludeControllerActions`, `allowList`, or `denyList` were configured as flat arrays ([#38](https://github.com/putyourlightson/craft-snaptcha/issues/38)).
+
 ## 5.2.0 - 2026-02-04
 
 - The `auth` and `users` controllers are now excluded from validation, except for `users/save-user` ([#34](https://github.com/putyourlightson/craft-snaptcha/issues/34)).
